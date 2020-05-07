@@ -6,7 +6,7 @@
 /*   By: ubuntu <ubuntu@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2013/10/04 11:33:27 by zaz               #+#    #+#             */
-/*   Updated: 2020/05/08 00:59:32 by ubuntu           ###   ########.fr       */
+/*   Updated: 2020/05/08 01:19:43 by ubuntu           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,15 +25,15 @@
 # define DIR_CODE				2
 # define IND_CODE				3
 
-# define MAX_ARGS_NUMBER			4
-# define MAX_PLAYERS				4
+# define MAX_ARGS_NUMBER		4
+# define MAX_PLAYERS			4
 # define MEM_SIZE				4096
 # define IDX_MOD				512
 # define CHAMP_MAX_SIZE			682
 
 # define COMMENT_CHAR			'#'
 # define LABEL_CHAR				':'
-# define DIRECT_CHAR				'%'
+# define DIRECT_CHAR			'%'
 # define SEPARATOR_CHAR			','
 
 # define LABEL_CHARS				"abcdefghijklmnopqrstuvwxyz_0123456789"

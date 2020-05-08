@@ -6,7 +6,7 @@
 /*   By: ubuntu <ubuntu@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/07 18:30:16 by ubuntu            #+#    #+#             */
-/*   Updated: 2020/05/08 01:14:19 by ubuntu           ###   ########.fr       */
+/*   Updated: 2020/05/08 17:22:45 by ubuntu           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ void			read_opt(t_input *input, int *argc, char ***argv)
 	while (*argc)
 	{
 		if (ft_strequ((*argv)[0], "-a"))
-			input->opt |= format;
+			input->opt |= format_asm;
 		else
 			break ;
 		ft_step_args(argc, argv);

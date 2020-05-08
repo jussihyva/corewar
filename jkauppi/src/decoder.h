@@ -6,7 +6,7 @@
 /*   By: ubuntu <ubuntu@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/05 11:41:56 by ubuntu            #+#    #+#             */
-/*   Updated: 2020/05/08 10:48:45 by ubuntu           ###   ########.fr       */
+/*   Updated: 2020/05/08 17:40:46 by ubuntu           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,27 +19,28 @@
 
 typedef enum		e_opt
 {
-	format = 1
+	format_hex = 0x01,
+	format_asm = 0x02
 }					t_opt;
 
 typedef enum		e_opcode
 {
-	op_lfork = 0x0f,
-	op_sti = 0x0b,
-	op_fork = 0x0c,
-	op_lld = 0x0d,
-	op_ld = 0x02,
-	op_add = 0x04,
-	op_zjmp = 0x09,
-	op_sub = 0x05,
-	op_ldi = 0x0a,
-	op_or = 0x07,
-	op_st = 0x03,
-	op_aff = 0x10,
-	op_live = 0x01,
-	op_xor = 0x08,
-	op_lldi = 0x0e,
-	op_and = 0x06
+	e_lfork = 0x0f,
+	e_sti = 0x0b,
+	e_fork = 0x0c,
+	e_lld = 0x0d,
+	e_ld = 0x02,
+	e_add = 0x04,
+	e_zjmp = 0x09,
+	e_sub = 0x05,
+	e_ldi = 0x0a,
+	e_or = 0x07,
+	e_st = 0x03,
+	e_aff = 0x10,
+	e_live = 0x01,
+	e_xor = 0x08,
+	e_lldi = 0x0e,
+	e_and = 0x06
 }					t_opcode;
 
 typedef struct		s_op

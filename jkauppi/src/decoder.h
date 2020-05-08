@@ -6,7 +6,7 @@
 /*   By: ubuntu <ubuntu@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/05 11:41:56 by ubuntu            #+#    #+#             */
-/*   Updated: 2020/05/08 01:18:58 by ubuntu           ###   ########.fr       */
+/*   Updated: 2020/05/08 10:48:45 by ubuntu           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,13 +45,13 @@ typedef enum		e_opcode
 typedef struct		s_op
 {
 	char		*instruction_name;
-	int			tmp1;
+	int			num_of_params;
 	int			param_type[3];
 	t_opcode	opcode;
-	int			tmp2;
+	int			cycles;
 	char		*description;
-	int			tmp4;
-	int			tmp5;
+	int			include_coding_byte;
+	int			label_size;
 }					t_op;
 
 typedef struct		s_instruction

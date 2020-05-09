@@ -6,7 +6,7 @@
 /*   By: ubuntu <ubuntu@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/07 22:39:50 by ubuntu            #+#    #+#             */
-/*   Updated: 2020/05/08 19:26:32 by ubuntu           ###   ########.fr       */
+/*   Updated: 2020/05/09 07:42:21 by ubuntu           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,36 +39,56 @@ static void			read_parameters(int coding_byte, char **p)
 			*p += 1;
 		ft_printf("  param%d:  %02d", i + 1, param_type[i]);
 	}
-	ft_printf("\n");
 	return ;
 }
 
 static void			parse_live(char **p)
 {
-	ft_printf("OPCODE:  %02x\n", **p);
-	*p += 1;
 	*p += 4;
 	return ;
 }
 
-static void			parse_ld(char **p)
+static void			specal_coding(int opcode, char **p)
 {
-	int				coding_byte;
-
-	ft_printf("OPCODE:  %02x\n", **p);
-	*p += 1;
-	coding_byte = (char)**p;
-	ft_printf("  coding_byte:  %02hhx\n", coding_byte);
-	*p += 1;
-	read_parameters(coding_byte, p);
+	if (opcode == e_live)
+		parse_live(p);
+	else if (opcode == e_zjmp)
+		parse_live(p);
 	return ;
 }
 
-void				print_asm(char *file_content, ssize_t size)
+static void			parse(t_input *input, char **p, int *dot_added)
+{
+	int		opcode;
+	int		coding_byte;
+
+	if (*dot_added)
+		ft_printf("\n");
+	*dot_added = 0;
+	coding_byte = -1;
+	opcode = **p;
+	ft_printf("OPCODE: %s", input->g_op_tab[opcode].instruction_name);
+	*p += 1;
+	if (input->g_op_tab[opcode].include_coding_byte)
+	{
+		coding_byte = (char)**p;
+		ft_printf("  coding_byte:  %02hhx", coding_byte);
+		*p += 1;
+	}
+	if (coding_byte	== -1)
+		specal_coding(opcode, p);
+	else
+		read_parameters(coding_byte, p);
+	ft_printf("\n");
+	return ;
+}
+
+void				print_asm(t_input *input, char *file_content, ssize_t size)
 {
 	t_header	*header;
 	char		*p;
 	char		*end_p;
+	int			dot_added;
 
 	header = read_header(file_content, size);
 	ft_printf("Name:    %s\n", header->prog_name);
@@ -76,17 +96,23 @@ void				print_asm(char *file_content, ssize_t size)
 	ft_printf("Magic:   %x\n", header->magic);
 	ft_printf("Size:    %x\n", header->prog_size);
 	end_p = file_content + size;
+	dot_added = 0;
 	p = file_content + sizeof(*header);
 	while (p < end_p)
 	{
 		if (*p == e_live)
-			parse_live(&p);
+			parse(input, &p, &dot_added);
 		else if (*p == e_ld)
-			parse_ld(&p);
+			parse(input, &p, &dot_added);
 		else if (*p == e_zjmp)
-			parse_live(&p);
+			parse(input, &p, &dot_added);
 		else
+		{
+			dot_added = 1;
+			ft_printf(".");
 			p++;
+		}
 	}
+	free(header);
 	return ;
 }

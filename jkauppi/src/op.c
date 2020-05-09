@@ -6,7 +6,7 @@
 /*   By: ubuntu <ubuntu@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2013/10/04 11:43:01 by zaz               #+#    #+#             */
-/*   Updated: 2020/05/08 00:24:26 by ubuntu           ###   ########.fr       */
+/*   Updated: 2020/05/09 07:48:39 by ubuntu           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,3 +38,9 @@ t_op	g_op_tab[17] =
 	{"lfork", 1, {T_DIR}, 15, 1000, "long fork", 0, 1},
 	{"aff", 1, {T_REG}, 16, 2, "aff", 1, 0}
 };
+
+void	read_g_op_tab(t_input *input)
+{
+	ft_memcpy(input->g_op_tab, g_op_tab, sizeof(*g_op_tab) * 17);
+	return ;
+}

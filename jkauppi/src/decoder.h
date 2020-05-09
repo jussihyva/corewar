@@ -6,7 +6,7 @@
 /*   By: ubuntu <ubuntu@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/05 11:41:56 by ubuntu            #+#    #+#             */
-/*   Updated: 2020/05/08 17:40:46 by ubuntu           ###   ########.fr       */
+/*   Updated: 2020/05/09 07:17:44 by ubuntu           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,6 +66,7 @@ typedef struct		s_input
 	t_opt			opt;
 	char			*file_content;
 	size_t			file_content_size;
+	t_op			*g_op_tab;
 }					t_input;
 
 void				read_opt(t_input *input, int *argc, char ***argv);
@@ -73,6 +74,7 @@ void				ft_step_args(int *argc, char ***argv);
 char				*read_input_file(int fd, size_t *file_content_size);
 void				del_elem(void *elem, size_t size);
 void				print_hex(char *line, ssize_t size);
-void				print_asm(char *file_content, ssize_t size);
+void				print_asm(t_input *input, char *file_content, ssize_t size);
+void				read_g_op_tab(t_input *input);
 
 #endif

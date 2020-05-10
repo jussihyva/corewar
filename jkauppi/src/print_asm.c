@@ -6,23 +6,26 @@
 /*   By: ubuntu <ubuntu@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/07 22:39:50 by ubuntu            #+#    #+#             */
-/*   Updated: 2020/05/09 07:42:21 by ubuntu           ###   ########.fr       */
+/*   Updated: 2020/05/10 18:55:55 by ubuntu           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "decoder.h"
 
-static t_header		*read_header(char *file_content, ssize_t size)
+static t_header		*read_header(char *file_content)
 {
 	t_header	*header;
 
-	(void)size;
 	header = (t_header *)ft_memalloc(sizeof(*header));
 	ft_memcpy(header, file_content, sizeof(*header));
+	ft_printf("Name:    %s\n", header->prog_name);
+	ft_printf("Comment: %s\n", header->comment);
+	ft_printf("Magic:   %x\n", header->magic);
+	ft_printf("Size:    %x\n", header->prog_size);
 	return (header);
 }
 
-static void			read_parameters(int coding_byte, char **p)
+static void			read_parameters(int coding_byte, int label_size, char **p)
 {
 	int				param_type[3];
 	size_t			i;
@@ -34,7 +37,12 @@ static void			read_parameters(int coding_byte, char **p)
 		if (param_type[i] == 3)
 			*p += 2;
 		else if (param_type[i] == 2)
-			*p += 4;
+		{
+			if (label_size)
+				*p += 2;
+			else
+				*p += 4;
+		}
 		else if (param_type[i] == 1)
 			*p += 1;
 		ft_printf("  param%d:  %02d", i + 1, param_type[i]);
@@ -42,18 +50,11 @@ static void			read_parameters(int coding_byte, char **p)
 	return ;
 }
 
-static void			parse_live(char **p)
-{
-	*p += 4;
-	return ;
-}
-
 static void			specal_coding(int opcode, char **p)
 {
-	if (opcode == e_live)
-		parse_live(p);
-	else if (opcode == e_zjmp)
-		parse_live(p);
+	*p += (opcode == e_live) ? 4 : 0;
+	*p += (opcode == e_zjmp) ? 2 : 0;
+	*p += (opcode == e_fork) ? 2 : 0;
 	return ;
 }
 
@@ -75,10 +76,10 @@ static void			parse(t_input *input, char **p, int *dot_added)
 		ft_printf("  coding_byte:  %02hhx", coding_byte);
 		*p += 1;
 	}
-	if (coding_byte	== -1)
+	if (coding_byte == -1)
 		specal_coding(opcode, p);
 	else
-		read_parameters(coding_byte, p);
+		read_parameters(coding_byte, input->g_op_tab[opcode].label_size, p);
 	ft_printf("\n");
 	return ;
 }
@@ -90,21 +91,13 @@ void				print_asm(t_input *input, char *file_content, ssize_t size)
 	char		*end_p;
 	int			dot_added;
 
-	header = read_header(file_content, size);
-	ft_printf("Name:    %s\n", header->prog_name);
-	ft_printf("Comment: %s\n", header->comment);
-	ft_printf("Magic:   %x\n", header->magic);
-	ft_printf("Size:    %x\n", header->prog_size);
+	header = read_header(file_content);
 	end_p = file_content + size;
 	dot_added = 0;
 	p = file_content + sizeof(*header);
 	while (p < end_p)
 	{
-		if (*p == e_live)
-			parse(input, &p, &dot_added);
-		else if (*p == e_ld)
-			parse(input, &p, &dot_added);
-		else if (*p == e_zjmp)
+		if (*p > 0 && *p < 17)
 			parse(input, &p, &dot_added);
 		else
 		{

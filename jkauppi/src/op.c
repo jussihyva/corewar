@@ -6,7 +6,7 @@
 /*   By: ubuntu <ubuntu@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2013/10/04 11:43:01 by zaz               #+#    #+#             */
-/*   Updated: 2020/05/09 07:48:39 by ubuntu           ###   ########.fr       */
+/*   Updated: 2020/05/10 19:04:21 by ubuntu           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,7 @@ t_op	g_op_tab[17] =
 
 void	read_g_op_tab(t_input *input)
 {
+	input->g_op_tab = (t_op *)ft_memalloc(sizeof(*input->g_op_tab) * 17);
 	ft_memcpy(input->g_op_tab, g_op_tab, sizeof(*g_op_tab) * 17);
 	return ;
 }

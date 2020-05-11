@@ -6,7 +6,7 @@
 #    By: ubuntu <ubuntu@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/05/05 11:36:37 by ubuntu            #+#    #+#              #
-#    Updated: 2020/05/08 17:17:07 by ubuntu           ###   ########.fr        #
+#    Updated: 2020/05/11 13:18:25 by ubuntu           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,7 +18,8 @@ HEADER		=	src/decoder.h src/op.h
 LIB			=	-L lib/lib_ft -l ft -L lib/lib_ftprintf -l ftprintf
 
 SRC_FOLDER	=	src
-SRC			=	input_1.c decoder.c memory_1.c print_hex.c print_asm.c op.c
+SRC			=	input_1.c decoder.c memory_1.c print_hex.c print_asm.c op.c \
+				instruction.c
 
 OBJ_FOLDER	=	obj
 OBJ			=	$(addprefix $(OBJ_FOLDER)/, $(patsubst %.c, %.o, $(SRC)))

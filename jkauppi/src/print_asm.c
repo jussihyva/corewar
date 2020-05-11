@@ -6,7 +6,7 @@
 /*   By: ubuntu <ubuntu@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/07 22:39:50 by ubuntu            #+#    #+#             */
-/*   Updated: 2020/05/11 09:42:50 by ubuntu           ###   ########.fr       */
+/*   Updated: 2020/05/11 10:37:36 by ubuntu           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,14 +27,17 @@ static t_header		*read_header(char *file_content)
 
 static int			read_param(char *p, int size)
 {
-	int			param;
-	int			c;
+	short int		param;
+	int				c;
 
 	param = 0;
 	c = -1;
 	while (++c < size)
-		param |= p[c] << (8 * (size - (c + 1)));
-	return (param);
+	{
+		param += p[c] & 0xff;
+		param = param << (8 * (size - (c + 1)));
+	}
+	return ((int)param);
 }
 
 static void			print_params(int *param)
@@ -117,7 +120,6 @@ static void			parse(t_input *input, char **p)
 	size = *p - start_p;
 	print_hex_string(0, start_p, size);
 	ft_printf("%-5s", input->g_op_tab[opcode].instruction_name);
-	ft_printf("coding_byte:  %02hhx", coding_byte);
 	print_params(param);
 	return ;
 }

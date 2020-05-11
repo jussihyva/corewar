@@ -6,7 +6,7 @@
 /*   By: ubuntu <ubuntu@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/11 13:17:12 by ubuntu            #+#    #+#             */
-/*   Updated: 2020/05/11 13:49:14 by ubuntu           ###   ########.fr       */
+/*   Updated: 2020/05/11 14:25:43 by ubuntu           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,12 +83,19 @@ static void			print_params(t_op_param *param)
 	return ;
 }
 
-static void			specal_coding(int opcode, char **p)
+static int			specal_coding(int opcode, char **p)
 {
-	*p += (opcode == e_live) ? 4 : 0;
-	*p += (opcode == e_zjmp) ? 2 : 0;
-	*p += (opcode == e_fork) ? 2 : 0;
-	return ;
+	int			coding_byte;
+
+	(void)p;
+	coding_byte = -1;
+	if (opcode == e_live)
+		coding_byte = 0x80;
+	else if (opcode == e_zjmp)
+		coding_byte = 0x80;
+	else if (opcode == e_fork)
+		coding_byte = 0x80;
+	return (coding_byte);
 }
 
 void				parse_instruction(t_input *input, char **p)
@@ -109,9 +116,9 @@ void				parse_instruction(t_input *input, char **p)
 		coding_byte = (char)**p;
 		*p += 1;
 	}
-	if (coding_byte == -1)
-		specal_coding(opcode, p);
 	else
+		coding_byte = specal_coding(opcode, p);
+	if (coding_byte != -1)
 		read_parameters(coding_byte, input->g_op_tab[opcode].label_size, p,
 																		param);
 	size = *p - start_p;

@@ -6,7 +6,7 @@
 /*   By: ubuntu <ubuntu@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/07 22:39:50 by ubuntu            #+#    #+#             */
-/*   Updated: 2020/05/10 18:55:55 by ubuntu           ###   ########.fr       */
+/*   Updated: 2020/05/11 09:42:50 by ubuntu           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,29 @@ static t_header		*read_header(char *file_content)
 	return (header);
 }
 
-static void			read_parameters(int coding_byte, int label_size, char **p)
+static int			read_param(char *p, int size)
+{
+	int			param;
+	int			c;
+
+	param = 0;
+	c = -1;
+	while (++c < size)
+		param |= p[c] << (8 * (size - (c + 1)));
+	return (param);
+}
+
+static void			print_params(int *param)
+{
+	size_t		i;
+
+	i = -1;
+	while (++i < 3)
+		ft_printf(" %d", param[i]);
+	return ;
+}
+static void			read_parameters(int coding_byte, int label_size, char **p,
+																	int *param)
 {
 	int				param_type[3];
 	size_t			i;
@@ -35,17 +57,28 @@ static void			read_parameters(int coding_byte, int label_size, char **p)
 	{
 		param_type[i] = (coding_byte >> (2 + (2 * (2 - i)))) & 0x3;
 		if (param_type[i] == 3)
+		{
+			param[i] = read_param(*p, 2);
 			*p += 2;
+		}
 		else if (param_type[i] == 2)
 		{
 			if (label_size)
+			{
+				param[i] = read_param(*p, 2);
 				*p += 2;
+			}
 			else
+			{
+				param[i] = read_param(*p, 4);
 				*p += 4;
+			}
 		}
 		else if (param_type[i] == 1)
+		{
+			param[i] = read_param(*p, 1);
 			*p += 1;
-		ft_printf("  param%d:  %02d", i + 1, param_type[i]);
+		}
 	}
 	return ;
 }
@@ -58,29 +91,34 @@ static void			specal_coding(int opcode, char **p)
 	return ;
 }
 
-static void			parse(t_input *input, char **p, int *dot_added)
+static void			parse(t_input *input, char **p)
 {
-	int		opcode;
-	int		coding_byte;
+	int			opcode;
+	int			coding_byte;
+	ssize_t		size;
+	char		*start_p;
+	int			param[3];
 
-	if (*dot_added)
-		ft_printf("\n");
-	*dot_added = 0;
+	ft_bzero(param, sizeof(int) * 3);
+	start_p = *p;
 	coding_byte = -1;
 	opcode = **p;
-	ft_printf("OPCODE: %s", input->g_op_tab[opcode].instruction_name);
 	*p += 1;
 	if (input->g_op_tab[opcode].include_coding_byte)
 	{
 		coding_byte = (char)**p;
-		ft_printf("  coding_byte:  %02hhx", coding_byte);
 		*p += 1;
 	}
 	if (coding_byte == -1)
 		specal_coding(opcode, p);
 	else
-		read_parameters(coding_byte, input->g_op_tab[opcode].label_size, p);
-	ft_printf("\n");
+		read_parameters(coding_byte, input->g_op_tab[opcode].label_size, p,
+																		param);
+	size = *p - start_p;
+	print_hex_string(0, start_p, size);
+	ft_printf("%-5s", input->g_op_tab[opcode].instruction_name);
+	ft_printf("coding_byte:  %02hhx", coding_byte);
+	print_params(param);
 	return ;
 }
 
@@ -89,22 +127,23 @@ void				print_asm(t_input *input, char *file_content, ssize_t size)
 	t_header	*header;
 	char		*p;
 	char		*end_p;
-	int			dot_added;
+	char		*start_p;
 
 	header = read_header(file_content);
 	end_p = file_content + size;
-	dot_added = 0;
+	start_p = file_content;
 	p = file_content + sizeof(*header);
 	while (p < end_p)
 	{
+		ft_printf("%08x: ", p - start_p);
 		if (*p > 0 && *p < 17)
-			parse(input, &p, &dot_added);
+			parse(input, &p);
 		else
 		{
-			dot_added = 1;
 			ft_printf(".");
 			p++;
 		}
+		ft_printf("\n");
 	}
 	free(header);
 	return ;

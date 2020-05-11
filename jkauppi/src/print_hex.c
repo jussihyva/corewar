@@ -6,13 +6,13 @@
 /*   By: ubuntu <ubuntu@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/07 21:08:03 by ubuntu            #+#    #+#             */
-/*   Updated: 2020/05/07 22:41:39 by ubuntu           ###   ########.fr       */
+/*   Updated: 2020/05/11 08:31:12 by ubuntu           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "decoder.h"
 
-static void			print_hex_string(ssize_t index, char *line, ssize_t size)
+void				print_hex_string(ssize_t index, char *line, ssize_t size)
 {
 	ssize_t		end_point;
 	ssize_t		i;

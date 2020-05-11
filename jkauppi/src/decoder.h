@@ -6,7 +6,7 @@
 /*   By: ubuntu <ubuntu@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/05 11:41:56 by ubuntu            #+#    #+#             */
-/*   Updated: 2020/05/09 07:17:44 by ubuntu           ###   ########.fr       */
+/*   Updated: 2020/05/11 08:31:12 by ubuntu           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,5 +76,6 @@ void				del_elem(void *elem, size_t size);
 void				print_hex(char *line, ssize_t size);
 void				print_asm(t_input *input, char *file_content, ssize_t size);
 void				read_g_op_tab(t_input *input);
+void				print_hex_string(ssize_t index, char *line, ssize_t size);
 
 #endif

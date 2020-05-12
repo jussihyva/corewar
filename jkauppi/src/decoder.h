@@ -6,7 +6,7 @@
 /*   By: ubuntu <ubuntu@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/05 11:41:56 by ubuntu            #+#    #+#             */
-/*   Updated: 2020/05/12 08:14:16 by ubuntu           ###   ########.fr       */
+/*   Updated: 2020/05/12 13:45:39 by ubuntu           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,6 +77,13 @@ typedef struct		s_input
 	t_op			*g_op_tab;
 }					t_input;
 
+typedef struct		s_asm_code
+{
+	char			*file_content;
+	t_header		*header;
+	t_list			**instruction_lst;
+}					t_asm_code;
+
 void				read_opt(t_input *input, int *argc, char ***argv);
 void				ft_step_args(int *argc, char ***argv);
 char				*read_input_file(int fd, size_t *file_content_size);
@@ -85,8 +92,9 @@ void				print_hex(char *line, ssize_t size);
 void				print_asm(t_input *input, char *file_content, ssize_t size);
 void				read_g_op_tab(t_input *input);
 void				print_hex_string(ssize_t index, char *line, ssize_t size);
-void				parse_instruction(t_input *input, char **p,
-													t_list **instruction_lst);
 void				print_params(t_op_param *param);
+t_asm_code			*parse_instructions(t_input *input, char *file_content,
+																ssize_t size);
+t_header			*read_header(char *file_content);
 
 #endif

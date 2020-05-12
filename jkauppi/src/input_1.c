@@ -6,7 +6,7 @@
 /*   By: ubuntu <ubuntu@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/07 18:30:16 by ubuntu            #+#    #+#             */
-/*   Updated: 2020/05/08 17:22:45 by ubuntu           ###   ########.fr       */
+/*   Updated: 2020/05/12 11:38:06 by ubuntu           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,6 @@ char			*read_input_file(int fd, size_t *file_content_size)
 	size_t		i;
 
 	content_lst = read_file_content(fd, file_content_size);
-	ft_printf("File size: %d\n", *file_content_size);
 	file_content = (char *)ft_memalloc(sizeof(*file_content) *
 															*file_content_size);
 	elem = *content_lst;

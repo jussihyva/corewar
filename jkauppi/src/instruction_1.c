@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   instruction.c                                      :+:      :+:    :+:   */
+/*   instruction_1.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ubuntu <ubuntu@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/11 13:17:12 by ubuntu            #+#    #+#             */
-/*   Updated: 2020/05/12 08:27:44 by ubuntu           ###   ########.fr       */
+/*   Updated: 2020/05/12 13:46:07 by ubuntu           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,41 +49,17 @@ static void			read_parameters(int coding_byte, int label_size, char **p,
 	while (++i < 3)
 	{
 		param[i].type = (coding_byte >> (2 + (2 * (2 - i)))) & 0x3;
-		if (param[i].type == 3)
-			param[i].value = read_param(p, 2, 0);
-		else if (param[i].type == 2)
+		if (param[i].type == IND_CODE)
+			param[i].value = read_param(p, IND_SIZE, 0);
+		else if (param[i].type == DIR_CODE)
 		{
 			if (label_size)
-				param[i].value = read_param(p, 2, 0);
+				param[i].value = read_param(p, IND_SIZE, 0);
 			else
-				param[i].value = read_param(p, 4, 1);
+				param[i].value = read_param(p, DIR_SIZE, 1);
 		}
-		else if (param[i].type == 1)
+		else if (param[i].type == REG_CODE)
 			param[i].value = read_param(p, 1, 0);
-	}
-	return ;
-}
-
-void				print_params(t_op_param *param)
-{
-	size_t		i;
-
-	i = -1;
-	while (++i < 3)
-	{
-		if (i > 0 && param[i].type)
-			ft_printf(",");
-		if (param[i].type == 1)
-			ft_printf("r%d", param[i].value);
-		else if (param[i].type == 2)
-		{
-			if (param[i].value < 0)
-				ft_printf("%%-%#x", -param[i].value);
-			else
-				ft_printf("%%%#x", param[i].value);
-		}
-		else if (param[i].type == 3)
-			ft_printf("xxxxxx%d", param[i].value);
 	}
 	return ;
 }
@@ -103,20 +79,19 @@ static int			specal_coding(int opcode, char **p)
 	return (coding_byte);
 }
 
-void				parse_instruction(t_input *input, char **p,
+static void			parse_instruction(t_input *input, char **p,
 													t_list **instruction_lst)
 {
 	int				opcode;
 	int				coding_byte;
-	ssize_t			length;
-	char			*start_p;
 	t_instruction	*instruction;
 	t_list			*elem;
 
 	instruction = (t_instruction *)ft_memalloc(sizeof(*instruction));
 	ft_bzero(instruction->param, sizeof(*instruction->param) * 3);
-	start_p = *p;
 	opcode = **p;
+	instruction->opcode = opcode;
+	instruction->start_p = *p;
 	*p += 1;
 	if (input->g_op_tab[opcode].include_coding_byte)
 	{
@@ -128,10 +103,36 @@ void				parse_instruction(t_input *input, char **p,
 	if (coding_byte != -1)
 		read_parameters(coding_byte, input->g_op_tab[opcode].label_size, p,
 															instruction->param);
-	length = *p - start_p;
-	instruction->opcode = opcode;
-	instruction->start_p = start_p;
-	instruction->length = length;
-	elem = ft_lstnew(instruction, sizeof(*instruction));
+	instruction->length = *p - instruction->start_p;
+	elem = ft_lstnew(&instruction, sizeof(instruction));
 	ft_lstadd_e(instruction_lst, elem);
+}
+
+t_asm_code			*parse_instructions(t_input *input, char *file_content,
+																ssize_t size)
+{
+	char			*end_p;
+	char			*p;
+	t_asm_code		*asm_code;
+
+	asm_code = (t_asm_code *)ft_memalloc(sizeof(*asm_code));
+	asm_code->instruction_lst =
+					(t_list **)ft_memalloc(sizeof(*asm_code->instruction_lst));
+	asm_code->header = read_header(file_content);
+	asm_code->file_content = file_content;
+	end_p = file_content + size;
+	p = file_content + sizeof(*asm_code->header);
+	while (p < end_p)
+	{
+		if (*p > 0 && *p < 17)
+			parse_instruction(input, &p, asm_code->instruction_lst);
+		else
+		{
+			ft_printf("%08x: ", p - file_content);
+			ft_printf(".");
+			ft_printf("\n");
+			p++;
+		}
+	}
+	return (asm_code);
 }

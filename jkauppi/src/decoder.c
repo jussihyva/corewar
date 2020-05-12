@@ -6,7 +6,7 @@
 /*   By: ubuntu <ubuntu@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/05 11:28:48 by ubuntu            #+#    #+#             */
-/*   Updated: 2020/05/10 19:02:16 by ubuntu           ###   ########.fr       */
+/*   Updated: 2020/05/12 11:37:20 by ubuntu           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,6 @@ int					main(int argc, char **argv)
 	input = (t_input *)ft_memalloc(sizeof(input));
 	read_opt(input, &argc, &argv);
 	read_g_op_tab(input);
-	ft_printf("Format=%d\n", input->opt);
 	fd = 0;
 	input->file_content = read_input_file(fd, &input->file_content_size);
 	if (input->opt & format_asm)
@@ -29,8 +28,6 @@ int					main(int argc, char **argv)
 	else
 		print_hex(input->file_content, input->file_content_size);
 	free(input->file_content);
-//	free(input->g_op_tab);
-//	free(input);
 	ft_printf("END\n");
 	return (0);
 }

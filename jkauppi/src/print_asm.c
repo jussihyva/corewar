@@ -6,7 +6,7 @@
 /*   By: ubuntu <ubuntu@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/07 22:39:50 by ubuntu            #+#    #+#             */
-/*   Updated: 2020/05/12 12:07:57 by ubuntu           ###   ########.fr       */
+/*   Updated: 2020/05/12 15:22:10 by ubuntu           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,5 +31,6 @@ void				print_asm(t_input *input, char *file_content, ssize_t size)
 		ft_printf("\n");
 		elem = elem->next;
 	}
+	remove_asm_code(asm_code);
 	return ;
 }

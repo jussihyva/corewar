@@ -6,7 +6,7 @@
 /*   By: ubuntu <ubuntu@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/05 11:41:56 by ubuntu            #+#    #+#             */
-/*   Updated: 2020/05/12 13:45:39 by ubuntu           ###   ########.fr       */
+/*   Updated: 2020/05/12 15:22:10 by ubuntu           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,5 +96,6 @@ void				print_params(t_op_param *param);
 t_asm_code			*parse_instructions(t_input *input, char *file_content,
 																ssize_t size);
 t_header			*read_header(char *file_content);
+void				remove_asm_code(t_asm_code *asm_code);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: ubuntu <ubuntu@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/11 13:17:12 by ubuntu            #+#    #+#             */
-/*   Updated: 2020/05/11 14:25:43 by ubuntu           ###   ########.fr       */
+/*   Updated: 2020/05/12 08:27:44 by ubuntu           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ static void			read_parameters(int coding_byte, int label_size, char **p,
 	return ;
 }
 
-static void			print_params(t_op_param *param)
+void				print_params(t_op_param *param)
 {
 	size_t		i;
 
@@ -76,7 +76,12 @@ static void			print_params(t_op_param *param)
 		if (param[i].type == 1)
 			ft_printf("r%d", param[i].value);
 		else if (param[i].type == 2)
-			ft_printf("%%%d", param[i].value);
+		{
+			if (param[i].value < 0)
+				ft_printf("%%-%#x", -param[i].value);
+			else
+				ft_printf("%%%#x", param[i].value);
+		}
 		else if (param[i].type == 3)
 			ft_printf("xxxxxx%d", param[i].value);
 	}
@@ -98,17 +103,19 @@ static int			specal_coding(int opcode, char **p)
 	return (coding_byte);
 }
 
-void				parse_instruction(t_input *input, char **p)
+void				parse_instruction(t_input *input, char **p,
+													t_list **instruction_lst)
 {
-	int			opcode;
-	int			coding_byte;
-	ssize_t		size;
-	char		*start_p;
-	t_op_param	param[3];
+	int				opcode;
+	int				coding_byte;
+	ssize_t			length;
+	char			*start_p;
+	t_instruction	*instruction;
+	t_list			*elem;
 
-	ft_bzero(param, sizeof(t_op_param) * 3);
+	instruction = (t_instruction *)ft_memalloc(sizeof(*instruction));
+	ft_bzero(instruction->param, sizeof(*instruction->param) * 3);
 	start_p = *p;
-	coding_byte = -1;
 	opcode = **p;
 	*p += 1;
 	if (input->g_op_tab[opcode].include_coding_byte)
@@ -120,9 +127,11 @@ void				parse_instruction(t_input *input, char **p)
 		coding_byte = specal_coding(opcode, p);
 	if (coding_byte != -1)
 		read_parameters(coding_byte, input->g_op_tab[opcode].label_size, p,
-																		param);
-	size = *p - start_p;
-	print_hex_string(0, start_p, size);
-	ft_printf("%-8s", input->g_op_tab[opcode].instruction_name);
-	print_params(param);
+															instruction->param);
+	length = *p - start_p;
+	instruction->opcode = opcode;
+	instruction->start_p = start_p;
+	instruction->length = length;
+	elem = ft_lstnew(instruction, sizeof(*instruction));
+	ft_lstadd_e(instruction_lst, elem);
 }

@@ -6,7 +6,7 @@
 /*   By: ubuntu <ubuntu@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/12 19:34:42 by ubuntu            #+#    #+#             */
-/*   Updated: 2020/05/13 14:07:07 by ubuntu           ###   ########.fr       */
+/*   Updated: 2020/05/13 15:54:39 by ubuntu           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,10 @@ typedef struct		s_cpu
 	char			*PC;
 }					t_cpu;
 
-void				exec_live(t_cpu *cpu, t_instruction *instruction);
-void				exec_ld(t_cpu *cpu, t_instruction *instruction);
-void				exec_zjmp(t_cpu *cpu, t_instruction *instruction);
+void				exec_live(t_cpu *cpu, t_instruction *instruction, t_asm_code *asm_code);
+void				exec_ld(t_cpu *cpu, t_instruction *instruction, t_asm_code *asm_code);
+void				exec_zjmp(t_cpu *cpu, t_instruction *instruction, t_asm_code *asm_code);
+void				exec_sti(t_cpu *cpu, t_instruction *instruction, t_asm_code *asm_code);
+void				exec_ldi(t_cpu *cpu, t_instruction *instruction, t_asm_code *asm_code);
 
 #endif

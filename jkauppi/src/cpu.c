@@ -6,7 +6,7 @@
 /*   By: ubuntu <ubuntu@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/12 19:32:46 by ubuntu            #+#    #+#             */
-/*   Updated: 2020/05/13 14:56:14 by ubuntu           ###   ########.fr       */
+/*   Updated: 2020/05/13 15:54:39 by ubuntu           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,11 +43,15 @@ int					main(int argc, char **argv)
 		if (cpu->PC == instruction->start_p)
 		{
 			if (instruction->opcode == e_live)
-				exec_live(cpu, instruction);
+				exec_live(cpu, instruction, asm_code);
 			else if (instruction->opcode == e_ld)
-				exec_ld(cpu, instruction);
+				exec_ld(cpu, instruction, asm_code);
 			else if (instruction->opcode == e_zjmp)
-				exec_zjmp(cpu, instruction);
+				exec_zjmp(cpu, instruction, asm_code);
+			else if (instruction->opcode == e_sti)
+				exec_sti(cpu, instruction, asm_code);
+			else if (instruction->opcode == e_ldi)
+				exec_ldi(cpu, instruction, asm_code);
 			else
 			{
 				ft_printf("%08x: %s\n", cpu->PC - asm_code->file_content,

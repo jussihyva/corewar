@@ -6,7 +6,7 @@
 /*   By: ubuntu <ubuntu@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/12 19:32:46 by ubuntu            #+#    #+#             */
-/*   Updated: 2020/05/13 14:44:59 by ubuntu           ###   ########.fr       */
+/*   Updated: 2020/05/13 14:56:14 by ubuntu           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,6 @@ int					main(int argc, char **argv)
 {
 	t_input			*input;
 	t_asm_code		*asm_code;
-	t_list			*elem;
 	t_instruction	*instruction;
 	t_cpu			*cpu;
 
@@ -39,10 +38,8 @@ int					main(int argc, char **argv)
 													input->file_content_size);
 	cpu->PC = asm_code->file_content + sizeof(*asm_code->header);
 	instruction = parse_instruction(input, cpu->PC);
-	elem = *asm_code->instruction_lst;
-	while (elem)
+	while (*instruction->start_p > 0 && *instruction->start_p < 17)
 	{
-		instruction = *(t_instruction **)elem->content;
 		if (cpu->PC == instruction->start_p)
 		{
 			if (instruction->opcode == e_live)
@@ -63,7 +60,7 @@ int					main(int argc, char **argv)
 			ft_printf("%p != %p\n", cpu->PC, instruction->start_p);
 			break ;
 		}
-		elem = elem->next;
+		instruction = parse_instruction(input, cpu->PC);
 	}
 	return (0);
 }

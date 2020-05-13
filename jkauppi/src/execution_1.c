@@ -6,7 +6,7 @@
 /*   By: ubuntu <ubuntu@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/13 09:10:10 by ubuntu            #+#    #+#             */
-/*   Updated: 2020/05/13 14:07:07 by ubuntu           ###   ########.fr       */
+/*   Updated: 2020/05/13 15:01:01 by ubuntu           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,12 +36,13 @@ void			exec_ld(t_cpu *cpu, t_instruction *instruction)
 void			exec_zjmp(t_cpu *cpu, t_instruction *instruction)
 {
 	if (instruction->param[0].type == DIR_CODE)
-		cpu->PC = instruction->start_p + instruction->length;
+		cpu->PC += instruction->param[0].value;
 	else
 	{
 		print_hex_string(0, instruction->start_p, instruction->length);
 		print_params(instruction->param);
 		ft_printf("\n");
+		cpu->PC += instruction->param[0].value;
 	}
 	return ;
 }

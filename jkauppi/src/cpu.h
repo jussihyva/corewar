@@ -1,24 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   decoder.h                                          :+:      :+:    :+:   */
+/*   cpu.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ubuntu <ubuntu@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/05/05 11:41:56 by ubuntu            #+#    #+#             */
-/*   Updated: 2020/05/13 11:27:09 by ubuntu           ###   ########.fr       */
+/*   Created: 2020/05/12 19:34:42 by ubuntu            #+#    #+#             */
+/*   Updated: 2020/05/13 14:07:07 by ubuntu           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef DECODER_H
-# define DECODER_H
+#ifndef CPU_H
+# define CPU_H
 # include "common.h"
-# define BINARY_BUFF_SIZE 2048
 
-void				del_elem(void *elem, size_t size);
-void				print_hex(char *line, ssize_t size);
-void				print_asm(t_input *input, char *file_content, ssize_t size);
-t_header			*read_header(char *file_content);
-void				remove_asm_code(t_asm_code *asm_code);
+typedef struct		s_cpu
+{
+	int				reg[REG_NUMBER + 1];
+	int				is_live;
+	char			*PC;
+}					t_cpu;
+
+void				exec_live(t_cpu *cpu, t_instruction *instruction);
+void				exec_ld(t_cpu *cpu, t_instruction *instruction);
+void				exec_zjmp(t_cpu *cpu, t_instruction *instruction);
 
 #endif

@@ -6,13 +6,13 @@
 /*   By: ubuntu <ubuntu@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/11 13:17:12 by ubuntu            #+#    #+#             */
-/*   Updated: 2020/05/12 13:46:07 by ubuntu           ###   ########.fr       */
+/*   Updated: 2020/05/13 14:46:23 by ubuntu           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "decoder.h"
 
-static int			read_param(char **p, int size, int length)
+static int				read_param(char **p, int size, int length)
 {
 	int				param;
 	short int		param_short;
@@ -40,7 +40,7 @@ static int			read_param(char **p, int size, int length)
 	return (param);
 }
 
-static void			read_parameters(int coding_byte, int label_size, char **p,
+static void				read_parameters(int coding_byte, int label_size, char **p,
 															t_op_param *param)
 {
 	size_t			i;
@@ -64,11 +64,10 @@ static void			read_parameters(int coding_byte, int label_size, char **p,
 	return ;
 }
 
-static int			specal_coding(int opcode, char **p)
+static int				specal_coding(int opcode)
 {
 	int			coding_byte;
 
-	(void)p;
 	coding_byte = -1;
 	if (opcode == e_live)
 		coding_byte = 0x80;
@@ -79,41 +78,40 @@ static int			specal_coding(int opcode, char **p)
 	return (coding_byte);
 }
 
-static void			parse_instruction(t_input *input, char **p,
-													t_list **instruction_lst)
+t_instruction			*parse_instruction(t_input *input, char *p)
 {
 	int				opcode;
 	int				coding_byte;
 	t_instruction	*instruction;
-	t_list			*elem;
 
 	instruction = (t_instruction *)ft_memalloc(sizeof(*instruction));
 	ft_bzero(instruction->param, sizeof(*instruction->param) * 3);
-	opcode = **p;
+	opcode = *p;
 	instruction->opcode = opcode;
-	instruction->start_p = *p;
-	*p += 1;
+	instruction->start_p = p;
+	p += 1;
 	if (input->g_op_tab[opcode].include_coding_byte)
 	{
-		coding_byte = (char)**p;
-		*p += 1;
+		coding_byte = (char)*p;
+		p += 1;
 	}
 	else
-		coding_byte = specal_coding(opcode, p);
+		coding_byte = specal_coding(opcode);
 	if (coding_byte != -1)
-		read_parameters(coding_byte, input->g_op_tab[opcode].label_size, p,
+		read_parameters(coding_byte, input->g_op_tab[opcode].label_size, &p,
 															instruction->param);
-	instruction->length = *p - instruction->start_p;
-	elem = ft_lstnew(&instruction, sizeof(instruction));
-	ft_lstadd_e(instruction_lst, elem);
+	instruction->length = p - instruction->start_p;
+	return (instruction);
 }
 
-t_asm_code			*parse_instructions(t_input *input, char *file_content,
+t_asm_code				*parse_instructions(t_input *input, char *file_content,
 																ssize_t size)
 {
 	char			*end_p;
 	char			*p;
 	t_asm_code		*asm_code;
+	t_instruction	*instruction;
+	t_list			*elem;
 
 	asm_code = (t_asm_code *)ft_memalloc(sizeof(*asm_code));
 	asm_code->instruction_lst =
@@ -125,7 +123,12 @@ t_asm_code			*parse_instructions(t_input *input, char *file_content,
 	while (p < end_p)
 	{
 		if (*p > 0 && *p < 17)
-			parse_instruction(input, &p, asm_code->instruction_lst);
+		{
+			instruction = parse_instruction(input, p);
+			elem = ft_lstnew(&instruction, sizeof(instruction));
+			ft_lstadd_e(asm_code->instruction_lst, elem);
+			p = instruction->start_p + instruction->length;
+		}
 		else
 		{
 			ft_printf("%08x: ", p - file_content);

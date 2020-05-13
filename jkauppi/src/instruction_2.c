@@ -6,7 +6,7 @@
 /*   By: ubuntu <ubuntu@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/12 11:44:17 by ubuntu            #+#    #+#             */
-/*   Updated: 2020/05/12 11:47:17 by ubuntu           ###   ########.fr       */
+/*   Updated: 2020/05/12 20:54:31 by ubuntu           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,10 +18,6 @@ t_header			*read_header(char *file_content)
 
 	header = (t_header *)ft_memalloc(sizeof(*header));
 	ft_memcpy(header, file_content, sizeof(*header));
-	ft_printf("Name: %s", header->prog_name);
-	ft_printf(" Comment: %s", header->comment);
-	ft_printf(" Magic: %x", header->magic);
-	ft_printf(" Size: %x\n", header->prog_size);
 	return (header);
 }
 

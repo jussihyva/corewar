@@ -6,7 +6,7 @@
 /*   By: ubuntu <ubuntu@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/12 19:32:46 by ubuntu            #+#    #+#             */
-/*   Updated: 2020/05/13 15:54:39 by ubuntu           ###   ########.fr       */
+/*   Updated: 2020/05/14 12:09:13 by ubuntu           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,14 @@ int					main(int argc, char **argv)
 				exec_sti(cpu, instruction, asm_code);
 			else if (instruction->opcode == e_ldi)
 				exec_ldi(cpu, instruction, asm_code);
+			else if (instruction->opcode == e_sub)
+				exec_sub(cpu, instruction, asm_code);
+			else if (instruction->opcode == e_add)
+				exec_add(cpu, instruction, asm_code);
+			else if (instruction->opcode == e_or)
+				exec_or(cpu, instruction, asm_code);
+			else if (instruction->opcode == e_and)
+				exec_and(cpu, instruction, asm_code);
 			else
 			{
 				ft_printf("%08x: %s\n", cpu->PC - asm_code->file_content,

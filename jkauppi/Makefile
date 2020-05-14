@@ -6,7 +6,7 @@
 #    By: ubuntu <ubuntu@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/05/05 11:36:37 by ubuntu            #+#    #+#              #
-#    Updated: 2020/05/13 09:13:05 by ubuntu           ###   ########.fr        #
+#    Updated: 2020/05/14 11:47:26 by ubuntu           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -32,9 +32,11 @@ all: $(NAME1) $(NAME2)
 $(NAME1): $(OBJ) $(NAME1_MAIN)
 	@echo "$(NAME1) created."
 	@$(CC) $(C_FLAGS) $(INCLUDES) -o $(NAME1) $(OBJ) $(NAME1_MAIN) $(LIB)
+	@$(CC) $(C_FLAGS) $(INCLUDES) -o $(NAME2) $(OBJ) $(NAME2_MAIN) $(LIB)
 
 $(NAME2): $(OBJ) $(NAME2_MAIN)
 	@echo "$(NAME2) created."
+	@$(CC) $(C_FLAGS) $(INCLUDES) -o $(NAME1) $(OBJ) $(NAME1_MAIN) $(LIB)
 	@$(CC) $(C_FLAGS) $(INCLUDES) -o $(NAME2) $(OBJ) $(NAME2_MAIN) $(LIB)
 
 $(OBJ): $(OBJ_FOLDER)/%.o: $(SRC_FOLDER)/%.c $(HEADER) | $(OBJ_FOLDER)

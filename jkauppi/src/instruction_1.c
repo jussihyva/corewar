@@ -6,7 +6,7 @@
 /*   By: ubuntu <ubuntu@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/11 13:17:12 by ubuntu            #+#    #+#             */
-/*   Updated: 2020/05/13 14:46:23 by ubuntu           ###   ########.fr       */
+/*   Updated: 2020/05/14 11:40:20 by ubuntu           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,6 +118,7 @@ t_asm_code				*parse_instructions(t_input *input, char *file_content,
 					(t_list **)ft_memalloc(sizeof(*asm_code->instruction_lst));
 	asm_code->header = read_header(file_content);
 	asm_code->file_content = file_content;
+	asm_code->g_op_tab = input->g_op_tab;
 	end_p = file_content + size;
 	p = file_content + sizeof(*asm_code->header);
 	while (p < end_p)

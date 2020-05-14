@@ -6,7 +6,7 @@
 /*   By: ubuntu <ubuntu@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/12 19:48:41 by ubuntu            #+#    #+#             */
-/*   Updated: 2020/05/13 14:46:46 by ubuntu           ###   ########.fr       */
+/*   Updated: 2020/05/14 11:07:23 by ubuntu           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,6 +79,7 @@ typedef struct		s_input
 typedef struct		s_asm_code
 {
 	char			*file_content;
+	t_op			*g_op_tab;
 	t_header		*header;
 	t_list			**instruction_lst;
 }					t_asm_code;

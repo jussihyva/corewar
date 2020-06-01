@@ -6,7 +6,7 @@
 /*   By: ubuntu <ubuntu@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/11 13:17:12 by ubuntu            #+#    #+#             */
-/*   Updated: 2020/06/01 16:20:54 by ubuntu           ###   ########.fr       */
+/*   Updated: 2020/06/01 16:33:44 by ubuntu           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,7 +85,6 @@ t_instruction			*parse_instruction(t_input *input, char *p)
 	t_instruction	*instruction;
 
 	instruction = (t_instruction *)ft_memalloc(sizeof(*instruction));
-	ft_bzero(instruction->param, sizeof(*instruction->param) * 3);
 	opcode = *p;
 	instruction->opcode = opcode;
 	instruction->start_p = p;

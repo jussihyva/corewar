@@ -6,7 +6,7 @@
 #    By: ubuntu <ubuntu@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/05/05 11:36:37 by ubuntu            #+#    #+#              #
-#    Updated: 2020/06/01 15:39:02 by ubuntu           ###   ########.fr        #
+#    Updated: 2020/06/01 15:50:41 by ubuntu           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,7 +20,7 @@ LIBFT_FOLDER		=	lib/lib_ft
 LIBFT_PRINTF_FOLDER	=	lib/lib_ftprintf
 LIBFT				=	$(LIBFT_FOLDER)/libft.a
 LIBFT_PRINTF		=	$(LIBFT_PRINTF_FOLDER)/libftprintf.a
-LIB					=	-L LIBFT_FOLDER -l ft -L LIBFT_PRINTF_FOLDER -l ftprintf
+LIB					=	-L $(LIBFT_FOLDER) -l ft -L LIBFT_PRINTF_FOLDER -l ftprintf
 
 SRC_FOLDER	=	src
 NAME1_MAIN	=	src/decoder.c

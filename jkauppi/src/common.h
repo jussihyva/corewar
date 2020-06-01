@@ -6,12 +6,14 @@
 /*   By: ubuntu <ubuntu@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/12 19:48:41 by ubuntu            #+#    #+#             */
-/*   Updated: 2020/05/14 11:07:23 by ubuntu           ###   ########.fr       */
+/*   Updated: 2020/06/01 22:45:20 by ubuntu           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef COMMON_H
 # define COMMON_H
+# include "errno.h"
+# include <fcntl.h>
 # include "libft.h"
 # include "ft_printf.h"
 # include "op.h"
@@ -19,7 +21,8 @@
 typedef enum		e_opt
 {
 	format_hex = 0x01,
-	format_asm = 0x02
+	format_asm = 0x02,
+	map_file = 0x04
 }					t_opt;
 
 typedef enum		e_opcode
@@ -41,6 +44,12 @@ typedef enum		e_opcode
 	e_lldi = 0x0e,
 	e_and = 0x06
 }					t_opcode;
+
+typedef enum				e_input_error
+{
+	file_open_failure = 1,
+	input_file_missing
+}							t_input_error;
 
 typedef struct		s_op_param
 {
@@ -70,10 +79,12 @@ typedef struct		s_op
 
 typedef struct		s_input
 {
+	t_input_error	error;
 	t_opt			opt;
 	char			*file_content;
 	size_t			file_content_size;
 	t_op			*g_op_tab;
+	char			*input_file;
 }					t_input;
 
 typedef struct		s_asm_code

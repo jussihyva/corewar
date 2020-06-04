@@ -18,7 +18,7 @@ static t_input		*read_input_data(int *argc, char ***argv)
 	t_input		*input;
 
 	ft_step_args(argc, argv);
-	input = (t_input *)ft_memalloc(sizeof(input));
+	input = (t_input *)ft_memalloc(sizeof(*input));
 	read_g_op_tab(input);
 	fd = 0;
 	input->file_content = read_input_file(fd, &input->file_content_size);

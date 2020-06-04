@@ -1,6 +1,13 @@
 #include "test.h"
 #include "op.h"
 
+int skip_whitespace(char *str, int i)
+{
+  while (str[i] && str[i] == ' ' && str[i] == '	')
+    i++;
+  return (i);
+}
+
 char *copy_name(char *original)
 {
   int len;

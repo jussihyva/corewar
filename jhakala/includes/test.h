@@ -7,6 +7,12 @@
 # include <stdlib.h>
 # include <string.h>
 
+typedef struct	s_label
+{
+  char		*name;
+  int		place;
+}		t_label;
+
 typedef struct	s_line
 {
   char		*str;
@@ -20,11 +26,13 @@ typedef struct	s_champ
   //  t_cmd		*cmd;
   int		size;
   struct s_line *lines;
+  struct s_line *labels;
 }		t_champ;
 
 /*
 ** utils.c
 */
+int		skip_whitespace(char *str, int i);
 char		*copy_name(char *original);
 
 /*

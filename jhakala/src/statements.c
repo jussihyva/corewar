@@ -10,20 +10,19 @@ void add_label(t_label **alst, t_label *new)
 t_label *new_label(t_champ *champ, char *str)
 {
   t_label *label;
-  int i, j;
+  int i, j, k;
 
   i = ski_whitespace(str, 0);
   j = i;
+  k = -1;
   while (str[i] && str[i] == LABEL_CHARS)
     i++;
   i -= j;
   label = (t_label*)malloc(sizeof(label));
   label->place = champ->size;
   lable->name = (char*)malloc(sizeof(char) * (j  + 1));
-  for (int k = 0; k < i; k++)
-    {
-      label->name[k] = line[j + k];
-    }
+  while (++k < i)
+    label->name[k] = line[j + k];
 }
 
 int is_label(char *str)

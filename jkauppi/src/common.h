@@ -6,7 +6,7 @@
 /*   By: ubuntu <ubuntu@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/12 19:48:41 by ubuntu            #+#    #+#             */
-/*   Updated: 2020/06/01 22:45:20 by ubuntu           ###   ########.fr       */
+/*   Updated: 2020/06/05 12:00:31 by ubuntu           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,8 @@ typedef enum		e_opt
 {
 	format_hex = 0x01,
 	format_asm = 0x02,
-	map_file = 0x04
+	map_file = 0x04,
+	verbose = 0x08
 }					t_opt;
 
 typedef enum		e_opcode
@@ -95,6 +96,8 @@ typedef struct		s_asm_code
 	t_list			**instruction_lst;
 }					t_asm_code;
 
+void				save_input_file_name(t_input *input, int *argc,
+																char ***argv);
 void				ft_step_args(int *argc, char ***argv);
 void				read_g_op_tab(t_input *input);
 char				*read_input_file(int fd, size_t *file_content_size);
@@ -103,5 +106,7 @@ t_asm_code			*parse_instructions(t_input *input, char *file_content,
 																ssize_t size);
 void				print_hex_string(ssize_t index, char *line, ssize_t size);
 void				print_params(t_op_param *param);
+void				print_instruction(t_input *input,
+								t_instruction *instruction, char *file_content);
 
 #endif

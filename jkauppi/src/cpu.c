@@ -6,7 +6,7 @@
 /*   By: ubuntu <ubuntu@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/12 19:32:46 by ubuntu            #+#    #+#             */
-/*   Updated: 2020/06/05 16:55:02 by ubuntu           ###   ########.fr       */
+/*   Updated: 2020/06/05 17:20:16 by ubuntu           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,8 +43,7 @@ static t_input		*read_input_data(int *argc, char ***argv)
 
 static void			*set_op_functions(void)
 {
-	void	(**op_function)(t_cpu *cpu, t_instruction *instruction,
-														t_asm_code *asm_code);
+	void	(**op_function)(t_cpu *, t_instruction *, t_asm_code *);
 
 	op_function = (void (**)(t_cpu *cpu, t_instruction *instruction,
 				t_asm_code *asm_code))ft_memalloc(sizeof(*op_function) * 16);
@@ -64,7 +63,6 @@ static void			*set_op_functions(void)
 	op_function[e_xor] = exec_xor;
 	op_function[e_lldi] = NULL;
 	op_function[e_and] = exec_and;
-
 	return (op_function);
 }
 
@@ -72,13 +70,12 @@ static void			execute_instructions(t_input *input, t_cpu *cpu,
 														t_asm_code *asm_code)
 {
 	t_instruction	*instruction;
-	void			(**op_function)(t_cpu *cpu, t_instruction *instruction,
-														t_asm_code *asm_code);
+	void			(**op_function)(t_cpu *, t_instruction *, t_asm_code *);
 
 	op_function = set_op_functions();
-	instruction = parse_instruction(input, cpu->PC);
+	instruction = parse_instruction(input, cpu->pc);
 	while (*instruction->start_p > 0 && *instruction->start_p < 17 &&
-												cpu->PC == instruction->start_p)
+												cpu->pc == instruction->start_p)
 	{
 		if (input->opt & verbose)
 			print_instruction(input, instruction, asm_code->file_content);
@@ -86,13 +83,13 @@ static void			execute_instructions(t_input *input, t_cpu *cpu,
 			op_function[instruction->opcode](cpu, instruction, asm_code);
 		else
 		{
-			ft_printf("%08x: %s\n", cpu->PC - asm_code->file_content,
+			ft_printf("%08x: %s\n", cpu->pc - asm_code->file_content,
 					input->g_op_tab[instruction->opcode].instruction_name);
 			break ;
 		}
-		instruction = parse_instruction(input, cpu->PC);
+		instruction = parse_instruction(input, cpu->pc);
 	}
-	ft_printf("%p != %p\n", cpu->PC, instruction->start_p);
+	ft_printf("%p != %p\n", cpu->pc, instruction->start_p);
 	free(op_function);
 	return ;
 }
@@ -107,8 +104,8 @@ int					main(int argc, char **argv)
 	input = read_input_data(&argc, &argv);
 	asm_code = parse_instructions(input, input->file_content,
 													input->file_content_size);
-	cpu->PC = asm_code->file_content + sizeof(*asm_code->header);
-	cpu->program_start_ptr = cpu->PC;
+	cpu->pc = asm_code->file_content + sizeof(*asm_code->header);
+	cpu->program_start_ptr = cpu->pc;
 	execute_instructions(input, cpu, asm_code);
 	free(input->g_op_tab);
 	free(input);

@@ -6,7 +6,7 @@
 /*   By: ubuntu <ubuntu@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/12 11:44:17 by ubuntu            #+#    #+#             */
-/*   Updated: 2020/06/05 12:00:31 by ubuntu           ###   ########.fr       */
+/*   Updated: 2020/06/05 14:03:01 by ubuntu           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,18 +29,23 @@ void		print_params(t_op_param *param)
 	while (++i < 3)
 	{
 		if (i > 0 && param[i].type)
-			ft_printf(",");
-		if (param[i].type == 1)
+			ft_printf(", ");
+		if (param[i].type == REG_CODE)
 			ft_printf("r%d", param[i].value);
-		else if (param[i].type == 2)
+		else if (param[i].type == DIR_CODE)
 		{
 			if (param[i].value < 0)
 				ft_printf("%%-%#x", -param[i].value);
 			else
 				ft_printf("%%%#x", param[i].value);
 		}
-		else if (param[i].type == 3)
-			ft_printf("xxxxxx%d", param[i].value);
+		else if (param[i].type == IND_CODE)
+		{
+			if (param[i].value < 0)
+				ft_printf("-%#x", -param[i].value);
+			else
+				ft_printf("%#x", param[i].value);
+		}
 	}
 	return ;
 }

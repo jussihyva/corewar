@@ -6,13 +6,13 @@
 /*   By: ubuntu <ubuntu@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/12 11:44:17 by ubuntu            #+#    #+#             */
-/*   Updated: 2020/05/12 20:54:31 by ubuntu           ###   ########.fr       */
+/*   Updated: 2020/06/05 12:00:31 by ubuntu           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "decoder.h"
 
-t_header			*read_header(char *file_content)
+t_header	*read_header(char *file_content)
 {
 	t_header	*header;
 
@@ -21,7 +21,7 @@ t_header			*read_header(char *file_content)
 	return (header);
 }
 
-void				print_params(t_op_param *param)
+void		print_params(t_op_param *param)
 {
 	size_t		i;
 
@@ -42,5 +42,17 @@ void				print_params(t_op_param *param)
 		else if (param[i].type == 3)
 			ft_printf("xxxxxx%d", param[i].value);
 	}
+	return ;
+}
+
+void		print_instruction(t_input *input, t_instruction *instruction,
+															char *file_content)
+{
+	ft_printf("%08x: ", instruction->start_p - file_content);
+	print_hex_string(0, instruction->start_p, instruction->length);
+	ft_printf("%-8s",
+					input->g_op_tab[instruction->opcode].instruction_name);
+	print_params(instruction->param);
+	ft_printf("\n");
 	return ;
 }

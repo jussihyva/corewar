@@ -6,7 +6,7 @@
 /*   By: ubuntu <ubuntu@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/13 09:10:10 by ubuntu            #+#    #+#             */
-/*   Updated: 2020/05/14 12:14:04 by ubuntu           ###   ########.fr       */
+/*   Updated: 2020/06/05 12:02:21 by ubuntu           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,29 @@ void			exec_ldi(t_cpu *cpu, t_instruction *instruction, t_asm_code *asm_code)
 		}
 		else
 			ft_printf("%08p: %p\n", p - asm_code->file_content, cpu->PC - asm_code->file_content);
+		// ft_printf("%08x: ", instruction->start_p - asm_code->file_content);
+		// ft_printf("reg%d: %d", instruction->param[2].value, cpu->reg[instruction->param[2].value]);
+		// ft_printf(" (pointer: %08p)", p - cpu->program_start_ptr + sizeof(*asm_code->header));
+		// ft_printf("\n");
+	}
+	else if (instruction->param[0].type == DIR_CODE && instruction->param[1].type == REG_CODE)
+	{
+		i = 0;
+		i += instruction->param[0].value;
+		i += cpu->reg[instruction->param[1].value];
+		p = cpu->PC + i;
+		cpu->reg[instruction->param[2].value] = 0;
+		if (asm_code->g_op_tab[e_ldi].label_size)
+		{
+			cpu->reg[instruction->param[2].value] += p[0] << (8 * 1);
+			cpu->reg[instruction->param[2].value] += p[1] << (8 * 0);
+		}
+		else
+			ft_printf("%08p: %p\n", p - asm_code->file_content, cpu->PC - asm_code->file_content);
+		// ft_printf("%08x: ", instruction->start_p - asm_code->file_content);
+		// ft_printf("reg%d: %d", instruction->param[2].value, cpu->reg[instruction->param[2].value]);
+		// ft_printf(" (pointer: %08p)", p - cpu->program_start_ptr + sizeof(*asm_code->header));
+		// ft_printf("\n");
 	}
 	else
 	{

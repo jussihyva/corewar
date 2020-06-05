@@ -6,7 +6,7 @@
 /*   By: ubuntu <ubuntu@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/12 19:34:42 by ubuntu            #+#    #+#             */
-/*   Updated: 2020/05/14 12:08:42 by ubuntu           ###   ########.fr       */
+/*   Updated: 2020/06/05 10:53:20 by ubuntu           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 
 typedef struct		s_cpu
 {
+	char			*program_start_ptr;
 	int				reg[REG_NUMBER + 1];
 	int				is_live;
 	char			*PC;

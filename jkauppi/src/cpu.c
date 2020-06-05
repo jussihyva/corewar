@@ -6,7 +6,7 @@
 /*   By: ubuntu <ubuntu@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/12 19:32:46 by ubuntu            #+#    #+#             */
-/*   Updated: 2020/06/05 17:20:16 by ubuntu           ###   ########.fr       */
+/*   Updated: 2020/06/05 20:04:35 by ubuntu           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,11 @@ static void			read_opt(t_input *input, int *argc, char ***argv)
 			input->opt |= verbose;
 		else if (ft_strequ((*argv)[0], "-f"))
 			save_input_file_name(input, argc, argv);
+		else if (ft_strequ((*argv)[0], "-p"))
+		{
+			ft_step_args(argc, argv);
+			input->player_number = ft_atoi(*argv[0]);
+		}
 		else
 			break ;
 		ft_step_args(argc, argv);
@@ -66,12 +71,13 @@ static void			*set_op_functions(void)
 	return (op_function);
 }
 
-static void			execute_instructions(t_input *input, t_cpu *cpu,
-														t_asm_code *asm_code)
+static void			execute_instructions(t_player *player, t_input *input,
+											t_cpu *cpu, t_asm_code *asm_code)
 {
 	t_instruction	*instruction;
 	void			(**op_function)(t_cpu *, t_instruction *, t_asm_code *);
 
+	cpu->reg[1] = player->player_number;
 	op_function = set_op_functions();
 	instruction = parse_instruction(input, cpu->pc);
 	while (*instruction->start_p > 0 && *instruction->start_p < 17 &&
@@ -99,14 +105,18 @@ int					main(int argc, char **argv)
 	t_input			*input;
 	t_asm_code		*asm_code;
 	t_cpu			*cpu;
+	t_player		*player;
 
+	player = (t_player*)ft_memalloc(sizeof(*player));
 	cpu = (t_cpu *)ft_memalloc(sizeof(*cpu));
 	input = read_input_data(&argc, &argv);
+	player->player_number = input->player_number;
 	asm_code = parse_instructions(input, input->file_content,
 													input->file_content_size);
 	cpu->pc = asm_code->file_content + sizeof(*asm_code->header);
 	cpu->program_start_ptr = cpu->pc;
-	execute_instructions(input, cpu, asm_code);
+	execute_instructions(player, input, cpu, asm_code);
+	free(player);
 	free(input->g_op_tab);
 	free(input);
 	return (0);

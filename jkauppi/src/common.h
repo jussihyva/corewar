@@ -6,7 +6,7 @@
 /*   By: ubuntu <ubuntu@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/12 19:48:41 by ubuntu            #+#    #+#             */
-/*   Updated: 2020/06/05 12:00:31 by ubuntu           ###   ########.fr       */
+/*   Updated: 2020/06/05 20:12:58 by ubuntu           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,6 +86,7 @@ typedef struct		s_input
 	size_t			file_content_size;
 	t_op			*g_op_tab;
 	char			*input_file;
+	int				player_number;
 }					t_input;
 
 typedef struct		s_asm_code
@@ -95,6 +96,11 @@ typedef struct		s_asm_code
 	t_header		*header;
 	t_list			**instruction_lst;
 }					t_asm_code;
+
+typedef struct		s_player
+{
+	int		player_number;
+}					t_player;
 
 void				save_input_file_name(t_input *input, int *argc,
 																char ***argv);

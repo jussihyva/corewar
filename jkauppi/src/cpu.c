@@ -6,7 +6,7 @@
 /*   By: ubuntu <ubuntu@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/12 19:32:46 by ubuntu            #+#    #+#             */
-/*   Updated: 2020/06/05 12:09:17 by ubuntu           ###   ########.fr       */
+/*   Updated: 2020/06/05 14:33:27 by ubuntu           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,6 +69,8 @@ int					main(int argc, char **argv)
 				exec_zjmp(cpu, instruction, asm_code);
 			else if (instruction->opcode == e_sti)
 				exec_sti(cpu, instruction, asm_code);
+			else if (instruction->opcode == e_st)
+				exec_st(cpu, instruction, asm_code);
 			else if (instruction->opcode == e_ldi)
 				exec_ldi(cpu, instruction, asm_code);
 			else if (instruction->opcode == e_sub)
@@ -77,8 +79,12 @@ int					main(int argc, char **argv)
 				exec_add(cpu, instruction, asm_code);
 			else if (instruction->opcode == e_or)
 				exec_or(cpu, instruction, asm_code);
+			else if (instruction->opcode == e_xor)
+				exec_xor(cpu, instruction, asm_code);
 			else if (instruction->opcode == e_and)
 				exec_and(cpu, instruction, asm_code);
+			else if (instruction->opcode == e_fork)
+				exec_fork(cpu, instruction, asm_code);
 			else
 			{
 				ft_printf("%08x: %s\n", cpu->PC - asm_code->file_content,

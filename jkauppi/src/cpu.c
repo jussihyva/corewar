@@ -6,11 +6,26 @@
 /*   By: ubuntu <ubuntu@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/12 19:32:46 by ubuntu            #+#    #+#             */
-/*   Updated: 2020/05/14 12:09:13 by ubuntu           ###   ########.fr       */
+/*   Updated: 2020/06/05 12:09:17 by ubuntu           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cpu.h"
+
+static void			read_opt(t_input *input, int *argc, char ***argv)
+{
+	while (*argc)
+	{
+		if (ft_strequ((*argv)[0], "-v"))
+			input->opt |= verbose;
+		else if (ft_strequ((*argv)[0], "-f"))
+			save_input_file_name(input, argc, argv);
+		else
+			break ;
+		ft_step_args(argc, argv);
+	}
+	return ;
+}
 
 static t_input		*read_input_data(int *argc, char ***argv)
 {
@@ -19,6 +34,7 @@ static t_input		*read_input_data(int *argc, char ***argv)
 
 	ft_step_args(argc, argv);
 	input = (t_input *)ft_memalloc(sizeof(*input));
+	read_opt(input, argc, argv);
 	read_g_op_tab(input);
 	fd = 0;
 	input->file_content = read_input_file(fd, &input->file_content_size);
@@ -37,11 +53,14 @@ int					main(int argc, char **argv)
 	asm_code = parse_instructions(input, input->file_content,
 													input->file_content_size);
 	cpu->PC = asm_code->file_content + sizeof(*asm_code->header);
+	cpu->program_start_ptr = cpu->PC;
 	instruction = parse_instruction(input, cpu->PC);
 	while (*instruction->start_p > 0 && *instruction->start_p < 17)
 	{
 		if (cpu->PC == instruction->start_p)
 		{
+			if (input->opt & verbose)
+				print_instruction(input, instruction, asm_code->file_content);
 			if (instruction->opcode == e_live)
 				exec_live(cpu, instruction, asm_code);
 			else if (instruction->opcode == e_ld)
@@ -74,5 +93,7 @@ int					main(int argc, char **argv)
 		}
 		instruction = parse_instruction(input, cpu->PC);
 	}
+	free(input->g_op_tab);
+	free(input);
 	return (0);
 }

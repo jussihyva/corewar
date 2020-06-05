@@ -6,7 +6,7 @@
 /*   By: ubuntu <ubuntu@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/05 13:47:56 by ubuntu            #+#    #+#             */
-/*   Updated: 2020/06/05 17:53:07 by ubuntu           ###   ########.fr       */
+/*   Updated: 2020/06/05 20:11:06 by ubuntu           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,10 +70,10 @@ void			exec_st(t_cpu *cpu, t_instruction *instruction,
 	{
 		i = instruction->param[1].value;
 		p = cpu->pc + i;
-		p[0] = (cpu->reg[instruction->param[0].value] >> (8 * 3)) * 0xff;
-		p[1] = (cpu->reg[instruction->param[0].value] >> (8 * 2)) * 0xff;
-		p[2] = (cpu->reg[instruction->param[0].value] >> (8 * 1)) * 0xff;
-		p[3] = (cpu->reg[instruction->param[0].value] >> (8 * 0)) * 0xff;
+		p[0] = (cpu->reg[instruction->param[0].value] >> (8 * 3)) & 0xff;
+		p[1] = (cpu->reg[instruction->param[0].value] >> (8 * 2)) & 0xff;
+		p[2] = (cpu->reg[instruction->param[0].value] >> (8 * 1)) & 0xff;
+		p[3] = (cpu->reg[instruction->param[0].value] >> (8 * 0)) & 0xff;
 	}
 	else
 	{

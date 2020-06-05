@@ -6,11 +6,20 @@
 /*   By: ubuntu <ubuntu@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/12 11:44:17 by ubuntu            #+#    #+#             */
-/*   Updated: 2020/06/05 17:36:32 by ubuntu           ###   ########.fr       */
+/*   Updated: 2020/06/05 19:21:32 by ubuntu           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "decoder.h"
+
+t_header		*read_header(char *file_content)
+{
+	t_header	*header;
+
+	header = (t_header *)ft_memalloc(sizeof(*header));
+	ft_memcpy(header, file_content, sizeof(*header));
+	return (header);
+}
 
 t_asm_code		*initialize_asm_code(t_input *input, char *file_content)
 {
@@ -23,15 +32,6 @@ t_asm_code		*initialize_asm_code(t_input *input, char *file_content)
 	asm_code->file_content = file_content;
 	asm_code->g_op_tab = input->g_op_tab;
 	return (asm_code);
-}
-
-t_header		*read_header(char *file_content)
-{
-	t_header	*header;
-
-	header = (t_header *)ft_memalloc(sizeof(*header));
-	ft_memcpy(header, file_content, sizeof(*header));
-	return (header);
 }
 
 void			print_params(t_op_param *param)

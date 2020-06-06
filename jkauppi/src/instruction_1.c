@@ -6,13 +6,13 @@
 /*   By: ubuntu <ubuntu@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/11 13:17:12 by ubuntu            #+#    #+#             */
-/*   Updated: 2020/06/01 16:33:44 by ubuntu           ###   ########.fr       */
+/*   Updated: 2020/06/05 19:25:18 by ubuntu           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "decoder.h"
 
-static int				read_param(char **p, int size, int length)
+static int			read_param(char **p, int size, int length)
 {
 	int				param;
 	short int		param_short;
@@ -40,7 +40,7 @@ static int				read_param(char **p, int size, int length)
 	return (param);
 }
 
-static void				read_parameters(int coding_byte, int label_size, char **p,
+static void			read_parameters(int coding_byte, int label_size, char **p,
 															t_op_param *param)
 {
 	size_t			i;
@@ -64,7 +64,7 @@ static void				read_parameters(int coding_byte, int label_size, char **p,
 	return ;
 }
 
-static int				specal_coding(int opcode)
+static int			specal_coding(int opcode)
 {
 	int			coding_byte;
 
@@ -78,7 +78,7 @@ static int				specal_coding(int opcode)
 	return (coding_byte);
 }
 
-t_instruction			*parse_instruction(t_input *input, char *p)
+t_instruction		*parse_instruction(t_input *input, char *p)
 {
 	int				opcode;
 	int				coding_byte;
@@ -103,7 +103,7 @@ t_instruction			*parse_instruction(t_input *input, char *p)
 	return (instruction);
 }
 
-t_asm_code				*parse_instructions(t_input *input, char *file_content,
+t_asm_code			*parse_instructions(t_input *input, char *file_content,
 																ssize_t size)
 {
 	char			*end_p;
@@ -112,12 +112,7 @@ t_asm_code				*parse_instructions(t_input *input, char *file_content,
 	t_instruction	*instruction;
 	t_list			*elem;
 
-	asm_code = (t_asm_code *)ft_memalloc(sizeof(*asm_code));
-	asm_code->instruction_lst =
-					(t_list **)ft_memalloc(sizeof(*asm_code->instruction_lst));
-	asm_code->header = read_header(file_content);
-	asm_code->file_content = file_content;
-	asm_code->g_op_tab = input->g_op_tab;
+	asm_code = initialize_asm_code(input, file_content);
 	end_p = file_content + size;
 	p = file_content + sizeof(*asm_code->header);
 	while (p < end_p)
@@ -131,9 +126,7 @@ t_asm_code				*parse_instructions(t_input *input, char *file_content,
 		}
 		else
 		{
-			ft_printf("%08x: ", p - file_content);
-			ft_printf(".");
-			ft_printf("\n");
+			ft_printf("%08x: .\n", p - file_content);
 			p++;
 		}
 	}

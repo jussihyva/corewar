@@ -6,7 +6,7 @@
 #    By: ubuntu <ubuntu@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/05/05 11:36:37 by ubuntu            #+#    #+#              #
-#    Updated: 2020/06/01 16:19:23 by ubuntu           ###   ########.fr        #
+#    Updated: 2020/06/05 14:32:52 by ubuntu           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -26,7 +26,8 @@ SRC_FOLDER	=	src
 NAME1_MAIN	=	src/decoder.c
 NAME2_MAIN	=	src/cpu.c
 SRC			=	input_1.c memory_1.c print_hex.c print_asm.c op.c \
-				instruction_1.c instruction_2.c execution_1.c
+				instruction_1.c instruction_2.c \
+				execution_1.c execution_2.c execution_3.c
 
 OBJ_FOLDER	=	obj
 OBJ			=	$(addprefix $(OBJ_FOLDER)/, $(patsubst %.c, %.o, $(SRC)))

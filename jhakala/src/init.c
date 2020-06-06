@@ -20,7 +20,8 @@ t_champ *init_champ(FILE *fp)
   champ->name = get_name(fp);
   champ->comment = get_comment(fp);
   champ->lines = get_lines(fp);
-  print_lines(champ);
+  //  print_lines(champ);
   champ->size = 0;
+  champ->labels = next_row(champ);
   return (champ);
 }

@@ -48,7 +48,7 @@ int main(int ac, char **av)
   if (ac == 2 && (fd1 = open(av[1], O_RDONLY)) > 0)
     {
       fp = fopen(av[1], "r");
-      name = copy_name(av[1]); //av[1].s -> av[1].cor
+      name = copy_name(av[1], 1); //av[1].s -> av[1].cor // 0->same directory as original, 0 != atm directory
       fd2 = open(name, O_WRONLY | O_CREAT | O_TRUNC, 0644); //if no av[1].cor then make a new, with chmod 644
       //      printf("name = %s, name_len = %zu\n", name, strlen(name));
       champ = init_champ(fp);

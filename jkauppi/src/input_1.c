@@ -6,7 +6,7 @@
 /*   By: ubuntu <ubuntu@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/07 18:30:16 by ubuntu            #+#    #+#             */
-/*   Updated: 2020/05/12 19:56:52 by ubuntu           ###   ########.fr       */
+/*   Updated: 2020/06/05 11:24:53 by ubuntu           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,22 @@ void			ft_step_args(int *argc, char ***argv)
 {
 	(*argc)--;
 	(*argv)++;
+	return ;
+}
+
+void			save_input_file_name(t_input *input, int *argc, char ***argv)
+{
+	if (*argc > 1)
+	{
+		if (!(input->opt & map_file))
+		{
+			input->input_file = ft_strdup((*argv)[1]);
+			input->opt |= map_file;
+		}
+		ft_step_args(argc, argv);
+	}
+	else
+		input->error = input_file_missing;
 	return ;
 }
 

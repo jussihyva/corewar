@@ -13,12 +13,12 @@ int statement_selection(char *line)
   i -= j;
   word = (char*)malloc(sizeof(char) * (i + 1));
   printf("line = %s -> ", line);  
-  printf("i = %d, ", i);
+  //  printf("i = %d, ", i);
   while (++k < i)
     word[k] = line[j + k];
   word[k] = '\0';
   i = 0;
-  printf("word = %s -> ", word);
+  //  printf("word = %s -> ", word);
   strcmp(word, "live") == 0 ? i = 1 : 0;
   strcmp(word, "ld") == 0 ? i = 2 : 0;
   strcmp(word, "st") == 0 ? i = 3 : 0;

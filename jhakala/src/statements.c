@@ -1,6 +1,11 @@
 #include "test.h"
 #include "op.h"
 
+t_type	g_type[17] = {
+	{cmd_empty}, {cmd_live}, {cmd_ld}, {cmd_st}, {cmd_add}, {cmd_sub}, {cmd_and}, {cmd_or}, {cmd_xor},
+	{cmd_zjmp}, {cmd_ldi}, {cmd_sti}, {cmd_fork}, {cmd_lld}, {cmd_lldi}, {cmd_lfork}, {cmd_aff}  
+};
+
 void add_label(t_label **alst, t_label *new)
 {
   new->next = *alst;
@@ -41,20 +46,25 @@ int is_label(char *str)
   
 t_label *next_row(t_champ *champ)
 {
-  t_line *line;
-  t_label *lst = NULL;
+	t_line *line;
+	t_label *lst = NULL;
+	int i = 0;
 
-  line = champ->lines;
-  while (line)
-    {
-      if (is_label(line->str) == 1)
-	add_label(&lst, new_label(champ, line->str));
-      else
+	line = champ->lines;
+	while (line)
 	{
-	  printf("command:%d\n", statement_selection(line->str));
+		printf("champ->size:%d\n", champ->size);
+		if (is_label(line->str) == 1)
+			add_label(&lst, new_label(champ, line->str));
+		else
+		{
+			i = statement_selection(line->str);
+			g_type[i].f(champ, line->str);
+//			printf("command:%d\n", i);
+		}
+		line = line->next;
 	}
-      line = line->next;
-    }
-  return (lst);
+	printf("champ->size:%d\n", champ->size);
+	return (lst);
 }
 	  

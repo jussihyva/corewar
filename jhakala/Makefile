@@ -3,7 +3,10 @@ NAME = prog
 SRC = main.c \
 	utils.c \
 	get.c \
-	init.c
+	init.c \
+	statements.c \
+	statement_selection.c \
+	cmds.c
 
 S_DIR = src
 O_DIR = obj

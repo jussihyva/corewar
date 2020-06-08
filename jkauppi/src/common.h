@@ -6,7 +6,7 @@
 /*   By: ubuntu <ubuntu@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/12 19:48:41 by ubuntu            #+#    #+#             */
-/*   Updated: 2020/06/05 20:12:58 by ubuntu           ###   ########.fr       */
+/*   Updated: 2020/06/08 20:33:22 by ubuntu           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,6 +87,7 @@ typedef struct		s_input
 	t_op			*g_op_tab;
 	char			*input_file;
 	int				player_number;
+	int				num_of_instructions_to_execute;
 }					t_input;
 
 typedef struct		s_asm_code

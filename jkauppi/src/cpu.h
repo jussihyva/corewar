@@ -6,7 +6,7 @@
 /*   By: ubuntu <ubuntu@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/12 19:34:42 by ubuntu            #+#    #+#             */
-/*   Updated: 2020/06/09 13:19:20 by ubuntu           ###   ########.fr       */
+/*   Updated: 2020/06/09 21:37:24 by ubuntu           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@ typedef struct		s_cpu
 	int				is_live;
 	int				carry;
 	char			*pc;
+	int				current_cycle_to_die;
 	int				cycles_to_die;
 }					t_cpu;
 

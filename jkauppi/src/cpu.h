@@ -6,7 +6,7 @@
 /*   By: ubuntu <ubuntu@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/12 19:34:42 by ubuntu            #+#    #+#             */
-/*   Updated: 2020/06/08 15:02:14 by ubuntu           ###   ########.fr       */
+/*   Updated: 2020/06/09 13:19:20 by ubuntu           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@ typedef struct		s_cpu
 	int				is_live;
 	int				carry;
 	char			*pc;
+	int				cycles_to_die;
 }					t_cpu;
 
 void				exec_live(t_cpu *cpu, t_instruction *instruction,

@@ -13,11 +13,12 @@
 .name "Indirect_label"
 .comment "How indirect jump works"
 
-l2:		sti r1, %:live, %0
-		ld %-5, r2;
-		sti r2, %:indir, %0
+l2:		sti r1, :indir, %0
+		ld :indir, r2;
+		sti r2, %:live, %1
 		and r1, %0, r1
+		zjmp %:live
 
-indir:	zjmp %:l2
+indir:	zjmp %:live
 live:	live %1
-		zjmp :indir
+		zjmp %:live

@@ -6,7 +6,7 @@
 /*   By: ubuntu <ubuntu@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/12 19:32:46 by ubuntu            #+#    #+#             */
-/*   Updated: 2020/06/08 20:34:59 by ubuntu           ###   ########.fr       */
+/*   Updated: 2020/06/09 13:21:29 by ubuntu           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,6 +86,7 @@ static void			print_cpu(t_cpu *cpu)
 		ft_printf(" r%d=%d", reg, cpu->reg[reg]);
 	ft_printf(" is_live=%d", cpu->is_live);
 	ft_printf(" carry=%d", cpu->carry);
+	ft_printf(" cycles_to_die=%d", cpu->cycles_to_die);
 	ft_printf("\n");
 	return ;
 }
@@ -97,12 +98,21 @@ static void			execute_instructions(t_player *player, t_input *input,
 	void			(**op_function)(t_cpu *, t_instruction *, t_asm_code *);
 
 	cpu->reg[1] = player->player_number;
+	cpu->cycles_to_die = CYCLE_TO_DIE;
 	op_function = set_op_functions();
 	instruction = parse_instruction(input, cpu->pc);
 	while (*instruction->start_p > 0 && *instruction->start_p < 17 &&
 									input->num_of_instructions_to_execute &&
 												cpu->pc == instruction->start_p)
 	{
+		cpu->cycles_to_die -= asm_code->g_op_tab[instruction->opcode].cycles;
+		if (cpu->cycles_to_die <= 0)
+		{
+			if (cpu->is_live)
+				cpu->cycles_to_die = CYCLE_TO_DIE;
+			else
+				break ;
+		}
 		if (input->opt & verbose)
 			print_instruction(input, instruction, asm_code->file_content);
 		if (instruction->opcode)

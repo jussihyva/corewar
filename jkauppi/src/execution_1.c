@@ -6,7 +6,7 @@
 /*   By: ubuntu <ubuntu@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/13 09:10:10 by ubuntu            #+#    #+#             */
-/*   Updated: 2020/06/08 15:17:53 by ubuntu           ###   ########.fr       */
+/*   Updated: 2020/06/09 12:52:09 by ubuntu           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,12 @@ void			exec_zjmp(t_cpu *cpu, t_instruction *instruction,
 {
 	(void)asm_code;
 	if (instruction->param[0].type == DIR_CODE)
-		cpu->pc += instruction->param[0].value;
+	{
+		if (cpu->carry)
+			cpu->pc += instruction->param[0].value;
+		else
+			cpu->pc = instruction->start_p + instruction->length;
+	}
 	else
 	{
 		ft_printf("%08x: ", instruction->start_p - asm_code->file_content);
@@ -84,6 +89,7 @@ void			exec_sub(t_cpu *cpu, t_instruction *instruction,
 	cpu->reg[instruction->param[2].value] =
 										cpu->reg[instruction->param[0].value] -
 										cpu->reg[instruction->param[1].value];
+	cpu->carry = (cpu->reg[instruction->param[2].value]) ? 0 : 1;
 	cpu->pc = instruction->start_p + instruction->length;
 	return ;
 }

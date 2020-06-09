@@ -6,7 +6,7 @@
 /*   By: ubuntu <ubuntu@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/12 19:32:46 by ubuntu            #+#    #+#             */
-/*   Updated: 2020/06/09 13:21:29 by ubuntu           ###   ########.fr       */
+/*   Updated: 2020/06/09 22:59:45 by ubuntu           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,7 +98,8 @@ static void			execute_instructions(t_player *player, t_input *input,
 	void			(**op_function)(t_cpu *, t_instruction *, t_asm_code *);
 
 	cpu->reg[1] = player->player_number;
-	cpu->cycles_to_die = CYCLE_TO_DIE;
+	cpu->current_cycle_to_die = CYCLE_TO_DIE;
+	cpu->cycles_to_die = cpu->current_cycle_to_die;
 	op_function = set_op_functions();
 	instruction = parse_instruction(input, cpu->pc);
 	while (*instruction->start_p > 0 && *instruction->start_p < 17 &&
@@ -109,7 +110,12 @@ static void			execute_instructions(t_player *player, t_input *input,
 		if (cpu->cycles_to_die <= 0)
 		{
 			if (cpu->is_live)
-				cpu->cycles_to_die = CYCLE_TO_DIE;
+			{
+				if (cpu->is_live >= NBR_LIVE)
+					cpu->current_cycle_to_die -= CYCLE_DELTA;
+				cpu->cycles_to_die = cpu->current_cycle_to_die;
+				cpu->is_live = 0;
+			}
 			else
 				break ;
 		}

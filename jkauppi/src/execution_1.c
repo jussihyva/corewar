@@ -6,7 +6,7 @@
 /*   By: ubuntu <ubuntu@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/13 09:10:10 by ubuntu            #+#    #+#             */
-/*   Updated: 2020/06/09 12:52:09 by ubuntu           ###   ########.fr       */
+/*   Updated: 2020/06/09 23:20:42 by ubuntu           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,12 @@ void			exec_ldi(t_cpu *cpu, t_instruction *instruction,
 	i = 0;
 	if (instruction->param[0].type == DIR_CODE)
 		i += instruction->param[0].value;
+	else if (instruction->param[0].type == IND_CODE)
+	{
+		p = cpu->pc + instruction->param[0].value;
+		i += p[0] << (8 * 1);
+		i += p[1] << (8 * 0);
+	}
 	else
 		ft_printf("%08p: %p\n", asm_code->file_content,
 											cpu->pc - asm_code->file_content);

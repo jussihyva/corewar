@@ -6,7 +6,7 @@
 #    By: ubuntu <ubuntu@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/05/05 11:36:37 by ubuntu            #+#    #+#              #
-#    Updated: 2020/06/05 14:32:52 by ubuntu           ###   ########.fr        #
+#    Updated: 2020/06/10 10:11:16 by ubuntu           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,7 +14,7 @@ NAME1				= decoder
 NAME2				= cpu
 CC					=	clang
 C_FLAGS				=	-g -Wall -Werror -Wextra
-INCLUDES			=	-I lib/lib_ft -I lib/lib_ftprintf
+INCLUDES			=	-I lib/lib_ft -I lib/lib_ftprintf/src
 HEADER				=	src/decoder.h src/op.h src/cpu.h
 LIBFT_FOLDER		=	lib/lib_ft
 LIBFT_PRINTF_FOLDER	=	lib/lib_ftprintf

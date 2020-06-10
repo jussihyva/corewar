@@ -23,5 +23,6 @@ t_champ *init_champ(FILE *fp)
   //  print_lines(champ);
   champ->size = 0;
   champ->labels = next_row(champ);
+  champ->counter = 0;
   return (champ);
 }

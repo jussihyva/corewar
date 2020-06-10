@@ -6,7 +6,7 @@
 /*   By: ubuntu <ubuntu@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/12 19:32:46 by ubuntu            #+#    #+#             */
-/*   Updated: 2020/06/05 20:04:35 by ubuntu           ###   ########.fr       */
+/*   Updated: 2020/06/09 22:59:45 by ubuntu           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,11 @@ static void			read_opt(t_input *input, int *argc, char ***argv)
 			ft_step_args(argc, argv);
 			input->player_number = ft_atoi(*argv[0]);
 		}
+		else if (ft_strequ((*argv)[0], "-i"))
+		{
+			ft_step_args(argc, argv);
+			input->num_of_instructions_to_execute = ft_atoi(*argv[0]);
+		}
 		else
 			break ;
 		ft_step_args(argc, argv);
@@ -39,6 +44,7 @@ static t_input		*read_input_data(int *argc, char ***argv)
 
 	ft_step_args(argc, argv);
 	input = (t_input *)ft_memalloc(sizeof(*input));
+	input->num_of_instructions_to_execute = -1;
 	read_opt(input, argc, argv);
 	read_g_op_tab(input);
 	fd = 0;
@@ -71,6 +77,20 @@ static void			*set_op_functions(void)
 	return (op_function);
 }
 
+static void			print_cpu(t_cpu *cpu)
+{
+	int			reg;
+	ft_printf("%85s", "CPU: ");
+	reg = 0; 
+	while (++reg < 8)
+		ft_printf(" r%d=%d", reg, cpu->reg[reg]);
+	ft_printf(" is_live=%d", cpu->is_live);
+	ft_printf(" carry=%d", cpu->carry);
+	ft_printf(" cycles_to_die=%d", cpu->cycles_to_die);
+	ft_printf("\n");
+	return ;
+}
+
 static void			execute_instructions(t_player *player, t_input *input,
 											t_cpu *cpu, t_asm_code *asm_code)
 {
@@ -78,11 +98,27 @@ static void			execute_instructions(t_player *player, t_input *input,
 	void			(**op_function)(t_cpu *, t_instruction *, t_asm_code *);
 
 	cpu->reg[1] = player->player_number;
+	cpu->current_cycle_to_die = CYCLE_TO_DIE;
+	cpu->cycles_to_die = cpu->current_cycle_to_die;
 	op_function = set_op_functions();
 	instruction = parse_instruction(input, cpu->pc);
 	while (*instruction->start_p > 0 && *instruction->start_p < 17 &&
+									input->num_of_instructions_to_execute &&
 												cpu->pc == instruction->start_p)
 	{
+		cpu->cycles_to_die -= asm_code->g_op_tab[instruction->opcode].cycles;
+		if (cpu->cycles_to_die <= 0)
+		{
+			if (cpu->is_live)
+			{
+				if (cpu->is_live >= NBR_LIVE)
+					cpu->current_cycle_to_die -= CYCLE_DELTA;
+				cpu->cycles_to_die = cpu->current_cycle_to_die;
+				cpu->is_live = 0;
+			}
+			else
+				break ;
+		}
 		if (input->opt & verbose)
 			print_instruction(input, instruction, asm_code->file_content);
 		if (instruction->opcode)
@@ -93,7 +129,11 @@ static void			execute_instructions(t_player *player, t_input *input,
 					input->g_op_tab[instruction->opcode].instruction_name);
 			break ;
 		}
+		if (input->opt & verbose)
+			print_cpu(cpu);
 		instruction = parse_instruction(input, cpu->pc);
+		if (input->num_of_instructions_to_execute != -1)
+			input->num_of_instructions_to_execute--;
 	}
 	ft_printf("%p != %p\n", cpu->pc, instruction->start_p);
 	free(op_function);

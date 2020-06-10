@@ -9,7 +9,7 @@
 
 typedef struct	s_label
 {
-  char			*name;
+	char		*name;
   int			place;
   struct s_label *next;
 }				t_label;
@@ -18,6 +18,10 @@ typedef struct	s_line
 {
   char			*str;
   struct s_line	*next;
+	int			op_code;
+	char		*arg1;
+	char		*arg2;
+	char		*arg3;
 }				t_line;
 
 typedef struct	s_champ
@@ -28,6 +32,8 @@ typedef struct	s_champ
   int			size;
   struct s_line *lines;
   struct s_label *labels;
+	//tmp
+	int			counter;
 }				t_champ;
 
 typedef struct	s_type
@@ -62,27 +68,27 @@ t_label		*next_row(t_champ *champ);
 /*
 ** statement_selection.c
 */
-int			statement_selection(char *line);
+int			statement_selection(char *line, int i);
 
 /*
 ** cmd:s
 */
-void		cmd_empty(t_champ *champ, char *str);
-void		cmd_live(t_champ *champ, char *str);
-void		cmd_ld(t_champ *champ, char *str);
-void		cmd_st(t_champ *champ, char *str);
-void		cmd_add(t_champ *champ, char *str);
-void		cmd_sub(t_champ *champ, char *str);
-void		cmd_and(t_champ *champ, char *str);
-void		cmd_or(t_champ *champ, char *str);
-void		cmd_xor(t_champ *champ, char *str);
-void		cmd_zjmp(t_champ *champ, char *str);
-void		cmd_ldi(t_champ *champ, char *str);
-void		cmd_sti(t_champ *champ, char *str);
-void		cmd_fork(t_champ *champ, char *str);
-void		cmd_lld(t_champ *champ, char *str);
-void		cmd_lldi(t_champ *champ, char *str);
-void		cmd_lfork(t_champ *champ, char *str);
-void		cmd_aff(t_champ *champ, char *str);
+void		cmd_empty(t_champ *champ, t_line *line, char *str, int j);
+void		cmd_live(t_champ *champ, t_line *line, char *str, int j);
+void		cmd_ld(t_champ *champ, t_line *line, char *str, int j);
+void		cmd_st(t_champ *champ, t_line *line, char *str, int j);
+void		cmd_add(t_champ *champ, t_line *line, char *str, int j);
+void		cmd_sub(t_champ *champ, t_line *line, char *str, int j);
+void		cmd_and(t_champ *champ, t_line *line, char *str, int j);
+void		cmd_or(t_champ *champ, t_line *line, char *str, int j);
+void		cmd_xor(t_champ *champ, t_line *line, char *str, int j);
+void		cmd_zjmp(t_champ *champ, t_line *line, char *str, int j);
+void		cmd_ldi(t_champ *champ, t_line *line, char *str, int j);
+void		cmd_sti(t_champ *champ, t_line *line, char *str, int j);
+void		cmd_fork(t_champ *champ, t_line *line, char *str, int j);
+void		cmd_lld(t_champ *champ, t_line *line, char *str, int j);
+void		cmd_lldi(t_champ *champ, t_line *line, char *str, int j);
+void		cmd_lfork(t_champ *champ, t_line *line, char *str, int j);
+void		cmd_aff(t_champ *champ, t_line *line, char *str, int j);
 
 #endif

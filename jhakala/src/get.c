@@ -69,6 +69,7 @@ t_line *new_line(char *line, int size)
     new->str[size - 1] = '\0';
   else
     new->str[size] = '\0';
+  new->op_code = -1;
   new->next = NULL;
   return (new);
 }

@@ -55,36 +55,43 @@ void add_line(t_line **alst, t_line *new)
   *alst = new;
 }
 
-t_line *new_line(char *line, int size)
+t_line *new_line(t_champ *champ, char *line)
 {
   t_line *new;
+  int j, i;
+
   new = (t_line*)malloc(sizeof(t_line));
-  // future-> trim line here(spaces, tabs)
-  new->str = (char*)malloc(sizeof(char) * size);
-  for (int i = 0; i < size; i++)
-    {
-      new->str[i] = line[i];
-    }
-  if (line[size - 1] == '\n')
-    new->str[size - 1] = '\0';
-  else
-    new->str[size] = '\0';
-  new->op_code = -1;
   new->next = NULL;
+  if ((j = is_label(line)) > 0)
+  {
+	  add_label(&champ->labels, new_label(champ, line));
+	  j = skip_whitespace(line, j + 1);
+	  i = statement_selection(new, line, j);
+	  champ->size += i;
+//	  printf("parse + cmd.I = %d\n", i);
+  }
+  else
+  {
+	  j = skip_whitespace(line, 0);
+	  i = statement_selection(new, line, j);
+	  champ->size += i;
+//	  printf("cmd.I = %d\n", i);
+  }
   return (new);
 }
 
-t_line *get_lines(FILE *fp)
+t_line *get_lines(t_champ *champ, FILE *fp)
 {
-  char *line = NULL;
+  char *line;
   int i;
   size_t linecap = 0;
   t_line *lines = NULL;
+  
   while ((i = getline(&line, &linecap, fp)) > 0)
   {
-    if (line[0] != '\n' && line[0] != COMMENT_CHAR)
+	  if (line[0] != '\n' && line[0] != COMMENT_CHAR)
       {
-	add_line(&lines, new_line(line, i));
+		  add_line(&lines, new_line(champ, line));
       }
   }
   free(line);

@@ -14,15 +14,16 @@ void print_lines(t_champ *champ)
 
 t_champ *init_champ(FILE *fp)
 {
-  t_champ *champ;
-
-  champ = (t_champ*)malloc(sizeof(t_champ));
-  champ->name = get_name(fp);
-  champ->comment = get_comment(fp);
-  champ->lines = get_lines(fp);
-  //  print_lines(champ);
-  champ->size = 0;
-  champ->labels = next_row(champ);
-  champ->counter = 0;
-  return (champ);
+	t_champ *champ;
+	
+	champ = (t_champ*)malloc(sizeof(t_champ));
+	champ->name = get_name(fp);
+	champ->comment = get_comment(fp);
+	champ->size = 0;
+	champ->labels = NULL;
+	champ->lines = get_lines(champ, fp);
+//  print_lines(champ);
+//  champ->labels = next_row(champ);
+//  champ->counter = 0;
+	return (champ);
 }

@@ -1,40 +1,71 @@
 #include "test.h"
 #include "op.h"
 
-int statement_selection(char *line, int i)
+int calc_size(t_line *new)
 {
-	char *word;
-	int j, k = -1;
+	//just placeholder for now
+	return (new->op_code);
+}
+int	arg_size(char *line, int *i)
+{
+	int len = 0;
+	if (line[*i] == SEPARATOR_CHAR)
+		(*i)++;
+	*i = skip_whitespace(line, *i);
+	while (line[*i] != ' ' && line[*i] != '	' && line[*i] != SEPARATOR_CHAR && line[*i] != '\n' && line[*i])
+	{
+		len++;
+		(*i)++;
+	}
+	return (len);
+}
+
+int	new_cmd(t_line *new, char *line, int i, int j)
+{
+	int k = -1, m, len;
 	
-	i = skip_whitespace(line, i);
-	j = i;
-	while (line[i] && line[i] != ' ' && line[i] != '	')
-		i++;
-	i -= j;
-	word = (char*)malloc(sizeof(char) * (i + 1));
-//	printf("line = %s -> ", line);  
-	//  printf("i = %d, ", i);
-	while (++k < i)
-		word[k] = line[j + k];
-	word[k] = '\0';
-	i = 0;
-	//  printf("word = %s -> ", word);
-	strcmp(word, "live") == 0 ? i = 1 : 0;
-	strcmp(word, "ld") == 0 ? i = 2 : 0;
-	strcmp(word, "st") == 0 ? i = 3 : 0;
-	strcmp(word, "add") == 0 ? i = 4 : 0;
-	strcmp(word, "sub") == 0 ? i = 5 : 0;
-	strcmp(word, "and") == 0 ? i = 6 : 0;
-	strcmp(word, "or") == 0 ? i = 7 : 0;
-	strcmp(word, "xor") == 0 ? i = 8 : 0;
-	strcmp(word, "zjmp") == 0 ? i = 9 : 0;
-	strcmp(word, "ldi") == 0 ? i = 10 : 0;
-	strcmp(word, "sti") == 0 ? i = 11 : 0;
-	strcmp(word, "fork") == 0 ? i = 12 : 0;
-	strcmp(word, "lld") == 0 ? i = 13 : 0;
-	strcmp(word, "lldi") == 0 ? i = 14 : 0;
-	strcmp(word, "lfork") == 0 ? i = 15 : 0;
-	strcmp(word, "aff") == 0 ? i = 16 : 0;
+	i += g_op_tab[j].size;
+	new->n_arg = g_op_tab[j].n_arg;
+	new->op_code = g_op_tab[j].op_code;
+	new->arg = (char**)malloc(sizeof(char*) * new->n_arg);
+	while (++k < new->n_arg)
+	{
+		len = arg_size(line, &i);
+		new->arg[k] = (char*)malloc(sizeof(char) * (len + 1));
+		m = -1;
+		while (++m < len)
+			new->arg[k][m] = line[i - len + m];
+		new->arg[k][m] = '\0';
+	}
+	//comment for testing
+	print_line(new, j, 0);
+	return (calc_size(new));
+}
+int statement_selection(t_line *new, char *line, int i)
+{
+	int j = 0;
+	char *word;
+
+	word = (char*)malloc(sizeof(char) * 6);
+	while (j < 5)
+	{
+		if (j > 1 && word[j - 1] == '\0')
+			word[j] = '\0';
+		else
+			word[j] = line[i + j];
+		j++;
+	}
+	word[5] = '\0';
+	j = 0;
+	while (j < 16)
+	{
+		if (strncmp(word, g_op_tab[j].str, g_op_tab[j].size) == 0)
+		{
+			free(word);
+			return (new_cmd(new, line, i, j));
+		}
+		j++;
+	}
 	free(word);
-	return (i);
+	return (j);
 }

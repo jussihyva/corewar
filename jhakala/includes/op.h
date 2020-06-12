@@ -6,7 +6,7 @@
 /*   By: zaz <marvin@42.fr>                         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2013/10/04 11:33:27 by zaz               #+#    #+#             */
-/*   Updated: 2013/11/06 14:21:46 by zaz              ###   ########.fr       */
+/*   Updated: 2020/06/12 23:47:10 by jhakala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,12 +28,12 @@
 #define MAX_ARGS_NUMBER			4
 #define MAX_PLAYERS	       		4
 #define MEM_SIZE		       	(4*1024)
-#define IDX_MOD				(MEM_SIZE / 8)
+#define IDX_MOD					(MEM_SIZE / 8)
 #define CHAMP_MAX_SIZE			(MEM_SIZE / 6)
 
 #define COMMENT_CHAR			'#'
-#define LABEL_CHAR			':'
-#define DIRECT_CHAR			'%'
+#define LABEL_CHAR				':'
+#define DIRECT_CHAR				'%'
 #define SEPARATOR_CHAR			','
 
 #define LABEL_CHARS	       		"abcdefghijklmnopqrstuvwxyz_0123456789"
@@ -52,7 +52,7 @@
 **
 */
 
-typedef char	t_arg_type;
+//typedef char	t_arg_type;
 
 #define T_REG	       			1
 #define T_DIR	       			2
@@ -70,7 +70,8 @@ typedef char	t_arg_type;
 typedef struct		header_s
 {
   unsigned int		magic;
-  char			prog_name[PROG_NAME_LENGTH + 1];
+  char				prog_name[PROG_NAME_LENGTH + 1];
   unsigned int		prog_size;
   char	       		comment[COMMENT_LENGTH + 1];
-}      			header_t;
+}      				header_t;
+

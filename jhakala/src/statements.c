@@ -6,7 +6,7 @@
 /*   By: jhakala <jhakala@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/10 17:49:52 by jhakala           #+#    #+#             */
-/*   Updated: 2020/06/10 19:30:13 by jhakala          ###   ########.fr       */
+/*   Updated: 2020/06/12 22:49:38 by jhakala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,7 @@
 #include "test.h"
 #include "op.h"
 
-t_type	g_type[17] = {
-	{cmd_empty}, {cmd_live}, {cmd_ld}, {cmd_st}, {cmd_add}, {cmd_sub}, {cmd_and}, {cmd_or}, {cmd_xor},
-	{cmd_zjmp}, {cmd_ldi}, {cmd_sti}, {cmd_fork}, {cmd_lld}, {cmd_lldi}, {cmd_lfork}, {cmd_aff}  
-};
+// need to be renamed to ultils2.c or something
 
 void add_label(t_label **alst, t_label *new)
 {
@@ -58,37 +55,3 @@ int is_label(char *str)
 		return (i);
 	return (0);
 }
-
-/*
-** save label names in linked list and byte place from the start
-** get what statement it is 1-16, 0 is something different than statement (comment, label, error jne.)
-*/
-
-t_label *next_row(t_champ *champ)
-{
-	t_line *line;
-	t_label *lst = NULL;
-	int i = 0, j;
-
-	line = champ->lines;
-	while (line)
-	{
-		if ((j = is_label(line->str)) > 0)
-		{
-			add_label(&lst, new_label(champ, line->str));
-			//there might be cmd in the same row as label, if not statement selection returns 0, and row can be deleted
-			j = skip_whitespace(line->str, j + 1);
-			i = statement_selection(line->str, j);
-			g_type[i].f(champ, line, line->str, j);
-		}
-		else
-		{
-			i = statement_selection(line->str, 0);
-			g_type[i].f(champ, line, line->str, j);
-		}
-		printf("op_code = %d\n", line->op_code);
-		line = line->next;
-	}
-	return (lst);
-}
-	  

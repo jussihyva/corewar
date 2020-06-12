@@ -1,12 +1,13 @@
 NAME = prog
 
-SRC = main.c \
+SRC = op.c \
+	main.c \
 	utils.c \
 	get.c \
 	init.c \
 	statements.c \
 	statement_selection.c \
-	cmds.c
+	print.c
 
 S_DIR = src
 O_DIR = obj

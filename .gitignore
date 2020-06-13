@@ -3,3 +3,6 @@
 cpu
 decoder
 prog
+a.out
+jhakala/*.s
+jhakala/*.cor

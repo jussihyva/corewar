@@ -62,6 +62,7 @@ t_line *new_line(t_champ *champ, char *line)
 
   new = (t_line*)malloc(sizeof(t_line));
   new->next = NULL;
+  new->arg = NULL;
   if ((j = is_label(line)) > 0)
   {
 	  add_label(&champ->labels, new_label(champ, line));

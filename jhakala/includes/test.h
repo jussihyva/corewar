@@ -14,13 +14,23 @@ typedef struct		s_label
 	struct s_label 	*next;
 }					t_label;
 
+typedef struct		s_arg
+{
+	char			*str;
+	int				type;
+	struct s_arg	*next;
+}					t_arg;
+
 typedef struct		s_line
 {
 	char			*str;
 	struct s_line	*next;
 	int				op_code;
+	int				statement_code;
+	int				dir_size;
 	int				n_arg;
-	char			**arg;
+//	char			**arg;
+	struct s_arg	*arg;
 }					t_line;
 
 typedef struct		s_champ

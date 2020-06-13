@@ -20,27 +20,48 @@ int	arg_size(char *line, int *i)
 	return (len);
 }
 
+void	add_arg(t_arg **alst, t_arg *new)
+{
+	new->next = *alst;
+	*alst = new;
+}
+
+t_arg	*new_arg(char *line, int *i, int j)
+{
+	int len, m;
+	t_arg *arg;
+
+	arg = (t_arg*)malloc(sizeof(t_arg));
+	arg->next = NULL;
+	len = arg_size(line, &(*i));	
+	arg->str = (char*)malloc(sizeof(char) * (len + 1));
+	m = -1;
+	while (++m < len)
+		arg->str[m] = line[*i - len + m];
+	arg->str[m] = '\0';
+	//lel
+	j++;
+	return (arg);
+}
+	
 int	new_cmd(t_line *new, char *line, int i, int j)
 {
-	int k = -1, m, len;
+	int k = -1;
 	
 	i += g_op_tab[j].size;
 	new->n_arg = g_op_tab[j].n_arg;
 	new->op_code = g_op_tab[j].op_code;
-	new->arg = (char**)malloc(sizeof(char*) * new->n_arg);
+//	new->arg = (char**)malloc(sizeof(char*) * new->n_arg);
 	while (++k < new->n_arg)
 	{
-		len = arg_size(line, &i);
-		new->arg[k] = (char*)malloc(sizeof(char) * (len + 1));
-		m = -1;
-		while (++m < len)
-			new->arg[k][m] = line[i - len + m];
-		new->arg[k][m] = '\0';
+//need to rev these
+		add_arg(&new->arg, new_arg(line, &i, j));
 	}
 	//comment for testing
-	print_line(new, j, 0);
+	print_line(new, j, 1);
 	return (calc_size(new));
 }
+	
 int statement_selection(t_line *new, char *line, int i)
 {
 	int j = 0;

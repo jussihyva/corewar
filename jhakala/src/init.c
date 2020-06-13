@@ -1,18 +1,38 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   init.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: jhakala <jhakala@student.hive.fi>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/06/13 08:17:27 by jhakala           #+#    #+#             */
+/*   Updated: 2020/06/13 08:18:21 by jhakala          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+
 #include "test.h"
 #include "op.h"
 
-void print_lines(t_champ *champ)
+void	add_label(t_label **alst, t_label *new)
 {
-  t_line *line;
-  line = champ->lines;
-  while (line)
-    {
-      printf("%s\n", line->str);
-      line = line->next;
-    }
+	new->next = *alst;
+	*alst = new;
 }
 
-t_champ *init_champ(FILE *fp)
+void	add_arg(t_arg **alst, t_arg *new)
+{
+	new->next = *alst;
+	*alst = new;
+}
+
+void	add_cmd(t_cmd **alst, t_cmd *new)
+{
+	new->next = *alst;
+	*alst = new;
+}
+
+t_champ	*init_champ(FILE *fp)
 {
 	t_champ *champ;
 	
@@ -21,9 +41,6 @@ t_champ *init_champ(FILE *fp)
 	champ->comment = get_comment(fp);
 	champ->size = 0;
 	champ->labels = NULL;
-	champ->lines = get_lines(champ, fp);
-//  print_lines(champ);
-//  champ->labels = next_row(champ);
-//  champ->counter = 0;
+	champ->cmd = get_lines(champ, fp);
 	return (champ);
 }

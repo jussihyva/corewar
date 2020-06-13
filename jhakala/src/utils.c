@@ -1,5 +1,31 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   utils.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: jhakala <jhakala@student.hive.fi>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/06/13 08:22:09 by jhakala           #+#    #+#             */
+/*   Updated: 2020/06/13 08:22:11 by jhakala          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+
 #include "test.h"
 #include "op.h"
+
+int is_label(char *str)
+{
+    int i;
+
+    i = skip_whitespace(str, 0);
+    while (str[i] && is_that_char(str[i], LABEL_CHARS) == 1)
+        i++;
+    if (str[i] == LABEL_CHAR)
+        return (i);
+    return (0);
+}
+
 
 int is_that_char(char c, char *str)
 {
@@ -22,36 +48,36 @@ int skip_whitespace(char *str, int i)
 
 char *copy_name(char *original, int j)
 {
-  int len;
-  char *name;
-  char cor[] = "cor";
-
-  len = strlen(original);
-  if (j != 0)
+	int len;
+	char *name;
+	char cor[] = "cor";
+	
+	len = strlen(original);
+	if (j != 0)
     {
-      j = len - 1;
-      while (j > 0 && original[j] != '/')
-	j--;
-      len -= j;
-      if (original[j] == '/')
-	{
-	  j++;
-	  name = (char*)malloc(sizeof(char) * (len + 2));
-	  for (int i = 0; i < len - 2; i++)
-	    name[i] = original[j + i];
-	  for (int i = 0; i < 3; i++)
-	    name[len - 2 + i] = cor[i];
-	  name[len + 2] = '\0';
-	  return (name);
-	}
+		j = len - 1;
+		while (j > 0 && original[j] != '/')
+			j--;
+		len -= j;
+		if (original[j] == '/')
+		{
+			j++;
+			name = (char*)malloc(sizeof(char) * (len + 2));
+			for (int i = 0; i < len - 2; i++)
+				name[i] = original[j + i];
+			for (int i = 0; i < 3; i++)
+				name[len - 2 + i] = cor[i];
+			name[len + 2] = '\0';
+			return (name);
+		}
     }
-  else
-    len = strlen(original);
-  name = (char*)malloc(sizeof(char) * (len + 2));
-  for (int i = 0; i < len - 1; i++)
-    name[i] = original[j + i];
-  for (int i = 0; i < 3; i++)
-    name[len - 1 + i] = cor[i];
-  name[len + 2] = '\0';
-  return (name);
+	else
+		len = strlen(original);
+	name = (char*)malloc(sizeof(char) * (len + 2));
+	for (int i = 0; i < len - 1; i++)
+		name[i] = original[j + i];
+	for (int i = 0; i < 3; i++)
+		name[len - 1 + i] = cor[i];
+	name[len + 2] = '\0';
+	return (name);
 }

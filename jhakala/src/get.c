@@ -31,11 +31,11 @@ char *get_comment(FILE *fp)
   return(str);
 }
 
-void rev_lines(t_line **lst)
+void rev_lines(t_cmd **lst)
 {
-  t_line *prev;
-  t_line *cur;
-  t_line *next;
+  t_cmd *prev;
+  t_cmd *cur;
+  t_cmd *next;
 
   prev = NULL;
   cur = *lst;
@@ -49,53 +49,21 @@ void rev_lines(t_line **lst)
   *lst = prev;
 }
 
-void add_line(t_line **alst, t_line *new)
-{
-  new->next = *alst;
-  *alst = new;
-}
-
-t_line *new_line(t_champ *champ, char *line)
-{
-  t_line *new;
-  int j, i;
-
-  new = (t_line*)malloc(sizeof(t_line));
-  new->next = NULL;
-  new->arg = NULL;
-  if ((j = is_label(line)) > 0)
-  {
-	  add_label(&champ->labels, new_label(champ, line));
-	  j = skip_whitespace(line, j + 1);
-	  i = statement_selection(new, line, j);
-	  champ->size += i;
-//	  printf("parse + cmd.I = %d\n", i);
-  }
-  else
-  {
-	  j = skip_whitespace(line, 0);
-	  i = statement_selection(new, line, j);
-	  champ->size += i;
-//	  printf("cmd.I = %d\n", i);
-  }
-  return (new);
-}
-
-t_line *get_lines(t_champ *champ, FILE *fp)
+t_cmd *get_lines(t_champ *champ, FILE *fp)
 {
   char *line;
   int i;
   size_t linecap = 0;
-  t_line *lines = NULL;
+  t_cmd *cmd = NULL;
   
   while ((i = getline(&line, &linecap, fp)) > 0)
   {
 	  if (line[0] != '\n' && line[0] != COMMENT_CHAR)
       {
-		  add_line(&lines, new_line(champ, line));
+		  add_cmd(&cmd, new_cmd(champ, line));
       }
   }
   free(line);
-  rev_lines(&lines);
-  return (lines);
+  rev_lines(&cmd);
+  return (cmd);
 }

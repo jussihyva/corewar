@@ -6,7 +6,7 @@
 /*   By: jhakala <jhakala@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/13 08:11:05 by jhakala           #+#    #+#             */
-/*   Updated: 2020/06/13 09:50:29 by jhakala          ###   ########.fr       */
+/*   Updated: 2020/06/13 19:50:20 by jhakala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,5 +94,5 @@ void	parse_arg_type(t_arg *arg)
 		arg->label = arg_dir_label(arg->str, 1);
 	}
 	else
-		printf("	ERROR\n	ERROR\n	ERROR\nparse_arg_type\n");
+		printf("	ERROR\n	ERROR\n	ERROR\nparse_arg_type: %s\n", arg->str);
 }

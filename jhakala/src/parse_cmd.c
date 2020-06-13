@@ -3,8 +3,27 @@
 
 int calc_size(t_cmd *cmd)
 {
-	//just placeholder for now
-	return (cmd->op_code);
+	int size, i = -1;
+	t_arg *arg;
+	//op_code: + 1
+	size = 1;
+	//if statement_code: + 1
+	if (cmd->statement_code == 1)
+		size += 1;
+	arg = cmd->arg;
+	while (++i < cmd->n_arg)
+	{
+		if (arg->type == 1)
+			size += 1;
+		else if (arg->type == 2)
+			size += cmd->dir_size;
+		else if (arg->type == 3)
+			size += 2;
+		arg = arg->next;
+	}
+	//comment testing
+	printf("size of cmd: %d\n", size);
+	return (size);
 }
 int	arg_size(char *line, int *i)
 {
@@ -27,11 +46,11 @@ int	parse_cmd_to_args(t_cmd *cmd, char *line, int i, int j)
 	i += g_op_tab[j].size;
 	cmd->n_arg = g_op_tab[j].n_arg;
 	cmd->op_code = g_op_tab[j].op_code;
+	cmd->statement_code = g_op_tab[j].statement_code;
+	cmd->dir_size = g_op_tab[j].dir_size;
 	while (++k < cmd->n_arg)
-	{
-		//need to rev these
 		add_arg(&cmd->arg, new_arg(line, &i, j, k));
-	}
+	rev_arg(&cmd->arg);
 	//comment for testing
 	print_line(cmd, j, 1);
 	return (calc_size(cmd));
@@ -63,5 +82,5 @@ int parse_cmd(t_cmd *cmd, char *line, int i)
 		j++;
 	}
 	free(word);
-	return (j);
+	return (0);//for error, usually 0
 }

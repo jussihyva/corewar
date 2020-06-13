@@ -3,10 +3,11 @@ NAME = prog
 SRC = op.c \
 	main.c \
 	utils.c \
+	new.c \
 	get.c \
 	init.c \
-	statements.c \
-	statement_selection.c \
+	parse_cmd.c \
+	parse_arg.c \
 	print.c
 
 S_DIR = src

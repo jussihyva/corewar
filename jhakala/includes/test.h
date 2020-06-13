@@ -19,26 +19,27 @@ typedef struct		s_arg
 	char			*str;
 	int				type;
 	struct s_arg	*next;
+	//maybe
+	int				value;
+	char			*label;
 }					t_arg;
 
-typedef struct		s_line
+typedef struct		s_cmd
 {
-	char			*str;
-	struct s_line	*next;
+	struct s_cmd	*next;
 	int				op_code;
-	int				statement_code;
-	int				dir_size;
+//	int				statement_code;
+//	int				dir_size;
 	int				n_arg;
-//	char			**arg;
 	struct s_arg	*arg;
-}					t_line;
+}					t_cmd;
 
 typedef struct		s_champ
 {
 	char			*name;
 	char			*comment;
 	int				size;
-	struct s_line	*lines;
+	struct s_cmd	*cmd;
 	struct s_label	*labels;
 }					t_champ;
 
@@ -56,9 +57,12 @@ typedef struct      s_op
     int             what2;
 }                   t_op;
 
+void				ft_error(char *s1, char *s2);
+
 /*
 ** utils.c
 */
+int					is_label(char *str);
 int					is_that_char(char c, char *str);
 int					skip_whitespace(char *str, int i);
 char				*copy_name(char *original, int j);
@@ -66,6 +70,10 @@ char				*copy_name(char *original, int j);
 /*
 ** init.c
 */
+
+void				add_label(t_label **alst, t_label *new);
+void				add_arg(t_arg **alst, t_arg *new);
+void				add_cmd(t_cmd **alst, t_cmd *new);
 t_champ				*init_champ(FILE *fp);
 
 /*
@@ -73,20 +81,18 @@ t_champ				*init_champ(FILE *fp);
 */
 char				*get_name(FILE *fp);
 char				*get_comment(FILE *fp);
-t_line				*get_lines(t_champ *champ, FILE *fp);
+t_cmd				*get_lines(t_champ *champ, FILE *fp);
 
 /*
-** statement.c
+** parse_cmd.c
 */
-t_label				*next_row(t_champ *champ);
-int					is_label(char *str);
-void				add_label(t_label **alst, t_label *new);
-t_label				*new_label(t_champ *champ, char *str);
+int					parse_cmd(t_cmd *cmd, char *line, int i);
 
 /*
-** statement_selection.c
+** parse_arg.c
 */
-int					statement_selection(t_line *new, char *line, int i);
+int					possible_arg(t_arg *arg, int j, int k);
+void				parse_arg_type(t_arg *arg);
 
 /*
 ** op.c
@@ -94,8 +100,20 @@ int					statement_selection(t_line *new, char *line, int i);
 t_op				g_op_tab[17];
 
 /*
+** new.c
+*/
+t_label				*new_label(t_champ *champ, char *str);
+t_arg				*new_arg(char *line, int *i, int j, int k);
+t_cmd				*new_cmd(t_champ *champ, char *line);
+
+/*
 ** print.c:s
 */
-void	print_line(t_line *new, int j, int mode);
+void	print_line(t_cmd *cmd, int j, int mode);
+
+/*
+** looking for place for these
+*/
+int arg_size(char *line, int *i);; //atm parse_cmd.c
 
 #endif

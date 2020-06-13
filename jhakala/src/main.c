@@ -6,12 +6,24 @@
 /*   By: jhakala <jhakala@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/07 05:28:40 by jhakala           #+#    #+#             */
-/*   Updated: 2020/06/07 18:41:19 by jhakala          ###   ########.fr       */
+/*   Updated: 2020/06/13 09:11:00 by jhakala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "test.h"
 #include "op.h"
+
+void	ft_error(char *s1, char *s2)
+{
+	//when i get time, i'll but better error messages and places where it happens and why
+	int i = 0;
+
+	while (s1[i])
+		write(2, &s1[i++], 1);
+	while (s2[i])
+		write(2, &s2[i++], 1);
+	write(2, "\n", 1);
+}
 
 void write_byte(int fd, int str, int len)
 {

@@ -6,7 +6,7 @@
 /*   By: jhakala <jhakala@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/13 08:11:05 by jhakala           #+#    #+#             */
-/*   Updated: 2020/06/13 09:43:44 by jhakala          ###   ########.fr       */
+/*   Updated: 2020/06/13 09:50:29 by jhakala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,11 +55,11 @@ char	*arg_dir_label(char *str, int i)
 int		possible_arg(t_arg *arg, int j, int k)
 {
 	int res = g_op_tab[j].t_arg[k];
-	if (arg->type == 1 && (res == 1 || res == 3 || res == 7))
+	if (arg->type == 1 && (res == 1 || res == 3 || res == 5 || res == 7))
 		return (1);
 	else if (arg->type == 2 && (res == 2 || res == 3 || res == 6 || res == 7))
 		return (1);
-	else if (arg->type == 3 && (res == 4 || res == 5 || res == 7))
+	else if (arg->type == 3 && (res == 4 || res == 5 || res == 6 || res == 7))
 		return (1);
 	printf("%d, %d\n", arg->type, res);
 	printf("    ERROR\n ERROR\n ERROR\nparse_arg_type\n");

@@ -5,14 +5,49 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: jhakala <jhakala@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/06/13 08:22:09 by jhakala           #+#    #+#             */
-/*   Updated: 2020/06/13 08:22:11 by jhakala          ###   ########.fr       */
+/*   Created: 2020/06/13 19:04:07 by jhakala           #+#    #+#             */
+/*   Updated: 2020/06/13 19:04:30 by jhakala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-
 #include "test.h"
 #include "op.h"
+
+void	rev_arg(t_arg **lst)
+{
+	t_arg *prev;
+	t_arg *cur;
+	t_arg *next;
+	
+	prev = NULL;
+	cur = *lst;
+	while (cur != NULL)
+    {
+		next = cur->next;
+		cur->next = prev;
+		prev = cur;
+		cur = next;
+    }
+	*lst = prev;
+}
+
+void	rev_cmd(t_cmd **lst)
+{
+	t_cmd *prev;
+	t_cmd *cur;
+	t_cmd *next;
+	
+	prev = NULL;
+	cur = *lst;
+	while (cur != NULL)
+    {
+		next = cur->next;
+		cur->next = prev;
+		prev = cur;
+		cur = next;
+    }
+	*lst = prev;
+}
 
 int is_label(char *str)
 {

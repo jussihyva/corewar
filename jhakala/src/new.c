@@ -6,7 +6,7 @@
 /*   By: jhakala <jhakala@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/13 07:57:24 by jhakala           #+#    #+#             */
-/*   Updated: 2020/06/13 23:09:26 by jhakala          ###   ########.fr       */
+/*   Updated: 2020/06/15 07:44:34 by jhakala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,6 +67,7 @@ t_cmd *new_cmd(t_champ *champ, char *line)
 	cmd = (t_cmd*)malloc(sizeof(t_cmd));
 	cmd->next = NULL;
 	cmd->arg = NULL;
+	cmd->size = 0;
 	if ((j = is_label(line)) > 0)
 	{
 		add_label(&champ->labels, new_label(champ, line));

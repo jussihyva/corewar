@@ -31,6 +31,7 @@ typedef struct		s_cmd
 	int				statement_code;
 	int				dir_size;
 	int				n_arg;
+	int				size;
 	struct s_arg	*arg;
 }					t_cmd;
 
@@ -60,6 +61,7 @@ void				ft_error(char *s1, char *s2);
 /*
 ** utils.c
 */
+void				rev_label(t_label **lst);
 void				rev_arg(t_arg **lst);
 void				rev_cmd(t_cmd **lst);
 int					is_label(char *str);

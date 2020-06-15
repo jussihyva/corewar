@@ -6,12 +6,30 @@
 /*   By: jhakala <jhakala@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/13 19:04:07 by jhakala           #+#    #+#             */
-/*   Updated: 2020/06/13 19:04:30 by jhakala          ###   ########.fr       */
+/*   Updated: 2020/06/14 18:56:13 by jhakala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "test.h"
 #include "op.h"
+
+void	rev_label(t_label **lst)
+{
+	t_label *prev;
+	t_label *cur;
+	t_label *next;
+	
+	prev = NULL;
+	cur = *lst;
+	while (cur != NULL)
+    {
+		next = cur->next;
+		cur->next = prev;
+		prev = cur;
+		cur = next;
+    }
+	*lst = prev;
+}
 
 void	rev_arg(t_arg **lst)
 {

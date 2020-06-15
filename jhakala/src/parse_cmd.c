@@ -23,6 +23,7 @@ int calc_size(t_cmd *cmd)
 	}
 	//comment testing
 	printf("size of cmd: %d\n", size);
+	cmd->size = size;
 	return (size);
 }
 int	arg_size(char *line, int *i)

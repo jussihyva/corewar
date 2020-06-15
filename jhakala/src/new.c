@@ -6,7 +6,7 @@
 /*   By: jhakala <jhakala@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/13 07:57:24 by jhakala           #+#    #+#             */
-/*   Updated: 2020/06/15 07:44:34 by jhakala          ###   ########.fr       */
+/*   Updated: 2020/06/15 13:27:10 by jhakala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,8 +32,11 @@ t_label *new_label(t_champ *champ, char *str)
         label->name[k] = str[j + k];
     label->name[k] = '\0';
 	//testing
-    printf("LABEL NAME = %s, ", label->name);
-    printf("LABEL PLACE = %d\n", label->place);
+	if (PRI == 1)
+	{
+		printf("LABEL NAME = %s, ", label->name);
+		printf("LABEL PLACE = %d\n", label->place);
+	}
     return (label);
 }
 

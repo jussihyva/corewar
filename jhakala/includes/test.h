@@ -7,6 +7,8 @@
 # include <stdlib.h>
 # include <string.h>
 
+#define PRI 0
+
 typedef struct		s_label
 {
 	char			*name;

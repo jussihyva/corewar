@@ -6,7 +6,7 @@
 /*   By: jhakala <jhakala@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/07 05:28:40 by jhakala           #+#    #+#             */
-/*   Updated: 2020/06/15 08:01:23 by jhakala          ###   ########.fr       */
+/*   Updated: 2020/06/15 13:23:39 by jhakala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ void write_to_file(int fd, t_champ *champ)
   for (int i = 0; i < len; i++) //champs comment
     write_byte(fd, champ->comment[i], 1);
   for (int i = len; i < COMMENT_LENGTH; i++) //rest of comment_length is put to zero bytes
-    write_byte(fd, 0, 1);
+	  write_byte(fd, 0, 1);
   for (int i = 0; i < 4; i++) //contol point of 4 zeros
     write_byte(fd, 0, 1);
   //  printf("%s\n%s\n%d\n", champ->name, champ->comment, champ->size);
@@ -73,16 +73,11 @@ void	write_dir(int fd, t_arg *arg, int i, t_champ *champ)
 
 	label = champ->labels;
 	if (!arg->label)
-	{
-		printf("now1HERE:%s\n", arg->str);
 		write_byte(fd, arg->value, i);
-	}
 	else
 	{
-		printf("now2HERE:%s\n", arg->str);
 		while (label)
 		{
-			printf("label:'%s', str:'%s'\n", label->name, arg->label);
 			if (strcmp(label->name, arg->label) == 0)
 				break ;
 			label = label->next;
@@ -90,10 +85,7 @@ void	write_dir(int fd, t_arg *arg, int i, t_champ *champ)
 		if (label == NULL)
 			printf("ERROR:NO LABEL NAME\n");
 		else
-		{
 			write_byte(fd, label->place - champ->size, i);
-				printf("thisHERE:%s\n", arg->str);
-		}
 	}
 }
 
@@ -110,7 +102,6 @@ void	write_cmd_to_file(int fd, t_champ *champ)
 		if (cmd->op_code != 0)
 		{
 			write_byte(fd, cmd->op_code, 1);
-			printf("statement_code:%d\n", cmd->statement_code);
 			if (cmd->statement_code == 1)
 			{
 				arg = cmd->arg;
@@ -119,7 +110,6 @@ void	write_cmd_to_file(int fd, t_champ *champ)
 				{
 					if (arg)
 					{
-						printf("%d, ", arg->type);
 						statement_code += arg->type << (i * 2);
 						arg = arg->next;
 					}
@@ -129,17 +119,17 @@ void	write_cmd_to_file(int fd, t_champ *champ)
 			arg = cmd->arg;
 			while (arg)
 			{
-				printf("arg->type:%d\n", arg->type);
 				if (arg->type == 1)
 					write_reg(fd, arg);
 				else if (arg->type == 2)
 					write_dir(fd, arg, cmd->dir_size, champ);
 				else if (arg->type == 3)
+				{//still missing
 					printf("placeholder\n");
+				}
 				arg = arg->next;
 			}
 		}
-		printf("thisSIZE:%d\n", cmd->size);
 		champ->size += cmd->size;
 		cmd = cmd->next;
 	}

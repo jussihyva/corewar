@@ -6,7 +6,7 @@
 /*   By: jhakala <jhakala@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/14 00:12:28 by jhakala           #+#    #+#             */
-/*   Updated: 2020/06/14 18:56:42 by jhakala          ###   ########.fr       */
+/*   Updated: 2020/06/15 13:28:35 by jhakala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,8 +95,6 @@ char	*mod_str(FILE *fp, char *line, char *str)
 	while (i > k)
 		res[k++] = line[j++];
 	res[k] = '\0';
-	//
-//	printf("i = %d, j = %d, k = %d\n", i, j, k);
 	return (res);
 }
 	
@@ -137,7 +135,8 @@ t_cmd *get_lines(t_champ *champ, FILE *fp)
   {
 	  if (line[0] != '\n' && line[0] != COMMENT_CHAR)
       {
-		  printf("----------new line----------\n");
+		  if (PRI == 1)
+			  printf("----------new line----------\n");
 		  add_cmd(&cmd, new_cmd(champ, line));
       }
   }

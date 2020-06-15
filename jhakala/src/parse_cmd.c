@@ -22,7 +22,8 @@ int calc_size(t_cmd *cmd)
 		arg = arg->next;
 	}
 	//comment testing
-	printf("size of cmd: %d\n", size);
+	if (PRI == 1)
+		printf("size of cmd: %d\n", size);
 	cmd->size = size;
 	return (size);
 }
@@ -53,7 +54,8 @@ int	parse_cmd_to_args(t_cmd *cmd, char *line, int i, int j)
 		add_arg(&cmd->arg, new_arg(line, &i, j, k));
 	rev_arg(&cmd->arg);
 	//comment for testing
-	print_line(cmd, j, 1);
+	if (PRI == 1)
+		print_line(cmd, j, 1);
 	return (calc_size(cmd));
 }
 	

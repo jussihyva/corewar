@@ -6,7 +6,7 @@
 /*   By: jhakala <jhakala@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/07 05:28:40 by jhakala           #+#    #+#             */
-/*   Updated: 2020/06/14 00:16:07 by jhakala          ###   ########.fr       */
+/*   Updated: 2020/06/15 08:01:23 by jhakala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,90 @@ void write_to_file(int fd, t_champ *champ)
     write_byte(fd, 0, 1);
   //  printf("%s\n%s\n%d\n", champ->name, champ->comment, champ->size);
 }
-  
+
+void	write_reg(int fd, t_arg *arg)
+{
+	write_byte(fd, arg->value, 1);
+}
+
+void	write_dir(int fd, t_arg *arg, int i, t_champ *champ)
+{
+	t_label *label;
+
+	label = champ->labels;
+	if (!arg->label)
+	{
+		printf("now1HERE:%s\n", arg->str);
+		write_byte(fd, arg->value, i);
+	}
+	else
+	{
+		printf("now2HERE:%s\n", arg->str);
+		while (label)
+		{
+			printf("label:'%s', str:'%s'\n", label->name, arg->label);
+			if (strcmp(label->name, arg->label) == 0)
+				break ;
+			label = label->next;
+		}
+		if (label == NULL)
+			printf("ERROR:NO LABEL NAME\n");
+		else
+		{
+			write_byte(fd, label->place - champ->size, i);
+				printf("thisHERE:%s\n", arg->str);
+		}
+	}
+}
+
+void	write_cmd_to_file(int fd, t_champ *champ)
+{
+	t_cmd *cmd;
+	t_arg *arg;
+	int statement_code;
+
+	cmd = champ->cmd;
+	arg = cmd->arg;
+	while (cmd)
+	{
+		if (cmd->op_code != 0)
+		{
+			write_byte(fd, cmd->op_code, 1);
+			printf("statement_code:%d\n", cmd->statement_code);
+			if (cmd->statement_code == 1)
+			{
+				arg = cmd->arg;
+				statement_code = 0;
+				for (int i = 3; i > 0; i--)
+				{
+					if (arg)
+					{
+						printf("%d, ", arg->type);
+						statement_code += arg->type << (i * 2);
+						arg = arg->next;
+					}
+				}
+				write_byte(fd, statement_code, 1);
+			}
+			arg = cmd->arg;
+			while (arg)
+			{
+				printf("arg->type:%d\n", arg->type);
+				if (arg->type == 1)
+					write_reg(fd, arg);
+				else if (arg->type == 2)
+					write_dir(fd, arg, cmd->dir_size, champ);
+				else if (arg->type == 3)
+					printf("placeholder\n");
+				arg = arg->next;
+			}
+		}
+		printf("thisSIZE:%d\n", cmd->size);
+		champ->size += cmd->size;
+		cmd = cmd->next;
+	}
+}
+
 int main(int ac, char **av)
 {
     FILE *fp;
@@ -77,6 +160,8 @@ int main(int ac, char **av)
       //      printf("name = %s, name_len = %zu\n", name, strlen(name));
       champ = init_champ(fp);
       write_to_file(fd2, champ);
+	  champ->size = 0;
+	  write_cmd_to_file(fd2, champ);
     }
   system("leaks prog");
   return (0);

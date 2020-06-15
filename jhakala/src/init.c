@@ -6,13 +6,32 @@
 /*   By: jhakala <jhakala@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/13 08:17:27 by jhakala           #+#    #+#             */
-/*   Updated: 2020/06/14 00:17:02 by jhakala          ###   ########.fr       */
+/*   Updated: 2020/06/14 19:33:57 by jhakala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 
 #include "test.h"
 #include "op.h"
+
+void pri(t_champ *champ)
+{
+	t_label *label;
+	t_cmd *cmd;
+
+	label = champ->labels;
+	cmd = champ->cmd;
+	while (label)
+	{
+		printf("%s, %d\n", label->name, label->place);
+		label = label->next;
+	}
+	while (cmd)
+	{
+		printf("%d\n", cmd->op_code);
+		cmd = cmd->next;
+	}
+}
 
 void	add_label(t_label **alst, t_label *new)
 {
@@ -43,5 +62,6 @@ t_champ	*init_champ(FILE *fp)
 	champ->labels = NULL;
 	printf("champ->name:'%s', champ->comment:'%s'\n", champ->name, champ->comment);
 	champ->cmd = get_lines(champ, fp);
+//	pri(champ);
 	return (champ);
 }

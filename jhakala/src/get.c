@@ -6,7 +6,7 @@
 /*   By: jhakala <jhakala@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/14 00:12:28 by jhakala           #+#    #+#             */
-/*   Updated: 2020/06/14 00:17:40 by jhakala          ###   ########.fr       */
+/*   Updated: 2020/06/14 18:56:42 by jhakala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -143,5 +143,6 @@ t_cmd *get_lines(t_champ *champ, FILE *fp)
   }
   free(line);
   rev_cmd(&cmd);
+  rev_label(&champ->labels);
   return (cmd);
 }

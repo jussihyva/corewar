@@ -6,7 +6,7 @@
 /*   By: jhakala <jhakala@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/07 05:28:40 by jhakala           #+#    #+#             */
-/*   Updated: 2020/06/15 13:23:39 by jhakala          ###   ########.fr       */
+/*   Updated: 2020/06/16 16:52:39 by jhakala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -125,7 +125,8 @@ void	write_cmd_to_file(int fd, t_champ *champ)
 					write_dir(fd, arg, cmd->dir_size, champ);
 				else if (arg->type == 3)
 				{//still missing
-					printf("placeholder\n");
+					write_dir(fd, arg, 2, champ);
+//					printf("placeholder\n");
 				}
 				arg = arg->next;
 			}

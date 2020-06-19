@@ -6,7 +6,7 @@
 /*   By: jhakala <jhakala@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/14 00:12:28 by jhakala           #+#    #+#             */
-/*   Updated: 2020/06/15 13:28:35 by jhakala          ###   ########.fr       */
+/*   Updated: 2020/06/16 17:29:42 by jhakala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ int		is_is(char *str, int i)
 char	*get_to_rabbit_ear(FILE *fp, char *str, int i)
 {//5min build, probably some errors here and there
 	char *line = NULL, *tmp;
-	int j, len, k, m;
+	int len, k, m;
 	size_t linecap = 0;
 	
 	while (str[i] && str[i] != '"')
@@ -33,7 +33,7 @@ char	*get_to_rabbit_ear(FILE *fp, char *str, int i)
 	{
 		k = 0;
 		m = 0;
-		j = getline(&line, &linecap, fp);
+		getline(&line, &linecap, fp);
 		len = strlen(str) + strlen(line);
 		tmp = str;
 		free(str);
@@ -101,10 +101,9 @@ char	*mod_str(FILE *fp, char *line, char *str)
 char *get_name(FILE *fp)
 {
   char *line = NULL, *str;
-  int i;
   size_t linecap = 0;
 
-  i = getline(&line, &linecap, fp);
+  getline(&line, &linecap, fp);
   //
   str = mod_str(fp, line, NAME_CMD_STRING);
   free(line);
@@ -114,10 +113,9 @@ char *get_name(FILE *fp)
 char *get_comment(FILE *fp)
 {
   char *line = NULL, *str;
-  int i;
   size_t linecap = 0;
 
-  i = getline(&line, &linecap, fp);
+  getline(&line, &linecap, fp);
   //
   str = mod_str(fp, line, COMMENT_CMD_STRING);
   free(line);

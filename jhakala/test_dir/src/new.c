@@ -6,7 +6,7 @@
 /*   By: jhakala <jhakala@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/13 07:57:24 by jhakala           #+#    #+#             */
-/*   Updated: 2020/06/16 17:12:34 by jhakala          ###   ########.fr       */
+/*   Updated: 2020/06/16 17:23:38 by jhakala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,9 @@ t_arg   *new_arg(char *line, int *i, int j, int k)
     arg->str = (char*)malloc(sizeof(char) * (len + 1));
     m = -1;
     while (++m < len)
+	{
         arg->str[m] = line[*i - len + m];
+	}
 	*i = skip_whitespace(line, *i);
     arg->str[m] = '\0';
 	arg->type = 0;

@@ -6,7 +6,7 @@
 /*   By: jhakala <jhakala@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/07 05:28:40 by jhakala           #+#    #+#             */
-/*   Updated: 2020/06/16 16:52:39 by jhakala          ###   ########.fr       */
+/*   Updated: 2020/06/16 17:49:27 by jhakala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -154,6 +154,7 @@ int main(int ac, char **av)
 	  champ->size = 0;
 	  write_cmd_to_file(fd2, champ);
     }
-  system("leaks prog");
+  if (PRI == 1)
+	  system("leaks prog");
   return (0);
 }

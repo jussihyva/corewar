@@ -6,7 +6,7 @@
 /*   By: ubuntu <ubuntu@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/13 09:10:10 by ubuntu            #+#    #+#             */
-/*   Updated: 2020/06/09 23:20:42 by ubuntu           ###   ########.fr       */
+/*   Updated: 2020/06/10 13:56:09 by ubuntu           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,13 @@ void			exec_ldi(t_cpu *cpu, t_instruction *instruction,
 		p = cpu->pc + instruction->param[0].value;
 		i += p[0] << (8 * 1);
 		i += p[1] << (8 * 0);
+		// i += p[3] << (8 * 1);
+		// i += p[4] << (8 * 0);
+		// ft_printf("%d\n", p[0]);
+		// ft_printf("%d\n", p[1]);
+		// ft_printf("%d\n", p[2]);
+		// ft_printf("%d\n", p[3]);
+		// ft_printf("%d\n", p[4]);
 	}
 	else
 		ft_printf("%08p: %p\n", asm_code->file_content,
@@ -60,9 +67,17 @@ void			exec_ldi(t_cpu *cpu, t_instruction *instruction,
 											cpu->pc - asm_code->file_content);
 	p = cpu->pc + i;
 	cpu->reg[instruction->param[2].value] = 0;
-	cpu->reg[instruction->param[2].value] += p[0] << (8 * 1);
-	cpu->reg[instruction->param[2].value] += p[1] << (8 * 0);
+	cpu->reg[instruction->param[2].value] += p[1] << (8 * 3);
+	cpu->reg[instruction->param[2].value] += p[2] << (8 * 2);
+	cpu->reg[instruction->param[2].value] += p[3] << (8 * 1);
+	cpu->reg[instruction->param[2].value] += p[4] << (8 * 0);
 	cpu->pc = instruction->start_p + instruction->length;
+	ft_printf("%x\n", p);
+	ft_printf("%d\n", p[0]);
+	ft_printf("%d\n", p[1]);
+	ft_printf("%d\n", p[2]);
+	ft_printf("%d\n", p[3]);
+	ft_printf("%d\n", p[4]);
 	return ;
 }
 

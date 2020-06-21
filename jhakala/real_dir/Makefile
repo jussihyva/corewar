@@ -4,13 +4,19 @@ SRC = \
 	op.c \
 	main.c \
 	init.c \
-	utils.c \
-	get.c
+	is.c \
+	skip.c \
+	rev.c \
+	get_head.c \
+	get_lines.c \
+	parse_cmd.c \
+	parse_utils.c \
+	check_champ.c
 
 S_DIR = src
 O_DIR = obj
 OBJ = $(addprefix $(O_DIR)/, $(SRC:.c=.o))
-HEAD = asm.h op.h
+HEAD = asm.h op.h error.h
 H_DIR = includes
 LIBFT = libft/libft.a
 GCC = gcc -Wall -Wextra -Werror

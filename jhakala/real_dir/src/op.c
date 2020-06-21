@@ -6,14 +6,14 @@
 /*   By: zaz <marvin@42.fr>                         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2013/10/04 11:43:01 by zaz               #+#    #+#             */
-/*   Updated: 2020/06/20 01:17:23 by jhakala          ###   ########.fr       */
+/*   Updated: 2020/06/20 22:43:33 by jhakala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "asm.h"
 #include "op.h"
 
-t_op    g_op_tab[17] =
+t_op	g_op_tab[17] =
 {
 	{"live", 4, 1, {T_DIR}, 1, 0, 4},
 	{"ldi", 3, 3, {T_REG | T_DIR | T_IND, T_DIR | T_REG, T_REG}, 10, 1, 2},
@@ -32,4 +32,15 @@ t_op    g_op_tab[17] =
 	{"lfork", 5, 1, {T_DIR}, 15, 0, 2},	
 	{"aff", 3, 1, {T_REG}, 16, 1, 4},
 	{0, 0, 0, {0}, 0, 0, 0}
+};
+
+t_error	g_error[7] =
+{
+	{""},
+	{"Argument type error."},
+	{"Argument register syntax error."},
+	{"Argument dir/ind value syntax error."},
+	{"Argument dir/ind label syntax error."},
+	{"Invalid argument end."},
+	{"No label named as:"}
 };

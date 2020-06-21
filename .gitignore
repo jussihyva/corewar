@@ -4,5 +4,9 @@ cpu
 decoder
 prog
 a.out
-jhakala/*.s
-jhakala/*.cor
+jhakala/**/*.s
+jhakala/*/*.cor
+jhakala/**/asm
+jhakala/test_dir
+jhakala/t_dir
+.DS_Store

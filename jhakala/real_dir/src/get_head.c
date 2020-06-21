@@ -6,7 +6,7 @@
 /*   By: jhakala <jhakala@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/20 00:21:50 by jhakala           #+#    #+#             */
-/*   Updated: 2020/06/20 02:24:32 by jhakala          ###   ########.fr       */
+/*   Updated: 2020/06/21 03:17:15 by jhakala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ char	*copy_to(char *str, int i, int j)
 	return (res);
 }
 
-char	*append_to_str(int fd)
+char	*append_to_str(int fd, int *r)
 {
 	char	*str;
 	char	*tmp;
@@ -62,18 +62,19 @@ char	*append_to_str(int fd)
 		else
 			str = ft_strjoin(tmp, line);
 		free(tmp);
+		(*r)++;
 	}
 	free(line);
 	return (str);
 }
 
-char	*get_str(int fd, char *s1)
+char	*get_str(int fd, char *s1, int *r)
 {
 	char	*str;
 	int		i;
 	int		j;
 
-	str = append_to_str(fd);
+	str = append_to_str(fd, &(*r));
 	i = skip_whitespace(str, 0);
 	j = 0;
 	while (str[i + j] == s1[j] && str[i + j] && s1[j])

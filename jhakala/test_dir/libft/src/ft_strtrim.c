@@ -1,23 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   test.h                                             :+:      :+:    :+:   */
+/*   ft_strtrim.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jhakala <jhakala@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/06/22 21:10:17 by jhakala           #+#    #+#             */
-/*   Updated: 2020/06/23 00:16:52 by jhakala          ###   ########.fr       */
+/*   Created: 2019/10/20 16:48:03 by jhakala           #+#    #+#             */
+/*   Updated: 2019/10/29 18:53:42 by jhakala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef TEST_H
-# define TEST_H
+#include "libft.h"
+#include <stdlib.h>
 
-# include "../libft/includes/ft_printf.h"
-# include "../libft/includes/get_next_line.h"
-# include <fcntl.h>
-# include <stdlib.h>
+char	*ft_strtrim(char const *s)
+{
+	int i;
+	int j;
+	int len;
 
-# define REV(x) ((x << 24) | (((x>>16)<<24)>>16) | (((x<<16)>>24)<<16) | (x>>24))
-
-#endif
+	if (!s)
+		return (NULL);
+	i = 0;
+	while (s[i] && (s[i] == 32 || s[i] == '\n' || s[i] == '\t'))
+		i++;
+	j = ft_strlen(s);
+	while (i < j && (s[j - 1] == 32 ||
+					s[j - 1] == '\n' || s[j - 1] == '\t'))
+		j--;
+	if (i == j)
+		return (ft_strnew(1));
+	len = j - i;
+	return (ft_strsub(s, i, len));
+}

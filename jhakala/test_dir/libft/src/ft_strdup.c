@@ -1,23 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   test.h                                             :+:      :+:    :+:   */
+/*   ft_strdup.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jhakala <jhakala@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/06/22 21:10:17 by jhakala           #+#    #+#             */
-/*   Updated: 2020/06/23 00:16:52 by jhakala          ###   ########.fr       */
+/*   Created: 2019/10/29 10:42:53 by jhakala           #+#    #+#             */
+/*   Updated: 2019/10/29 13:23:44 by jhakala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef TEST_H
-# define TEST_H
+#include "libft.h"
+#include <stdlib.h>
 
-# include "../libft/includes/ft_printf.h"
-# include "../libft/includes/get_next_line.h"
-# include <fcntl.h>
-# include <stdlib.h>
+char	*ft_strdup(const char *s1)
+{
+	char	*tmp;
+	size_t	n;
 
-# define REV(x) ((x << 24) | (((x>>16)<<24)>>16) | (((x<<16)>>24)<<16) | (x>>24))
-
-#endif
+	n = ft_strlen(s1);
+	if (!(tmp = ft_strnew(n)))
+		return (NULL);
+	ft_strncpy(tmp, s1, n);
+	return (tmp);
+}

@@ -1,23 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   test.h                                             :+:      :+:    :+:   */
+/*   type_c.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jhakala <jhakala@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/06/22 21:10:17 by jhakala           #+#    #+#             */
-/*   Updated: 2020/06/23 00:16:52 by jhakala          ###   ########.fr       */
+/*   Created: 2019/12/12 00:19:46 by jhakala           #+#    #+#             */
+/*   Updated: 2019/12/19 15:56:45 by jhakala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef TEST_H
-# define TEST_H
+#include "ft_printf.h"
 
-# include "../libft/includes/ft_printf.h"
-# include "../libft/includes/get_next_line.h"
-# include <fcntl.h>
-# include <stdlib.h>
+int		type_c(va_list ap, t_flags *flags)
+{
+	int c;
+	int width;
 
-# define REV(x) ((x << 24) | (((x>>16)<<24)>>16) | (((x<<16)>>24)<<16) | (x>>24))
-
-#endif
+	c = va_arg(ap, int);
+	width = 0;
+	if (flags->width)
+	{
+		if (flags->minus)
+			ft_write(&c, 1, flags);
+		while (width++ < flags->width - 1)
+			ft_write((flags->zero && !flags->minus) ? "0" : " ", 1, flags);
+	}
+	if (!flags->width || !flags->minus)
+		ft_write(&c, 1, flags);
+	return ((flags->width) ? width : 1);
+}

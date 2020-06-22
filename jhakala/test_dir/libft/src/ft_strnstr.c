@@ -1,23 +1,40 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   test.h                                             :+:      :+:    :+:   */
+/*   ft_strnstr.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jhakala <jhakala@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/06/22 21:10:17 by jhakala           #+#    #+#             */
-/*   Updated: 2020/06/23 00:16:52 by jhakala          ###   ########.fr       */
+/*   Created: 2019/10/29 11:04:44 by jhakala           #+#    #+#             */
+/*   Updated: 2019/10/29 12:48:09 by jhakala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef TEST_H
-# define TEST_H
+#include "libft.h"
 
-# include "../libft/includes/ft_printf.h"
-# include "../libft/includes/get_next_line.h"
-# include <fcntl.h>
-# include <stdlib.h>
+char	*ft_strnstr(const char *hay, const char *need, size_t len)
+{
+	const char	*str;
+	const char	*find;
+	size_t		i;
 
-# define REV(x) ((x << 24) | (((x>>16)<<24)>>16) | (((x<<16)>>24)<<16) | (x>>24))
-
-#endif
+	if (ft_strlen(need) == 0)
+		return ((char *)hay);
+	while (*hay && len)
+	{
+		str = hay;
+		find = need;
+		i = len;
+		while (*find && *str == *find && i)
+		{
+			find++;
+			str++;
+			i--;
+		}
+		if (!(*find))
+			return ((char *)hay);
+		hay++;
+		len--;
+	}
+	return (NULL);
+}

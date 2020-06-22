@@ -1,23 +1,36 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   test.h                                             :+:      :+:    :+:   */
+/*   ft_strstr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jhakala <jhakala@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/06/22 21:10:17 by jhakala           #+#    #+#             */
-/*   Updated: 2020/06/23 00:16:52 by jhakala          ###   ########.fr       */
+/*   Created: 2019/10/29 11:01:27 by jhakala           #+#    #+#             */
+/*   Updated: 2019/10/29 11:04:33 by jhakala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef TEST_H
-# define TEST_H
+#include "libft.h"
 
-# include "../libft/includes/ft_printf.h"
-# include "../libft/includes/get_next_line.h"
-# include <fcntl.h>
-# include <stdlib.h>
+char	*ft_strstr(const char *haystack, const char *needle)
+{
+	const char	*str;
+	const char	*find;
 
-# define REV(x) ((x << 24) | (((x>>16)<<24)>>16) | (((x<<16)>>24)<<16) | (x>>24))
-
-#endif
+	if (ft_strlen(needle) == 0)
+		return ((char *)haystack);
+	while (*haystack)
+	{
+		str = haystack;
+		find = needle;
+		while (*find && *str == *find)
+		{
+			find++;
+			str++;
+		}
+		if (!(*find))
+			return ((char *)haystack);
+		haystack++;
+	}
+	return (NULL);
+}

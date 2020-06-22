@@ -1,23 +1,36 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   test.h                                             :+:      :+:    :+:   */
+/*   ft_lstmap.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jhakala <jhakala@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/06/22 21:10:17 by jhakala           #+#    #+#             */
-/*   Updated: 2020/06/23 00:16:52 by jhakala          ###   ########.fr       */
+/*   Created: 2019/10/29 12:08:51 by jhakala           #+#    #+#             */
+/*   Updated: 2019/10/29 14:08:18 by jhakala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef TEST_H
-# define TEST_H
+#include "libft.h"
+#include <stdlib.h>
 
-# include "../libft/includes/ft_printf.h"
-# include "../libft/includes/get_next_line.h"
-# include <fcntl.h>
-# include <stdlib.h>
+t_list	*ft_lstmap(t_list *lst, t_list *(*f)(t_list *elem))
+{
+	t_list *list;
+	t_list *start;
 
-# define REV(x) ((x << 24) | (((x>>16)<<24)>>16) | (((x<<16)>>24)<<16) | (x>>24))
-
-#endif
+	if (!lst)
+		return (NULL);
+	list = f(lst);
+	start = list;
+	while (lst->next)
+	{
+		lst = lst->next;
+		if (!(list->next = f(lst)))
+		{
+			free(list->next);
+			return (NULL);
+		}
+		list = list->next;
+	}
+	return (start);
+}

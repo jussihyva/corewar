@@ -1,28 +1,22 @@
 NAME = prog
 
-SRC = op.c \
-	main.c \
-	utils.c \
-	new.c \
-	get.c \
-	init.c \
-	parse_cmd.c \
-	parse_arg.c \
-	print.c
+SRC = \
+	main.c
 
 S_DIR = src
 O_DIR = obj
 OBJ = $(addprefix $(O_DIR)/, $(SRC:.c=.o))
 HEAD = test.h op.h
 H_DIR = includes
-GCC = gcc -Wall -Wextra -Werror
+LIBFT = libft/libft.a
+GCC = gcc #-Wall -Wextra -Werror
 DEPS = $(patsubst %,$(H_DIR)/%,$(HEAD))
 
 all: $(NAME)
 
 $(NAME): $(OBJ) | $(LIBFT)
-	@$(GCC) -o $@ $^ -I $(H_DIR)
-	@echo  "test \033[1;32m[OK]\033[0m"
+	@$(GCC) -o $@ $^ -I $(H_DIR) $(LIBFT)
+	@echo  "prog \033[1;32m[OK]\033[0m"
 
 $(O_DIR)/%.o : $(S_DIR)/%.c $(DEPS)
 	$(GCC) -o $@ -c $< -I $(H_DIR)
@@ -31,11 +25,14 @@ $(OBJ): | $(O_DIR)
 
 clean:
 	@rm -rf $(O_DIR)
+	@rm -rf libft/$(O_DIR)
 	@echo "clean \033[1;32m[OK]\033[0m"
 
 fclean:
 	@rm -rf $(O_DIR)
 	@rm -rf $(NAME)
+	@rm -rf libft/$(O_DIR)
+	@rm -rf $(LIBFT)
 	@echo "fclean \033[1;32m[OK]\033[0m"
 
 del:
@@ -44,8 +41,8 @@ del:
 
 re: fclean all
 
-#$(LIBFT):
-#	@make -C libft
+$(LIBFT):
+	@make -C libft
 
 $(O_DIR):
 	mkdir $(O_DIR)

@@ -1,23 +1,36 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   test.h                                             :+:      :+:    :+:   */
+/*   ft_atoi.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jhakala <jhakala@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/06/22 21:10:17 by jhakala           #+#    #+#             */
-/*   Updated: 2020/06/23 00:16:52 by jhakala          ###   ########.fr       */
+/*   Created: 2019/10/29 11:12:58 by jhakala           #+#    #+#             */
+/*   Updated: 2020/02/17 23:17:34 by jhakala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef TEST_H
-# define TEST_H
+#include "libft.h"
 
-# include "../libft/includes/ft_printf.h"
-# include "../libft/includes/get_next_line.h"
-# include <fcntl.h>
-# include <stdlib.h>
+int	ft_atoi(const char *str)
+{
+	size_t	res;
+	int		minus;
 
-# define REV(x) ((x << 24) | (((x>>16)<<24)>>16) | (((x<<16)>>24)<<16) | (x>>24))
-
-#endif
+	minus = 1;
+	res = 0;
+	while ((*str > 8 && *str < 14) || *str == 32)
+		str++;
+	if (*str == '-')
+		minus = -1;
+	if (*str == '+' || *str == '-')
+		str++;
+	while (*str > 47 && *str < 58)
+	{
+		res = res * 10 + (*str - 48);
+		str++;
+	}
+	if (res > 9223372036854775807)
+		return (minus == -1) ? 0 : -1;
+	return (res * minus);
+}

@@ -1,23 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   test.h                                             :+:      :+:    :+:   */
+/*   ft_strncat.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jhakala <jhakala@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/06/22 21:10:17 by jhakala           #+#    #+#             */
-/*   Updated: 2020/06/23 00:16:52 by jhakala          ###   ########.fr       */
+/*   Created: 2019/10/29 10:52:15 by jhakala           #+#    #+#             */
+/*   Updated: 2019/10/29 10:54:42 by jhakala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef TEST_H
-# define TEST_H
+#include "libft.h"
 
-# include "../libft/includes/ft_printf.h"
-# include "../libft/includes/get_next_line.h"
-# include <fcntl.h>
-# include <stdlib.h>
+char	*ft_strncat(char *s1, const char *s2, size_t n)
+{
+	size_t i;
+	size_t j;
 
-# define REV(x) ((x << 24) | (((x>>16)<<24)>>16) | (((x<<16)>>24)<<16) | (x>>24))
-
-#endif
+	i = 0;
+	j = 0;
+	while (s1[i] != '\0')
+		i++;
+	while (s2[j] != '\0' && n)
+	{
+		s1[i + j] = s2[j];
+		j++;
+		n--;
+	}
+	s1[i + j] = '\0';
+	return (s1);
+}

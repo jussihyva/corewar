@@ -11,7 +11,9 @@ SRC = \
 	get_lines.c \
 	parse_cmd.c \
 	parse_utils.c \
-	check_champ.c
+	check_champ.c \
+	check_name.c \
+	write.c
 
 S_DIR = src
 O_DIR = obj

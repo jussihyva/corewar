@@ -6,7 +6,7 @@
 /*   By: jhakala <jhakala@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/20 15:17:54 by jhakala           #+#    #+#             */
-/*   Updated: 2020/06/20 20:18:42 by jhakala          ###   ########.fr       */
+/*   Updated: 2020/06/22 11:45:39 by jhakala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,6 +91,7 @@ int		parse_cmd_to_args(t_cmd *cmd, char *line, int i, int j)
 	cmd->n_arg = g_op_tab[j].n_arg;
 	cmd->op_code = g_op_tab[j].op_code;
 	cmd->statement_code = g_op_tab[j].statement_code;
+	cmd->dir_size = g_op_tab[j].dir_size;
 	while (++k < cmd->n_arg)
 		add_arg(&cmd->arg, new_arg(line, &i, j, k));
 	cmd->error = rev_arg(&cmd->arg);

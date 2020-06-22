@@ -6,7 +6,7 @@
 /*   By: jhakala <jhakala@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/19 23:21:33 by jhakala           #+#    #+#             */
-/*   Updated: 2020/06/21 03:19:34 by jhakala          ###   ########.fr       */
+/*   Updated: 2020/06/22 11:35:01 by jhakala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@
 # include <stdlib.h>
 # include "error.h"
 
-# define OPTION_CHARS "f"
+# define OPTION_CHARS "dfh"
 
 typedef struct		s_label
 {
@@ -80,7 +80,7 @@ t_op				g_op_tab[17];
 void				add_label(t_label **alst, t_label *new);
 void				add_arg(t_arg **alst, t_arg *new);
 void				add_cmd(t_cmd **alst, t_cmd *new);
-t_champ				*init_champ(int fd, int *op);
+t_champ				*init_champ(int fd, int *op, char *str);
 
 /*
 ** is.c
@@ -132,5 +132,15 @@ char				*arg_dir_label(t_arg *arg, char *str, int i);
 ** check_champ.c
 */
 int					check_champ(t_champ *champ);
+
+/*
+** check_name.c
+*/
+int					check_name(int *fd, char *str, int *op, char *end);
+
+/*
+** write.c
+*/
+void				write_to_file(t_champ *champ, int fd);
 
 #endif

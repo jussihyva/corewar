@@ -6,7 +6,7 @@
 /*   By: jhakala <jhakala@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/20 00:15:32 by jhakala           #+#    #+#             */
-/*   Updated: 2020/06/21 03:20:59 by jhakala          ###   ########.fr       */
+/*   Updated: 2020/06/22 11:47:38 by jhakala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ void	add_cmd(t_cmd **alst, t_cmd *new)
 	*alst = new;
 }
 
-t_champ	*init_champ(int fd, int *op)
+t_champ	*init_champ(int fd, int *op, char *str)
 {
 	t_champ	*champ;
 	int		r;
@@ -81,15 +81,11 @@ t_champ	*init_champ(int fd, int *op)
 	champ->size = 0;
 	champ->label = NULL;
 	champ->cmd = get_lines(champ, fd, r);
-	ft_printf("champ->name = '%s'\n", champ->name);
-	ft_printf("champ->comment = '%s'\n", champ->comment);
-	if (check_champ(champ) > 0)
-		ft_printf("ERROR\n\n");
-//		free_champ(champ);
-	else
-		ft_printf("OK\n\n");
+	if (check_champ(champ) == 0 && check_name(&fd, str, op, ".cor") == 1)
+		write_to_file(champ, fd);
+//	free_champ(champ);
 	if (op[20] == 1)
 		system("leaks asm");
-	prio(op);
+//	prio(op);
 	return (champ);
 }

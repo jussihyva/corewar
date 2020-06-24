@@ -6,7 +6,7 @@
 /*   By: jhakala <jhakala@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/22 09:28:42 by jhakala           #+#    #+#             */
-/*   Updated: 2020/06/22 10:52:02 by jhakala          ###   ########.fr       */
+/*   Updated: 2020/06/24 17:45:34 by jhakala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ int		check_name(int *fd, char *str, int *op, char *end)
 		*fd = open((name = ft_strjoin(tmp, end)), O_WRONLY | O_CREAT | O_TRUNC, 0644);
 		free(tmp);
 		free(name);
-		return (fd > 0 ? 1 : 0);
+		return (*fd > 0 ? 1 : 0);
 	}
 	return (0);
 }

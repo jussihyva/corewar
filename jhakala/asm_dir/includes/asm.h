@@ -6,7 +6,7 @@
 /*   By: jhakala <jhakala@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/19 23:21:33 by jhakala           #+#    #+#             */
-/*   Updated: 2020/06/22 12:00:26 by jhakala          ###   ########.fr       */
+/*   Updated: 2020/06/24 18:09:30 by jhakala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,7 @@ t_op				g_op_tab[17];
 void				add_label(t_label **alst, t_label *new);
 void				add_arg(t_arg **alst, t_arg *new);
 void				add_cmd(t_cmd **alst, t_cmd *new);
-t_champ				*init_champ(int fd, int *op, char *str);
+void				init_champ(int fd, int *op, char *str);
 
 /*
 ** is.c

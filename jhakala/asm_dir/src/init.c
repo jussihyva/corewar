@@ -6,7 +6,7 @@
 /*   By: jhakala <jhakala@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/20 00:15:32 by jhakala           #+#    #+#             */
-/*   Updated: 2020/06/22 11:47:38 by jhakala          ###   ########.fr       */
+/*   Updated: 2020/06/24 18:10:25 by jhakala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ void	add_cmd(t_cmd **alst, t_cmd *new)
 	*alst = new;
 }
 
-t_champ	*init_champ(int fd, int *op, char *str)
+void	init_champ(int fd, int *op, char *str)
 {
 	t_champ	*champ;
 	int		r;
@@ -75,17 +75,19 @@ t_champ	*init_champ(int fd, int *op, char *str)
 	r = 2;
 	champ = NULL;
 	if (!(champ = (t_champ*)malloc(sizeof(t_champ))))
-		return (NULL);
-	champ->name = get_str(fd, NAME_CMD_STRING, &r);
-	champ->comment = get_str(fd, COMMENT_CMD_STRING, &r);
+		return ;
+	if (!(champ->name = get_str(fd, NAME_CMD_STRING, &r)))
+		return ;
+	if (!(champ->comment = get_str(fd, COMMENT_CMD_STRING, &r)))
+		return ;
 	champ->size = 0;
 	champ->label = NULL;
-	champ->cmd = get_lines(champ, fd, r);
+	if (!(champ->cmd = get_lines(champ, fd, r)))
+		return ;
 	if (check_champ(champ) == 0 && check_name(&fd, str, op, ".cor") == 1)
 		write_to_file(champ, fd);
 //	free_champ(champ);
 	if (op[20] == 1)
 		system("leaks asm");
 //	prio(op);
-	return (champ);
 }

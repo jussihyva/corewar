@@ -6,7 +6,7 @@
 /*   By: jhakala <jhakala@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/19 23:35:12 by jhakala           #+#    #+#             */
-/*   Updated: 2020/06/22 11:55:35 by jhakala          ###   ########.fr       */
+/*   Updated: 2020/06/24 17:41:00 by jhakala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,6 @@ int		main(int ac, char **av)
 {
 	int			fd;
 	int			*op;
-	t_champ		*champ;
 
 	if (ac < 2 || ac > 3)
 		ft_printf("Invalid argument count\n");
@@ -80,13 +79,14 @@ int		main(int ac, char **av)
 		if (ac == 2 && ft_strcmp("-h", av[1]) == 0)
 			ft_printf("usage: ./asm [-f] source_file\n");
 		else if (ac == 2 && (fd = open(av[1], O_RDONLY)) > 0 && (op = options("")) != NULL)
-			champ = init_champ(fd, op, av[1]);
+			init_champ(fd, op, av[1]);
 		else if (ac == 3 && (fd = open(av[2], O_RDONLY)) > 0 && (op = options(av[1])) != NULL)
-			champ = init_champ(fd, op, av[2]);
+			init_champ(fd, op, av[2]);
 		else if (fd == -1 && ac == 2)
 			ft_printf("ERROR: Can't read source file %s\n", av[1]);
 		else if (fd == -1 && ac == 3)
 			ft_printf("ERROR: Can't read source file %s\n", av[2]);
 	}
+
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: jhakala <jhakala@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/12 15:04:46 by jhakala           #+#    #+#             */
-/*   Updated: 2020/01/10 15:05:08 by jhakala          ###   ########.fr       */
+/*   Updated: 2020/06/24 18:12:20 by jhakala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ int				type_o(va_list ap, t_flags *flags)
 	precision = flags->precision - size;
 	size = (flags->precision > size) ? flags->precision : size;
 	size = (flags->precision == 0 && n == 0) ? 0 : size;
-	size += (n >= 0 && flags->space);
+	size += (flags->space);
 	precision += (flags->hastag && flags->precision > 0) ? -1 : 0;
 	size += (flags->hastag && flags->precision > 0) ? -1 : 0;
 	size = ft_display_o(flags, size, precision, n);

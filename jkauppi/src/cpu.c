@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cpu.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ubuntu <ubuntu@student.42.fr>              +#+  +:+       +#+        */
+/*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/12 19:32:46 by ubuntu            #+#    #+#             */
-/*   Updated: 2020/06/09 22:59:45 by ubuntu           ###   ########.fr       */
+/*   Updated: 2020/06/28 18:16:11 by jkauppi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,29 +96,66 @@ static void			execute_instructions(t_player *player, t_input *input,
 {
 	t_instruction	*instruction;
 	void			(**op_function)(t_cpu *, t_instruction *, t_asm_code *);
+	long long		cycle_cnt;
+	long long		next_cycle_to_die_point;
+	int				cycles_to_execute;
+	int				kill_process;
 
 	cpu->reg[1] = player->player_number;
 	cpu->current_cycle_to_die = CYCLE_TO_DIE;
 	cpu->cycles_to_die = cpu->current_cycle_to_die;
 	op_function = set_op_functions();
 	instruction = parse_instruction(input, cpu->pc);
+	kill_process = 0;
+	cycle_cnt = 0;
+	next_cycle_to_die_point = cycle_cnt + cpu->current_cycle_to_die;
 	while (*instruction->start_p > 0 && *instruction->start_p < 17 &&
 									input->num_of_instructions_to_execute &&
 												cpu->pc == instruction->start_p)
 	{
-		cpu->cycles_to_die -= asm_code->g_op_tab[instruction->opcode].cycles;
-		if (cpu->cycles_to_die <= 0)
+		cycles_to_execute = asm_code->g_op_tab[instruction->opcode].cycles;
+		while (cycles_to_execute--)
 		{
-			if (cpu->is_live)
+			cycle_cnt++;
+			ft_printf("Cycle : %lld (%lld)\n", cycle_cnt, next_cycle_to_die_point - cycle_cnt);
+			if (cycle_cnt == next_cycle_to_die_point)
 			{
-				if (cpu->is_live >= NBR_LIVE)
+				if (!cpu->is_live)
+				{
+					kill_process = 1;
+					break ;
+				}
+				else if (cpu->is_live >= NBR_LIVE)
+				{
 					cpu->current_cycle_to_die -= CYCLE_DELTA;
-				cpu->cycles_to_die = cpu->current_cycle_to_die;
-				cpu->is_live = 0;
+					if (cpu->current_cycle_to_die < 0)
+					{
+						kill_process = 2;
+						break ;
+					}
+				}
+				next_cycle_to_die_point = cycle_cnt + cpu->current_cycle_to_die;
+				ft_printf("  Updated cycle to die cnt: %d\n", cpu->current_cycle_to_die);
 			}
-			else
-				break ;
 		}
+		if (kill_process)
+		{
+			ft_printf("Killed: %d\n", kill_process);
+			break ;
+		}
+		cpu->cycles_to_die -= asm_code->g_op_tab[instruction->opcode].cycles;
+		// if (cpu->cycles_to_die <= 0)
+		// {
+		// 	if (cpu->is_live)
+		// 	{
+		// 		if (cpu->is_live >= NBR_LIVE)
+		// 			cpu->current_cycle_to_die -= CYCLE_DELTA;
+		// 		cpu->cycles_to_die = cpu->current_cycle_to_die;
+		// 		cpu->is_live = 0;
+		// 	}
+		// 	else
+		// 		break ;
+		// }
 		if (input->opt & verbose)
 			print_instruction(input, instruction, asm_code->file_content);
 		if (instruction->opcode)

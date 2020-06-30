@@ -6,7 +6,7 @@
 /*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/12 19:32:46 by ubuntu            #+#    #+#             */
-/*   Updated: 2020/06/30 15:47:49 by jkauppi          ###   ########.fr       */
+/*   Updated: 2020/06/30 18:30:25 by jkauppi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,14 +37,18 @@ static void			*set_op_functions(void)
 	return (op_function);
 }
 
-static t_cpu		*initialize_cpu(t_asm_code *asm_code, t_player *player)
+static t_cpu		*initialize_cpu(t_asm_code *asm_code, t_player *player,
+																t_input *input)
 {
 	t_cpu			*cpu;
 
 	cpu = (t_cpu *)ft_memalloc(sizeof(*cpu));
-	cpu->pc = asm_code->file_content + sizeof(*asm_code->header);
+	cpu->memory = (char *)ft_memalloc(sizeof(*cpu->memory) * MEM_SIZE);
+	ft_memcpy(cpu->memory, asm_code->file_content + sizeof(*asm_code->header),
+						input->file_content_size - sizeof(*asm_code->header));
+	cpu->pc = cpu->memory;
 	cpu->program_start_ptr = cpu->pc;
-	cpu->reg[1] = player->player_number;
+	cpu->reg[1] = -player->player_number;
 	cpu->current_cycle_to_die = CYCLE_TO_DIE;
 	cpu->current_number_of_checks = 0;
 	cpu->cycle_cnt = 0;
@@ -111,8 +115,9 @@ int					main(int argc, char **argv)
 	player->player_number = input->player_number;
 	asm_code = parse_instructions(input, input->file_content,
 													input->file_content_size);
-	cpu = initialize_cpu(asm_code, player);
+	cpu = initialize_cpu(asm_code, player, input);
 	execute_instructions(player, input, cpu, asm_code);
+	print_memory(cpu);
 	free(player);
 	free(input->g_op_tab);
 	free(input);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cpu.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ubuntu <ubuntu@student.42.fr>              +#+  +:+       +#+        */
+/*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/12 19:34:42 by ubuntu            #+#    #+#             */
-/*   Updated: 2020/06/09 21:37:24 by ubuntu           ###   ########.fr       */
+/*   Updated: 2020/06/30 15:47:49 by jkauppi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,15 +16,19 @@
 
 typedef struct		s_cpu
 {
+	long long		cycle_cnt;
+	long long		next_cycle_to_die_point;
 	char			*program_start_ptr;
 	int				reg[REG_NUMBER + 1];
 	int				is_live;
 	int				carry;
 	char			*pc;
 	int				current_cycle_to_die;
-	int				cycles_to_die;
+	int				current_number_of_checks;
 }					t_cpu;
 
+t_input				*read_input_data(int *argc, char ***argv);
+void				read_opt(t_input *input, int *argc, char ***argv);
 void				exec_live(t_cpu *cpu, t_instruction *instruction,
 														t_asm_code *asm_code);
 void				exec_ld(t_cpu *cpu, t_instruction *instruction,
@@ -49,5 +53,8 @@ void				exec_and(t_cpu *cpu, t_instruction *instruction,
 														t_asm_code *asm_code);
 void				exec_fork(t_cpu *cpu, t_instruction *instruction,
 														t_asm_code *asm_code);
+int					execute_cycles(int cycles_to_execute, t_cpu *cpu);
+void				print_cpu(t_cpu *cpu, t_input *input,
+							t_instruction *instruction, t_asm_code *asm_code);
 
 #endif

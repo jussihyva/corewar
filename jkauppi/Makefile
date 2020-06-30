@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: ubuntu <ubuntu@student.42.fr>              +#+  +:+       +#+         #
+#    By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/05/05 11:36:37 by ubuntu            #+#    #+#              #
-#    Updated: 2020/06/20 14:59:37 by ubuntu           ###   ########.fr        #
+#    Updated: 2020/06/30 15:47:02 by jkauppi          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,9 +18,11 @@ LIB_FOLDER	=	../jkauppi/lib
 INCLUDES	=	-I $(LIB_FOLDER)
 LIB			=	-L $(LIB_FOLDER) -l ft -l ftprintf
 
-SRC			=	input_1.c memory_1.c print_hex.c print_asm.c op.c \
+SRC			=	input_1.c input_cpu.c memory_1.c \
+				print_hex.c print_asm.c op.c print_cpu.c\
 				instruction_1.c instruction_2.c \
-				execution_1.c execution_2.c execution_3.c
+				execution_1.c execution_2.c execution_3.c \
+				cycles_cpu.c
 
 HEADERS		=	decoder.h op.h cpu.h
 

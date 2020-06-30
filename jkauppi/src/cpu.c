@@ -6,51 +6,11 @@
 /*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/12 19:32:46 by ubuntu            #+#    #+#             */
-/*   Updated: 2020/06/28 18:16:11 by jkauppi          ###   ########.fr       */
+/*   Updated: 2020/06/30 15:47:49 by jkauppi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cpu.h"
-
-static void			read_opt(t_input *input, int *argc, char ***argv)
-{
-	while (*argc)
-	{
-		if (ft_strequ((*argv)[0], "-v"))
-			input->opt |= verbose;
-		else if (ft_strequ((*argv)[0], "-f"))
-			save_input_file_name(input, argc, argv);
-		else if (ft_strequ((*argv)[0], "-p"))
-		{
-			ft_step_args(argc, argv);
-			input->player_number = ft_atoi(*argv[0]);
-		}
-		else if (ft_strequ((*argv)[0], "-i"))
-		{
-			ft_step_args(argc, argv);
-			input->num_of_instructions_to_execute = ft_atoi(*argv[0]);
-		}
-		else
-			break ;
-		ft_step_args(argc, argv);
-	}
-	return ;
-}
-
-static t_input		*read_input_data(int *argc, char ***argv)
-{
-	int			fd;
-	t_input		*input;
-
-	ft_step_args(argc, argv);
-	input = (t_input *)ft_memalloc(sizeof(*input));
-	input->num_of_instructions_to_execute = -1;
-	read_opt(input, argc, argv);
-	read_g_op_tab(input);
-	fd = 0;
-	input->file_content = read_input_file(fd, &input->file_content_size);
-	return (input);
-}
 
 static void			*set_op_functions(void)
 {
@@ -77,18 +37,37 @@ static void			*set_op_functions(void)
 	return (op_function);
 }
 
-static void			print_cpu(t_cpu *cpu)
+static t_cpu		*initialize_cpu(t_asm_code *asm_code, t_player *player)
 {
-	int			reg;
-	ft_printf("%85s", "CPU: ");
-	reg = 0; 
-	while (++reg < 8)
-		ft_printf(" r%d=%d", reg, cpu->reg[reg]);
-	ft_printf(" is_live=%d", cpu->is_live);
-	ft_printf(" carry=%d", cpu->carry);
-	ft_printf(" cycles_to_die=%d", cpu->cycles_to_die);
-	ft_printf("\n");
-	return ;
+	t_cpu			*cpu;
+
+	cpu = (t_cpu *)ft_memalloc(sizeof(*cpu));
+	cpu->pc = asm_code->file_content + sizeof(*asm_code->header);
+	cpu->program_start_ptr = cpu->pc;
+	cpu->reg[1] = player->player_number;
+	cpu->current_cycle_to_die = CYCLE_TO_DIE;
+	cpu->current_number_of_checks = 0;
+	cpu->cycle_cnt = 0;
+	cpu->next_cycle_to_die_point = cpu->cycle_cnt + cpu->current_cycle_to_die;
+	return (cpu);
+}
+
+static int			execute_instruction(t_cpu *cpu, t_asm_code *asm_code,
+													t_instruction *instruction,
+				void (**op_function)(t_cpu *, t_instruction *, t_asm_code *))
+{
+	int				cycles_to_execute;
+
+	cycles_to_execute = asm_code->g_op_tab[instruction->opcode].cycles;
+	if (execute_cycles(cycles_to_execute, cpu))
+		return (1);
+	if (instruction->opcode)
+		op_function[instruction->opcode](cpu, instruction, asm_code);
+	else
+	{
+		return (1);
+	}
+	return (0);
 }
 
 static void			execute_instructions(t_player *player, t_input *input,
@@ -96,83 +75,26 @@ static void			execute_instructions(t_player *player, t_input *input,
 {
 	t_instruction	*instruction;
 	void			(**op_function)(t_cpu *, t_instruction *, t_asm_code *);
-	long long		cycle_cnt;
-	long long		next_cycle_to_die_point;
-	int				cycles_to_execute;
-	int				kill_process;
 
-	cpu->reg[1] = player->player_number;
-	cpu->current_cycle_to_die = CYCLE_TO_DIE;
-	cpu->cycles_to_die = cpu->current_cycle_to_die;
 	op_function = set_op_functions();
 	instruction = parse_instruction(input, cpu->pc);
-	kill_process = 0;
-	cycle_cnt = 0;
-	next_cycle_to_die_point = cycle_cnt + cpu->current_cycle_to_die;
 	while (*instruction->start_p > 0 && *instruction->start_p < 17 &&
 									input->num_of_instructions_to_execute &&
 												cpu->pc == instruction->start_p)
 	{
-		cycles_to_execute = asm_code->g_op_tab[instruction->opcode].cycles;
-		while (cycles_to_execute--)
-		{
-			cycle_cnt++;
-			ft_printf("Cycle : %lld (%lld)\n", cycle_cnt, next_cycle_to_die_point - cycle_cnt);
-			if (cycle_cnt == next_cycle_to_die_point)
-			{
-				if (!cpu->is_live)
-				{
-					kill_process = 1;
-					break ;
-				}
-				else if (cpu->is_live >= NBR_LIVE)
-				{
-					cpu->current_cycle_to_die -= CYCLE_DELTA;
-					if (cpu->current_cycle_to_die < 0)
-					{
-						kill_process = 2;
-						break ;
-					}
-				}
-				next_cycle_to_die_point = cycle_cnt + cpu->current_cycle_to_die;
-				ft_printf("  Updated cycle to die cnt: %d\n", cpu->current_cycle_to_die);
-			}
-		}
-		if (kill_process)
-		{
-			ft_printf("Killed: %d\n", kill_process);
-			break ;
-		}
-		cpu->cycles_to_die -= asm_code->g_op_tab[instruction->opcode].cycles;
-		// if (cpu->cycles_to_die <= 0)
-		// {
-		// 	if (cpu->is_live)
-		// 	{
-		// 		if (cpu->is_live >= NBR_LIVE)
-		// 			cpu->current_cycle_to_die -= CYCLE_DELTA;
-		// 		cpu->cycles_to_die = cpu->current_cycle_to_die;
-		// 		cpu->is_live = 0;
-		// 	}
-		// 	else
-		// 		break ;
-		// }
-		if (input->opt & verbose)
-			print_instruction(input, instruction, asm_code->file_content);
-		if (instruction->opcode)
-			op_function[instruction->opcode](cpu, instruction, asm_code);
-		else
+		if (execute_instruction(cpu, asm_code, instruction, op_function))
 		{
 			ft_printf("%08x: %s\n", cpu->pc - asm_code->file_content,
-					input->g_op_tab[instruction->opcode].instruction_name);
+						input->g_op_tab[instruction->opcode].instruction_name);
 			break ;
 		}
 		if (input->opt & verbose)
-			print_cpu(cpu);
+			print_cpu(cpu, input, instruction, asm_code);
 		instruction = parse_instruction(input, cpu->pc);
 		if (input->num_of_instructions_to_execute != -1)
 			input->num_of_instructions_to_execute--;
 	}
-	ft_printf("%p != %p\n", cpu->pc, instruction->start_p);
+	ft_printf("Player %d killed.\n", player->player_number);
 	free(op_function);
 	return ;
 }
@@ -185,13 +107,11 @@ int					main(int argc, char **argv)
 	t_player		*player;
 
 	player = (t_player*)ft_memalloc(sizeof(*player));
-	cpu = (t_cpu *)ft_memalloc(sizeof(*cpu));
 	input = read_input_data(&argc, &argv);
 	player->player_number = input->player_number;
 	asm_code = parse_instructions(input, input->file_content,
 													input->file_content_size);
-	cpu->pc = asm_code->file_content + sizeof(*asm_code->header);
-	cpu->program_start_ptr = cpu->pc;
+	cpu = initialize_cpu(asm_code, player);
 	execute_instructions(player, input, cpu, asm_code);
 	free(player);
 	free(input->g_op_tab);

@@ -6,7 +6,7 @@
 /*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/12 19:34:42 by ubuntu            #+#    #+#             */
-/*   Updated: 2020/06/30 15:47:49 by jkauppi          ###   ########.fr       */
+/*   Updated: 2020/06/30 18:08:41 by jkauppi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@ typedef struct		s_cpu
 	char			*pc;
 	int				current_cycle_to_die;
 	int				current_number_of_checks;
+	char			*memory;
 }					t_cpu;
 
 t_input				*read_input_data(int *argc, char ***argv);
@@ -56,5 +57,6 @@ void				exec_fork(t_cpu *cpu, t_instruction *instruction,
 int					execute_cycles(int cycles_to_execute, t_cpu *cpu);
 void				print_cpu(t_cpu *cpu, t_input *input,
 							t_instruction *instruction, t_asm_code *asm_code);
+void				print_memory(t_cpu *cpu);
 
 #endif

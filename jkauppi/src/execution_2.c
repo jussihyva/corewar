@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execution_2.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ubuntu <ubuntu@student.42.fr>              +#+  +:+       +#+        */
+/*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/05 13:47:56 by ubuntu            #+#    #+#             */
-/*   Updated: 2020/06/09 23:31:53 by ubuntu           ###   ########.fr       */
+/*   Updated: 2020/06/30 10:36:48 by jkauppi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@ void			exec_live(t_cpu *cpu, t_instruction *instruction,
 	(void)asm_code;
 	cpu->is_live += 1;
 	cpu->pc = instruction->start_p + instruction->length;
+	ft_printf("Live update %d(%d)\n", cpu->is_live, cpu->reg[1]);
 	return ;
 }
 

@@ -6,7 +6,7 @@
 /*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/12 19:32:46 by ubuntu            #+#    #+#             */
-/*   Updated: 2020/06/30 18:30:25 by jkauppi          ###   ########.fr       */
+/*   Updated: 2020/07/01 11:34:14 by jkauppi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,14 +112,19 @@ int					main(int argc, char **argv)
 
 	player = (t_player*)ft_memalloc(sizeof(*player));
 	input = read_input_data(&argc, &argv);
-	player->player_number = input->player_number;
-	asm_code = parse_instructions(input, input->file_content,
+	if (input->file_content)
+	{
+		player->player_number = input->player_number;
+		asm_code = parse_instructions(input, input->file_content,
 													input->file_content_size);
-	cpu = initialize_cpu(asm_code, player, input);
-	execute_instructions(player, input, cpu, asm_code);
-	print_memory(cpu);
+		cpu = initialize_cpu(asm_code, player, input);
+		execute_instructions(player, input, cpu, asm_code);
+		print_memory(cpu);
+	}
 	free(player);
 	free(input->g_op_tab);
 	free(input);
+	if (input->opt & leaks)
+		system("leaks cpu");
 	return (0);
 }

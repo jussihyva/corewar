@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   common.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ubuntu <ubuntu@student.42.fr>              +#+  +:+       +#+        */
+/*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/12 19:48:41 by ubuntu            #+#    #+#             */
-/*   Updated: 2020/06/08 20:33:22 by ubuntu           ###   ########.fr       */
+/*   Updated: 2020/07/01 11:46:53 by jkauppi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,8 @@ typedef enum		e_opt
 {
 	format_hex = 0x01,
 	format_asm = 0x02,
-	map_file = 0x04,
-	verbose = 0x08
+	verbose = 0x04,
+	leaks = 0x08
 }					t_opt;
 
 typedef enum		e_opcode
@@ -103,9 +103,8 @@ typedef struct		s_player
 	int		player_number;
 }					t_player;
 
-void				save_input_file_name(t_input *input, int *argc,
-																char ***argv);
 void				ft_step_args(int *argc, char ***argv);
+int					open_fd(char *file_path);
 void				read_g_op_tab(t_input *input);
 char				*read_input_file(int fd, size_t *file_content_size);
 t_instruction		*parse_instruction(t_input *input, char *p);

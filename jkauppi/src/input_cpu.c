@@ -6,7 +6,7 @@
 /*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/30 13:18:31 by jkauppi           #+#    #+#             */
-/*   Updated: 2020/07/01 12:57:46 by jkauppi          ###   ########.fr       */
+/*   Updated: 2020/07/01 14:33:24 by jkauppi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,7 @@ t_input			*read_input_data(int *argc, char ***argv)
 	int			fd;
 	t_input		*input;
 	int			i;
+	t_player	*player;
 
 	input = initialize_input();
 	read_opt(input, argc, argv);
@@ -64,15 +65,26 @@ t_input			*read_input_data(int *argc, char ***argv)
 		{
 			fd = open_fd(**argv);
 			ft_step_args(argc, argv);
-			input->players[i]->player_number = i + 1;
 			if (fd != -1)
+			{
+				player = (t_player *)ft_memalloc(sizeof(*input->players));
+				input->players[i] = player;
 				input->file_content = read_input_file(fd,
 													&input->file_content_size);
+				player->player_number = i + 1;
+				player->asm_code = initialize_asm_code(input, input->file_content);
+				i++;
+			}
 			else
 				input->file_content = NULL;
 		}
 	}
 	else
+	{
+		player = (t_player *)ft_memalloc(sizeof(*input->players));
+		input->players[i] = player;
 		input->file_content = read_input_file(0, &input->file_content_size);
+		player->asm_code = initialize_asm_code(input, input->file_content);
+	}
 	return (input);
 }

@@ -6,7 +6,7 @@
 /*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/12 19:32:46 by ubuntu            #+#    #+#             */
-/*   Updated: 2020/07/01 12:54:20 by jkauppi          ###   ########.fr       */
+/*   Updated: 2020/07/01 14:57:18 by jkauppi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,15 +37,14 @@ static void			*set_op_functions(void)
 	return (op_function);
 }
 
-static t_cpu		*initialize_cpu(t_asm_code *asm_code, t_player *player,
-																t_input *input)
+static t_cpu		*initialize_cpu(t_player *player, t_input *input)
 {
 	t_cpu			*cpu;
 
 	cpu = (t_cpu *)ft_memalloc(sizeof(*cpu));
 	cpu->memory = (char *)ft_memalloc(sizeof(*cpu->memory) * MEM_SIZE);
-	ft_memcpy(cpu->memory, asm_code->file_content + sizeof(*asm_code->header),
-						input->file_content_size - sizeof(*asm_code->header));
+	ft_memcpy(cpu->memory, player->asm_code->asa_code,
+						player->asm_code->asa_code_size);
 	cpu->g_op_tab = input->g_op_tab;
 	cpu->pc = cpu->memory;
 	cpu->program_start_ptr = cpu->pc;
@@ -116,9 +115,10 @@ int					main(int argc, char **argv)
 	if (input->file_content)
 	{
 		player->player_number = input->player_number;
+		player = input->players[0];
 		asm_code = parse_instructions(input, input->file_content,
 													input->file_content_size);
-		cpu = initialize_cpu(asm_code, player, input);
+		cpu = initialize_cpu(player, input);
 		execute_instructions(player, input, cpu, asm_code);
 		print_memory(cpu);
 	}

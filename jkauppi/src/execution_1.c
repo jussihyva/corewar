@@ -6,7 +6,7 @@
 /*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/13 09:10:10 by ubuntu            #+#    #+#             */
-/*   Updated: 2020/07/01 12:45:03 by jkauppi          ###   ########.fr       */
+/*   Updated: 2020/07/01 14:02:03 by jkauppi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,24 @@ void			exec_ld(t_cpu *cpu, t_instruction *instruction)
 	return ;
 }
 
+static int		save_pointer_value_to_reg(char *p)
+{
+	int			value;
+
+	value = 0;
+	value += p[1] << (8 * 3);
+	value += p[2] << (8 * 2);
+	value += p[3] << (8 * 1);
+	value += p[4] << (8 * 0);
+	ft_printf("%x\n", p);
+	ft_printf("%d\n", p[0]);
+	ft_printf("%d\n", p[1]);
+	ft_printf("%d\n", p[2]);
+	ft_printf("%d\n", p[3]);
+	ft_printf("%d\n", p[4]);
+	return (value);
+}
+
 void			exec_ldi(t_cpu *cpu, t_instruction *instruction)
 {
 	size_t		i;
@@ -44,13 +62,6 @@ void			exec_ldi(t_cpu *cpu, t_instruction *instruction)
 		p = cpu->pc + instruction->param[0].value;
 		i += p[0] << (8 * 1);
 		i += p[1] << (8 * 0);
-		// i += p[3] << (8 * 1);
-		// i += p[4] << (8 * 0);
-		// ft_printf("%d\n", p[0]);
-		// ft_printf("%d\n", p[1]);
-		// ft_printf("%d\n", p[2]);
-		// ft_printf("%d\n", p[3]);
-		// ft_printf("%d\n", p[4]);
 	}
 	else
 		ft_printf("%08x: ", instruction->start_p - cpu->program_start_ptr +
@@ -63,40 +74,8 @@ void			exec_ldi(t_cpu *cpu, t_instruction *instruction)
 		ft_printf("%08p: %p", cpu->program_start_ptr + sizeof(t_header),
 			instruction->start_p - cpu->program_start_ptr + sizeof(t_header));
 	p = cpu->pc + i;
-	cpu->reg[instruction->param[2].value] = 0;
-	cpu->reg[instruction->param[2].value] += p[1] << (8 * 3);
-	cpu->reg[instruction->param[2].value] += p[2] << (8 * 2);
-	cpu->reg[instruction->param[2].value] += p[3] << (8 * 1);
-	cpu->reg[instruction->param[2].value] += p[4] << (8 * 0);
+	cpu->reg[instruction->param[2].value] = save_pointer_value_to_reg(p);
 	cpu->pc = instruction->start_p + instruction->length;
-	ft_printf("%x\n", p);
-	ft_printf("%d\n", p[0]);
-	ft_printf("%d\n", p[1]);
-	ft_printf("%d\n", p[2]);
-	ft_printf("%d\n", p[3]);
-	ft_printf("%d\n", p[4]);
-	return ;
-}
-
-void			exec_zjmp(t_cpu *cpu, t_instruction *instruction)
-{
-	if (instruction->param[0].type == DIR_CODE)
-	{
-		if (cpu->carry)
-			cpu->pc += instruction->param[0].value;
-		else
-			cpu->pc = instruction->start_p + instruction->length;
-	}
-	else
-	{
-		ft_printf("%08x: ", instruction->start_p - cpu->program_start_ptr +
-															sizeof(t_header));
-		print_hex_string(0, instruction->start_p, instruction->length);
-		print_params(instruction->param);
-		ft_printf("\n");
-		cpu->pc += instruction->param[0].value;
-	}
-	return ;
 }
 
 void			exec_sub(t_cpu *cpu, t_instruction *instruction)

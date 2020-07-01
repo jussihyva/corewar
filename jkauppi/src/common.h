@@ -6,7 +6,7 @@
 /*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/12 19:48:41 by ubuntu            #+#    #+#             */
-/*   Updated: 2020/07/01 12:06:25 by jkauppi          ###   ########.fr       */
+/*   Updated: 2020/07/01 14:48:53 by jkauppi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,9 +81,9 @@ typedef struct		s_op
 typedef struct		s_asm_code
 {
 	char			*file_content;
+	size_t			file_content_size;
 	t_op			*g_op_tab;
 	t_header		*header;
-	int				header_size;
 	char			*asa_code;
 	int				asa_code_size;
 	t_list			**instruction_lst;
@@ -119,5 +119,6 @@ void				print_hex_string(ssize_t index, char *line, ssize_t size);
 void				print_params(t_op_param *param);
 void				print_instruction(t_input *input,
 								t_instruction *instruction, char *file_content);
+t_asm_code			*initialize_asm_code(t_input *input, char *file_content);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/12 19:32:46 by ubuntu            #+#    #+#             */
-/*   Updated: 2020/07/01 11:34:14 by jkauppi          ###   ########.fr       */
+/*   Updated: 2020/07/01 12:54:20 by jkauppi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,10 @@
 
 static void			*set_op_functions(void)
 {
-	void	(**op_function)(t_cpu *, t_instruction *, t_asm_code *);
+	void	(**op_function)(t_cpu *, t_instruction *);
 
-	op_function = (void (**)(t_cpu *cpu, t_instruction *instruction,
-				t_asm_code *asm_code))ft_memalloc(sizeof(*op_function) * 16);
+	op_function = (void (**)(t_cpu *cpu, t_instruction *instruction))
+										ft_memalloc(sizeof(*op_function) * 16);
 	op_function[e_lfork] = NULL;
 	op_function[e_sti] = exec_sti;
 	op_function[e_fork] = exec_fork;
@@ -46,6 +46,7 @@ static t_cpu		*initialize_cpu(t_asm_code *asm_code, t_player *player,
 	cpu->memory = (char *)ft_memalloc(sizeof(*cpu->memory) * MEM_SIZE);
 	ft_memcpy(cpu->memory, asm_code->file_content + sizeof(*asm_code->header),
 						input->file_content_size - sizeof(*asm_code->header));
+	cpu->g_op_tab = input->g_op_tab;
 	cpu->pc = cpu->memory;
 	cpu->program_start_ptr = cpu->pc;
 	cpu->reg[1] = -player->player_number;
@@ -56,17 +57,16 @@ static t_cpu		*initialize_cpu(t_asm_code *asm_code, t_player *player,
 	return (cpu);
 }
 
-static int			execute_instruction(t_cpu *cpu, t_asm_code *asm_code,
-													t_instruction *instruction,
-				void (**op_function)(t_cpu *, t_instruction *, t_asm_code *))
+static int			execute_instruction(t_cpu *cpu, t_instruction *instruction,
+				void (**op_function)(t_cpu *, t_instruction *))
 {
 	int				cycles_to_execute;
 
-	cycles_to_execute = asm_code->g_op_tab[instruction->opcode].cycles;
+	cycles_to_execute = cpu->g_op_tab[instruction->opcode].cycles;
 	if (execute_cycles(cycles_to_execute, cpu))
 		return (1);
 	if (instruction->opcode)
-		op_function[instruction->opcode](cpu, instruction, asm_code);
+		op_function[instruction->opcode](cpu, instruction);
 	else
 	{
 		return (1);
@@ -78,7 +78,7 @@ static void			execute_instructions(t_player *player, t_input *input,
 											t_cpu *cpu, t_asm_code *asm_code)
 {
 	t_instruction	*instruction;
-	void			(**op_function)(t_cpu *, t_instruction *, t_asm_code *);
+	void			(**op_function)(t_cpu *, t_instruction *);
 
 	op_function = set_op_functions();
 	instruction = parse_instruction(input, cpu->pc);
@@ -86,7 +86,7 @@ static void			execute_instructions(t_player *player, t_input *input,
 									input->num_of_instructions_to_execute &&
 												cpu->pc == instruction->start_p)
 	{
-		if (execute_instruction(cpu, asm_code, instruction, op_function))
+		if (execute_instruction(cpu, instruction, op_function))
 		{
 			ft_printf("%08x: %s\n", cpu->pc - asm_code->file_content,
 						input->g_op_tab[instruction->opcode].instruction_name);
@@ -111,6 +111,7 @@ int					main(int argc, char **argv)
 	t_player		*player;
 
 	player = (t_player*)ft_memalloc(sizeof(*player));
+	ft_step_args(&argc, &argv);
 	input = read_input_data(&argc, &argv);
 	if (input->file_content)
 	{

@@ -3,21 +3,19 @@
 /*                                                        :::      ::::::::   */
 /*   execution_3.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ubuntu <ubuntu@student.42.fr>              +#+  +:+       +#+        */
+/*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/05 14:28:50 by ubuntu            #+#    #+#             */
-/*   Updated: 2020/06/09 13:08:16 by ubuntu           ###   ########.fr       */
+/*   Updated: 2020/07/01 12:41:46 by jkauppi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cpu.h"
 
-void			exec_or(t_cpu *cpu, t_instruction *instruction,
-														t_asm_code *asm_code)
+void			exec_or(t_cpu *cpu, t_instruction *instruction)
 {
 	int			param[2];
 
-	(void)asm_code;
 	ft_bzero(param, sizeof(param));
 	if (instruction->param[0].type == REG_CODE)
 		param[0] = cpu->reg[instruction->param[0].value];
@@ -29,12 +27,10 @@ void			exec_or(t_cpu *cpu, t_instruction *instruction,
 	return ;
 }
 
-void			exec_xor(t_cpu *cpu, t_instruction *instruction,
-														t_asm_code *asm_code)
+void			exec_xor(t_cpu *cpu, t_instruction *instruction)
 {
 	int			param[2];
 
-	(void)asm_code;
 	ft_bzero(param, sizeof(param));
 	if (instruction->param[0].type == REG_CODE)
 		param[0] = cpu->reg[instruction->param[0].value];
@@ -46,12 +42,10 @@ void			exec_xor(t_cpu *cpu, t_instruction *instruction,
 	return ;
 }
 
-void			exec_and(t_cpu *cpu, t_instruction *instruction,
-														t_asm_code *asm_code)
+void			exec_and(t_cpu *cpu, t_instruction *instruction)
 {
 	int			param[2];
 
-	(void)asm_code;
 	ft_bzero(param, sizeof(param));
 	if (instruction->param[0].type == REG_CODE)
 		param[0] = cpu->reg[instruction->param[0].value];

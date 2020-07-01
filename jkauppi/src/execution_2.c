@@ -6,7 +6,7 @@
 /*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/05 13:47:56 by ubuntu            #+#    #+#             */
-/*   Updated: 2020/07/01 12:45:51 by jkauppi          ###   ########.fr       */
+/*   Updated: 2020/07/01 13:51:52 by jkauppi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,14 +47,6 @@ void			exec_sti(t_cpu *cpu, t_instruction *instruction)
 	p[1] = (cpu->reg[instruction->param[0].value] >> (8 * 2)) & 0xff;
 	p[2] = (cpu->reg[instruction->param[0].value] >> (8 * 1)) & 0xff;
 	p[3] = (cpu->reg[instruction->param[0].value] >> (8 * 0)) & 0xff;
-	// }
-	// else
-	// {
-	// 	ft_printf("%08x: ", instruction->start_p - asm_code->file_content);
-	// 	print_hex_string(0, instruction->start_p, instruction->length);
-	// 	print_params(instruction->param);
-	// 	ft_printf("\n");
-	// }
 	cpu->pc = instruction->start_p + instruction->length;
 	return ;
 }

@@ -6,7 +6,7 @@
 #    By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/05/05 11:36:37 by ubuntu            #+#    #+#              #
-#    Updated: 2020/06/30 17:32:38 by jkauppi          ###   ########.fr        #
+#    Updated: 2020/07/01 14:02:27 by jkauppi          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,7 +21,7 @@ LIB			=	-L $(LIB_FOLDER) -l ft -l ftprintf
 SRC			=	input_1.c input_cpu.c memory_1.c \
 				print_hex.c print_asm.c op.c print_cpu.c print_memory.c\
 				instruction_1.c instruction_2.c \
-				execution_1.c execution_2.c execution_3.c \
+				execution_1.c execution_2.c execution_3.c execution_4.c \
 				cycles_cpu.c
 
 HEADERS		=	decoder.h op.h cpu.h

@@ -6,7 +6,7 @@
 /*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/12 19:48:41 by ubuntu            #+#    #+#             */
-/*   Updated: 2020/07/01 14:48:53 by jkauppi          ###   ########.fr       */
+/*   Updated: 2020/07/01 19:20:33 by jkauppi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,6 +104,7 @@ typedef struct		s_input
 	t_op			*g_op_tab;
 	char			*input_file;
 	int				player_number;
+	int				nuum_of_players;
 	t_player		**players;
 	int				num_of_instructions_to_execute;
 }					t_input;

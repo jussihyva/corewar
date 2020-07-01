@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   input_1.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ubuntu <ubuntu@student.42.fr>              +#+  +:+       +#+        */
+/*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/07 18:30:16 by ubuntu            #+#    #+#             */
-/*   Updated: 2020/06/05 11:24:53 by ubuntu           ###   ########.fr       */
+/*   Updated: 2020/07/01 11:46:53 by jkauppi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,20 +19,15 @@ void			ft_step_args(int *argc, char ***argv)
 	return ;
 }
 
-void			save_input_file_name(t_input *input, int *argc, char ***argv)
+int				open_fd(char *file_path)
 {
-	if (*argc > 1)
-	{
-		if (!(input->opt & map_file))
-		{
-			input->input_file = ft_strdup((*argv)[1]);
-			input->opt |= map_file;
-		}
-		ft_step_args(argc, argv);
-	}
+	int			fd;
+
+	if (file_path)
+		fd = open(file_path, O_RDONLY);
 	else
-		input->error = input_file_missing;
-	return ;
+		fd = 0;
+	return (fd);
 }
 
 static t_list	**read_file_content(int fd, size_t *file_content_size)

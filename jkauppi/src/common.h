@@ -6,7 +6,7 @@
 /*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/12 19:48:41 by ubuntu            #+#    #+#             */
-/*   Updated: 2020/07/01 11:46:53 by jkauppi          ###   ########.fr       */
+/*   Updated: 2020/07/01 12:06:25 by jkauppi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,6 +78,23 @@ typedef struct		s_op
 	int			label_size;
 }					t_op;
 
+typedef struct		s_asm_code
+{
+	char			*file_content;
+	t_op			*g_op_tab;
+	t_header		*header;
+	int				header_size;
+	char			*asa_code;
+	int				asa_code_size;
+	t_list			**instruction_lst;
+}					t_asm_code;
+
+typedef struct		s_player
+{
+	int				player_number;
+	t_asm_code		*asm_code;
+}					t_player;
+
 typedef struct		s_input
 {
 	t_input_error	error;
@@ -87,21 +104,9 @@ typedef struct		s_input
 	t_op			*g_op_tab;
 	char			*input_file;
 	int				player_number;
+	t_player		**players;
 	int				num_of_instructions_to_execute;
 }					t_input;
-
-typedef struct		s_asm_code
-{
-	char			*file_content;
-	t_op			*g_op_tab;
-	t_header		*header;
-	t_list			**instruction_lst;
-}					t_asm_code;
-
-typedef struct		s_player
-{
-	int		player_number;
-}					t_player;
 
 void				ft_step_args(int *argc, char ***argv);
 int					open_fd(char *file_path);

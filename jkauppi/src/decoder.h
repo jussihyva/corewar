@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   decoder.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
+/*   By: ubuntu <ubuntu@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/05 11:41:56 by ubuntu            #+#    #+#             */
-/*   Updated: 2020/07/01 14:35:51 by jkauppi          ###   ########.fr       */
+/*   Updated: 2020/07/02 07:52:31 by ubuntu           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,5 @@ void				del_elem(void *elem, size_t size);
 void				print_hex(char *line, ssize_t size);
 void				print_asm(t_input *input, char *file_content, ssize_t size);
 t_header			*read_header(char *file_content);
-void				remove_asm_code(t_asm_code *asm_code);
 
 #endif

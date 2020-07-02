@@ -6,7 +6,7 @@
 /*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/05 11:28:48 by ubuntu            #+#    #+#             */
-/*   Updated: 2020/07/02 14:49:46 by jkauppi          ###   ########.fr       */
+/*   Updated: 2020/07/02 15:05:13 by jkauppi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,7 @@ int					main(int argc, char **argv)
 		print_hex(input->file_content, input->file_content_size);
 	free(input->file_content);
 	ft_printf("END\n");
+	free(input->g_op_tab);
 	free(input);
 	if (input->opt & leaks)
 		system("leaks decoder");

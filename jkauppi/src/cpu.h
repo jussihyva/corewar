@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cpu.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
+/*   By: ubuntu <ubuntu@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/12 19:34:42 by ubuntu            #+#    #+#             */
-/*   Updated: 2020/07/01 12:42:03 by jkauppi          ###   ########.fr       */
+/*   Updated: 2020/07/02 08:03:37 by ubuntu           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,5 +47,6 @@ int					execute_cycles(int cycles_to_execute, t_cpu *cpu);
 void				print_cpu(t_cpu *cpu, t_input *input,
 							t_instruction *instruction, t_asm_code *asm_code);
 void				print_memory(t_cpu *cpu);
+void				release(t_input *input);
 
 #endif

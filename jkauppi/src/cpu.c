@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cpu.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
+/*   By: ubuntu <ubuntu@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/12 19:32:46 by ubuntu            #+#    #+#             */
-/*   Updated: 2020/07/01 19:23:44 by jkauppi          ###   ########.fr       */
+/*   Updated: 2020/07/02 08:08:53 by ubuntu           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,6 +100,7 @@ static void			execute_instructions(t_player *player, t_input *input,
 						input->g_op_tab[instruction->opcode].instruction_name);
 			break ;
 		}
+		free(instruction);
 		if (input->opt & verbose)
 			print_cpu(cpu, input, instruction, asm_code);
 		instruction = parse_instruction(input, cpu->pc);
@@ -108,6 +109,7 @@ static void			execute_instructions(t_player *player, t_input *input,
 	}
 	ft_printf("Player %d killed.\n", player->player_number);
 	free(op_function);
+	free(instruction);
 	return ;
 }
 
@@ -118,22 +120,32 @@ int					main(int argc, char **argv)
 	t_cpu			*cpu;
 	t_player		*player;
 
-	player = (t_player*)ft_memalloc(sizeof(*player));
+//	player = (t_player*)ft_memalloc(sizeof(*player));
 	ft_step_args(&argc, &argv);
 	input = read_input_data(&argc, &argv);
 	if (input->file_content)
 	{
-		player->player_number = input->player_number;
+//		player->player_number = input->player_number;
 		player = input->players[0];
 		asm_code = parse_instructions(input, input->file_content,
 													input->file_content_size);
 		cpu = initialize_cpu(input);
 		execute_instructions(player, input, cpu, asm_code);
 		print_memory(cpu);
+		free(cpu->memory);
+		free(cpu);
+		free(asm_code->header);
+		free(asm_code);
+		remove_asm_code(asm_code);
+		free(asm_code->instruction_lst);
 	}
-	free(player);
-	free(input->g_op_tab);
-	free(input);
+	release(input);
+	// free(player->asm_code->header);
+	// free(player->asm_code->instruction_lst);
+	// free(player->asm_code);
+	// free(player);
+	// free(input->g_op_tab);
+	// free(input);
 	if (input->opt & leaks)
 		system("leaks cpu");
 	return (0);

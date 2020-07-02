@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   common.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
+/*   By: ubuntu <ubuntu@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/12 19:48:41 by ubuntu            #+#    #+#             */
-/*   Updated: 2020/07/01 19:20:33 by jkauppi          ###   ########.fr       */
+/*   Updated: 2020/07/02 07:52:31 by ubuntu           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -121,5 +121,6 @@ void				print_params(t_op_param *param);
 void				print_instruction(t_input *input,
 								t_instruction *instruction, char *file_content);
 t_asm_code			*initialize_asm_code(t_input *input, char *file_content);
+void				remove_asm_code(t_asm_code *asm_code);
 
 #endif

@@ -6,18 +6,19 @@
 /*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/30 15:46:25 by jkauppi           #+#    #+#             */
-/*   Updated: 2020/06/30 15:47:49 by jkauppi          ###   ########.fr       */
+/*   Updated: 2020/07/02 14:44:53 by jkauppi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cpu.h"
 
 void			print_cpu(t_cpu *cpu, t_input *input,
-							t_instruction *instruction, t_asm_code *asm_code)
+							t_instruction *instruction)
 {
 	int			reg;
 
-	print_instruction(input, instruction, asm_code->file_content);
+	print_instruction(instruction, instruction->start_p - cpu->memory,
+						input->g_op_tab[instruction->opcode].instruction_name);
 	ft_printf("%85s", "CPU: ");
 	reg = 0;
 	while (++reg < 8)

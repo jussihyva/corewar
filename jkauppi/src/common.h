@@ -6,7 +6,7 @@
 /*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/12 19:48:41 by ubuntu            #+#    #+#             */
-/*   Updated: 2020/07/01 19:20:33 by jkauppi          ###   ########.fr       */
+/*   Updated: 2020/07/02 14:32:48 by jkauppi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,8 +118,8 @@ t_asm_code			*parse_instructions(t_input *input, char *file_content,
 																ssize_t size);
 void				print_hex_string(ssize_t index, char *line, ssize_t size);
 void				print_params(t_op_param *param);
-void				print_instruction(t_input *input,
-								t_instruction *instruction, char *file_content);
+void				print_instruction(t_instruction *instruction,
+													long start_ptr, char *name);
 t_asm_code			*initialize_asm_code(t_input *input, char *file_content);
 
 #endif

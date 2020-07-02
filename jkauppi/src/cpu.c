@@ -6,7 +6,7 @@
 /*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/12 19:32:46 by ubuntu            #+#    #+#             */
-/*   Updated: 2020/07/02 15:05:13 by jkauppi          ###   ########.fr       */
+/*   Updated: 2020/07/02 15:33:45 by jkauppi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,9 +90,8 @@ static void			execute_instructions(t_player *player, t_input *input,
 
 	op_function = set_op_functions();
 	instruction = parse_instruction(input, cpu->pc);
-	while (*instruction->start_p > 0 && *instruction->start_p < 17 &&
-									input->num_of_instructions_to_execute &&
-												cpu->pc == instruction->start_p)
+	while (*instruction->start_p > 0 && input->num_of_instructions_to_execute &&
+				*instruction->start_p < 17 && cpu->pc == instruction->start_p)
 	{
 		if (execute_instruction(cpu, instruction, op_function))
 		{
@@ -100,9 +99,9 @@ static void			execute_instructions(t_player *player, t_input *input,
 						input->g_op_tab[instruction->opcode].instruction_name);
 			break ;
 		}
-		free(instruction);
 		if (input->opt & verbose)
 			print_cpu(cpu, input, instruction);
+		free(instruction);
 		instruction = parse_instruction(input, cpu->pc);
 		if (input->num_of_instructions_to_execute != -1)
 			input->num_of_instructions_to_execute--;
@@ -131,12 +130,6 @@ int					main(int argc, char **argv)
 		free(cpu);
 	}
 	release(input);
-	// free(player->asm_code->header);
-	// free(player->asm_code->instruction_lst);
-	// free(player->asm_code);
-	// free(player);
-	// free(input->g_op_tab);
-	// free(input);
 	if (input->opt & leaks)
 		system("leaks cpu");
 	return (0);

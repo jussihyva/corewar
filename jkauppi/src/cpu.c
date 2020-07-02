@@ -6,7 +6,7 @@
 /*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/12 19:32:46 by ubuntu            #+#    #+#             */
-/*   Updated: 2020/07/02 18:24:49 by jkauppi          ###   ########.fr       */
+/*   Updated: 2020/07/02 19:51:19 by jkauppi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ static void			*set_op_functions(void)
 	void	(**op_function)(t_cpu *, t_instruction *);
 
 	op_function = (void (**)(t_cpu *cpu, t_instruction *instruction))
-										ft_memalloc(sizeof(*op_function) * 16);
+										ft_memalloc(sizeof(*op_function) * 17);
 	op_function[e_lfork] = NULL;
 	op_function[e_sti] = exec_sti;
 	op_function[e_fork] = exec_fork;

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   memory_1.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ubuntu <ubuntu@student.42.fr>              +#+  +:+       +#+        */
+/*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/07 19:32:46 by ubuntu            #+#    #+#             */
-/*   Updated: 2020/07/02 08:06:58 by ubuntu           ###   ########.fr       */
+/*   Updated: 2020/07/02 18:24:06 by jkauppi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ void			release(t_input *input)
 	t_player	*player;
 
 	i = -1;
-	while (++i < input->nuum_of_players)
+	while (++i < input->num_of_players)
 	{
 		player = input->players[i];
 		free(player->asm_code->header);

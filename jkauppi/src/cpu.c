@@ -6,7 +6,7 @@
 /*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/12 19:32:46 by ubuntu            #+#    #+#             */
-/*   Updated: 2020/07/01 19:23:44 by jkauppi          ###   ########.fr       */
+/*   Updated: 2020/07/02 14:48:45 by jkauppi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,7 @@ static int			execute_instruction(t_cpu *cpu, t_instruction *instruction,
 }
 
 static void			execute_instructions(t_player *player, t_input *input,
-											t_cpu *cpu, t_asm_code *asm_code)
+																	t_cpu *cpu)
 {
 	t_instruction	*instruction;
 	void			(**op_function)(t_cpu *, t_instruction *);
@@ -96,12 +96,12 @@ static void			execute_instructions(t_player *player, t_input *input,
 	{
 		if (execute_instruction(cpu, instruction, op_function))
 		{
-			ft_printf("%08x: %s\n", cpu->pc - asm_code->file_content,
+			ft_printf("%08x: %s\n", cpu->pc - cpu->memory,
 						input->g_op_tab[instruction->opcode].instruction_name);
 			break ;
 		}
 		if (input->opt & verbose)
-			print_cpu(cpu, input, instruction, asm_code);
+			print_cpu(cpu, input, instruction);
 		instruction = parse_instruction(input, cpu->pc);
 		if (input->num_of_instructions_to_execute != -1)
 			input->num_of_instructions_to_execute--;
@@ -114,24 +114,19 @@ static void			execute_instructions(t_player *player, t_input *input,
 int					main(int argc, char **argv)
 {
 	t_input			*input;
-	t_asm_code		*asm_code;
 	t_cpu			*cpu;
 	t_player		*player;
 
-	player = (t_player*)ft_memalloc(sizeof(*player));
 	ft_step_args(&argc, &argv);
 	input = read_input_data(&argc, &argv);
 	if (input->file_content)
 	{
-		player->player_number = input->player_number;
 		player = input->players[0];
-		asm_code = parse_instructions(input, input->file_content,
-													input->file_content_size);
 		cpu = initialize_cpu(input);
-		execute_instructions(player, input, cpu, asm_code);
+		execute_instructions(player, input, cpu);
 		print_memory(cpu);
+		free(player);
 	}
-	free(player);
 	free(input->g_op_tab);
 	free(input);
 	if (input->opt & leaks)

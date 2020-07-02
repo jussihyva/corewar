@@ -6,7 +6,7 @@
 /*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/12 19:34:42 by ubuntu            #+#    #+#             */
-/*   Updated: 2020/07/01 12:42:03 by jkauppi          ###   ########.fr       */
+/*   Updated: 2020/07/02 14:45:28 by jkauppi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ void				exec_and(t_cpu *cpu, t_instruction *instruction);
 void				exec_fork(t_cpu *cpu, t_instruction *instruction);
 int					execute_cycles(int cycles_to_execute, t_cpu *cpu);
 void				print_cpu(t_cpu *cpu, t_input *input,
-							t_instruction *instruction, t_asm_code *asm_code);
+													t_instruction *instruction);
 void				print_memory(t_cpu *cpu);
 
 #endif

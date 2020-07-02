@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   print_asm.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ubuntu <ubuntu@student.42.fr>              +#+  +:+       +#+        */
+/*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/07 22:39:50 by ubuntu            #+#    #+#             */
-/*   Updated: 2020/06/05 12:06:03 by ubuntu           ###   ########.fr       */
+/*   Updated: 2020/07/02 14:50:39 by jkauppi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,9 @@ void				print_asm(t_input *input, char *file_content, ssize_t size)
 	while (elem)
 	{
 		instruction = *(t_instruction **)elem->content;
-		print_instruction(input, instruction, asm_code->file_content);
+		print_instruction(instruction,
+								instruction->start_p - asm_code->file_content,
+						input->g_op_tab[instruction->opcode].instruction_name);
 		elem = elem->next;
 	}
 	remove_asm_code(asm_code);

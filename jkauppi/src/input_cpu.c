@@ -6,7 +6,7 @@
 /*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/30 13:18:31 by jkauppi           #+#    #+#             */
-/*   Updated: 2020/07/01 19:21:49 by jkauppi          ###   ########.fr       */
+/*   Updated: 2020/07/02 14:51:20 by jkauppi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,8 @@ t_input			*read_input_data(int *argc, char ***argv)
 				input->file_content = read_input_file(fd,
 													&input->file_content_size);
 				player->player_number = i + 1;
-				player->asm_code = initialize_asm_code(input, input->file_content);
+				player->asm_code =
+								initialize_asm_code(input, input->file_content);
 			}
 			else
 				input->file_content = NULL;

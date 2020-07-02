@@ -6,7 +6,7 @@
 /*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/12 19:32:46 by ubuntu            #+#    #+#             */
-/*   Updated: 2020/07/02 15:33:45 by jkauppi          ###   ########.fr       */
+/*   Updated: 2020/07/02 18:24:49 by jkauppi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,10 +47,10 @@ static t_cpu		*initialize_cpu(t_input *input)
 	cpu = (t_cpu *)ft_memalloc(sizeof(*cpu));
 	cpu->memory = (char *)ft_memalloc(sizeof(*cpu->memory) * MEM_SIZE);
 	i = -1;
-	while (++i < input->nuum_of_players)
+	while (++i < input->num_of_players)
 	{
 		player = input->players[i];
-		mem_position = cpu->memory + (MEM_SIZE / input->nuum_of_players * i);
+		mem_position = cpu->memory + (MEM_SIZE / input->num_of_players * i);
 		ft_memcpy(mem_position, player->asm_code->asa_code,
 											player->asm_code->asa_code_size);
 	}

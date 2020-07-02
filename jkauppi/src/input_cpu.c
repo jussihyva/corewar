@@ -6,7 +6,7 @@
 /*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/30 13:18:31 by jkauppi           #+#    #+#             */
-/*   Updated: 2020/07/02 14:51:20 by jkauppi          ###   ########.fr       */
+/*   Updated: 2020/07/02 18:27:44 by jkauppi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,12 +48,22 @@ static t_input	*initialize_input(void)
 	return (input);
 }
 
+static t_player	*initalize_player(t_input *input, int fd, int player_number)
+{
+	t_player	*player;
+
+	player = (t_player *)ft_memalloc(sizeof(*player));
+	input->file_content = read_input_file(fd, &input->file_content_size);
+	player->player_number = player_number;
+	player->asm_code = initialize_asm_code(input, input->file_content);
+	return (player);
+}
+
 t_input			*read_input_data(int *argc, char ***argv)
 {
 	int			fd;
 	t_input		*input;
 	int			i;
-	t_player	*player;
 
 	input = initialize_input();
 	read_opt(input, argc, argv);
@@ -68,26 +78,12 @@ t_input			*read_input_data(int *argc, char ***argv)
 			if (fd != -1)
 			{
 				i++;
-				player = (t_player *)ft_memalloc(sizeof(*input->players));
-				input->players[i] = player;
-				input->file_content = read_input_file(fd,
-													&input->file_content_size);
-				player->player_number = i + 1;
-				player->asm_code =
-								initialize_asm_code(input, input->file_content);
+				input->players[i] = initalize_player(input, fd, i + 1);
 			}
-			else
-				input->file_content = NULL;
 		}
 	}
 	else
-	{
-		i++;
-		player = (t_player *)ft_memalloc(sizeof(*input->players));
-		input->players[i] = player;
-		input->file_content = read_input_file(0, &input->file_content_size);
-		player->asm_code = initialize_asm_code(input, input->file_content);
-	}
-	input->nuum_of_players = i + 1;
+		input->players[i] = initalize_player(input, 0, 1);
+	input->num_of_players = i + 1;
 	return (input);
 }

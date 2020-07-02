@@ -6,7 +6,7 @@
 /*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/12 19:32:46 by ubuntu            #+#    #+#             */
-/*   Updated: 2020/07/02 14:48:45 by jkauppi          ###   ########.fr       */
+/*   Updated: 2020/07/02 15:05:13 by jkauppi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,6 +100,7 @@ static void			execute_instructions(t_player *player, t_input *input,
 						input->g_op_tab[instruction->opcode].instruction_name);
 			break ;
 		}
+		free(instruction);
 		if (input->opt & verbose)
 			print_cpu(cpu, input, instruction);
 		instruction = parse_instruction(input, cpu->pc);
@@ -108,6 +109,7 @@ static void			execute_instructions(t_player *player, t_input *input,
 	}
 	ft_printf("Player %d killed.\n", player->player_number);
 	free(op_function);
+	free(instruction);
 	return ;
 }
 
@@ -125,10 +127,16 @@ int					main(int argc, char **argv)
 		cpu = initialize_cpu(input);
 		execute_instructions(player, input, cpu);
 		print_memory(cpu);
-		free(player);
+		free(cpu->memory);
+		free(cpu);
 	}
-	free(input->g_op_tab);
-	free(input);
+	release(input);
+	// free(player->asm_code->header);
+	// free(player->asm_code->instruction_lst);
+	// free(player->asm_code);
+	// free(player);
+	// free(input->g_op_tab);
+	// free(input);
 	if (input->opt & leaks)
 		system("leaks cpu");
 	return (0);

@@ -6,7 +6,7 @@
 /*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/12 19:48:41 by ubuntu            #+#    #+#             */
-/*   Updated: 2020/07/02 14:32:48 by jkauppi          ###   ########.fr       */
+/*   Updated: 2020/07/02 14:58:40 by jkauppi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -121,5 +121,6 @@ void				print_params(t_op_param *param);
 void				print_instruction(t_instruction *instruction,
 													long start_ptr, char *name);
 t_asm_code			*initialize_asm_code(t_input *input, char *file_content);
+void				remove_asm_code(t_asm_code *asm_code);
 
 #endif

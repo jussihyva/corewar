@@ -6,7 +6,7 @@
 /*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/12 19:48:41 by ubuntu            #+#    #+#             */
-/*   Updated: 2020/07/02 18:23:43 by jkauppi          ###   ########.fr       */
+/*   Updated: 2020/07/03 10:28:13 by jkauppi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,6 +93,11 @@ typedef struct		s_player
 {
 	int				player_number;
 	t_asm_code		*asm_code;
+	char			*pc;
+	char			*program_start_ptr;
+	int				reg[REG_NUMBER + 1];
+	int				carry;
+	int				is_live;
 }					t_player;
 
 typedef struct		s_input

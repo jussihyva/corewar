@@ -6,7 +6,7 @@
 /*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/12 19:34:42 by ubuntu            #+#    #+#             */
-/*   Updated: 2020/07/03 10:46:55 by jkauppi          ###   ########.fr       */
+/*   Updated: 2020/07/03 14:56:02 by jkauppi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ void				exec_xor(t_player *player, t_instruction *instruction);
 void				exec_and(t_player *player, t_instruction *instruction);
 void				exec_fork(t_player *player, t_instruction *instruction);
 int					execute_cycles(int cycles_to_execute, t_cpu *cpu,
-															t_input *input);
+															t_player *player);
 void				print_cpu(t_cpu *cpu, t_input *input, t_player *player,
 													t_instruction *instruction);
 void				print_memory(t_cpu *cpu);

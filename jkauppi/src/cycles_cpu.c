@@ -6,21 +6,21 @@
 /*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/30 15:00:30 by jkauppi           #+#    #+#             */
-/*   Updated: 2020/06/30 15:49:15 by jkauppi          ###   ########.fr       */
+/*   Updated: 2020/07/03 10:46:01 by jkauppi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cpu.h"
 
-static int			is_player_alive(t_cpu *cpu)
+static int			is_player_alive(t_cpu *cpu, t_player *player)
 {
 	int				reason_to_kill;
 
 	reason_to_kill = 0;
 	cpu->current_number_of_checks++;
-	if (!cpu->is_live)
+	if (!player->is_live)
 		reason_to_kill = 1;
-	else if (cpu->is_live >= NBR_LIVE ||
+	else if (player->is_live >= NBR_LIVE ||
 				cpu->current_number_of_checks >= MAX_CHECKS)
 	{
 		cpu->current_cycle_to_die -= CYCLE_DELTA;
@@ -28,7 +28,7 @@ static int			is_player_alive(t_cpu *cpu)
 			reason_to_kill = 2;
 		cpu->current_number_of_checks = 0;
 	}
-	cpu->is_live = 0;
+	player->is_live = 0;
 	cpu->next_cycle_to_die_point = cpu->cycle_cnt +
 											cpu->current_cycle_to_die;
 	ft_printf("  Updated cycle to die cnt: %d\n",
@@ -36,9 +36,12 @@ static int			is_player_alive(t_cpu *cpu)
 	return (reason_to_kill);
 }
 
-int					execute_cycles(int cycles_to_execute, t_cpu *cpu)
+int					execute_cycles(int cycles_to_execute, t_cpu *cpu,
+																t_input *input)
 {
 	int				reason_to_kill;
+	int				i;
+	t_player		*player;
 
 	reason_to_kill = 0;
 	while (cycles_to_execute-- && !reason_to_kill)
@@ -47,7 +50,14 @@ int					execute_cycles(int cycles_to_execute, t_cpu *cpu)
 		ft_printf("Cycle : %lld (%lld)\n", cpu->cycle_cnt,
 								cpu->next_cycle_to_die_point - cpu->cycle_cnt);
 		if (cpu->cycle_cnt == cpu->next_cycle_to_die_point)
-			reason_to_kill = is_player_alive(cpu);
+		{
+			i = -1;
+			while (++i < input->num_of_players)
+			{
+				player = input->players[i];
+				reason_to_kill = is_player_alive(cpu, player);
+			}
+		}
 	}
 	return (reason_to_kill);
 }

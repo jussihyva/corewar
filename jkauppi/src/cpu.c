@@ -6,7 +6,7 @@
 /*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/12 19:32:46 by ubuntu            #+#    #+#             */
-/*   Updated: 2020/07/03 10:56:04 by jkauppi          ###   ########.fr       */
+/*   Updated: 2020/07/03 14:57:34 by jkauppi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,15 +66,15 @@ static t_cpu		*initialize_cpu(t_input *input)
 }
 
 static int			execute_instruction(t_cpu *cpu, t_instruction *instruction,
-				void (**op_function)(t_cpu *, t_instruction *), t_input *input)
+				void (**op_function)(t_player *, t_instruction *), t_input *input)
 {
 	int				cycles_to_execute;
 
 	cycles_to_execute = cpu->g_op_tab[instruction->opcode].cycles;
-	if (execute_cycles(cycles_to_execute, cpu, input))
+	if (execute_cycles(cycles_to_execute, cpu, input->players[0]))
 		return (1);
 	if (instruction->opcode)
-		op_function[instruction->opcode](cpu, instruction);
+		op_function[instruction->opcode](input->players[0], instruction);
 	else
 	{
 		return (1);
@@ -86,7 +86,7 @@ static void			execute_instructions(t_player *player, t_input *input,
 																	t_cpu *cpu)
 {
 	t_instruction	*instruction;
-	void			(**op_function)(t_cpu *, t_instruction *);
+	void			(**op_function)(t_player *, t_instruction *);
 
 	op_function = set_op_functions();
 	instruction = parse_instruction(input, player->pc);

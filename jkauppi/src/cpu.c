@@ -6,7 +6,7 @@
 /*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/12 19:32:46 by ubuntu            #+#    #+#             */
-/*   Updated: 2020/07/02 19:51:19 by jkauppi          ###   ########.fr       */
+/*   Updated: 2020/07/03 10:56:04 by jkauppi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,9 @@
 
 static void			*set_op_functions(void)
 {
-	void	(**op_function)(t_cpu *, t_instruction *);
+	void	(**op_function)(t_player *, t_instruction *);
 
-	op_function = (void (**)(t_cpu *cpu, t_instruction *instruction))
+	op_function = (void (**)(t_player *player, t_instruction *instruction))
 										ft_memalloc(sizeof(*op_function) * 17);
 	op_function[e_lfork] = NULL;
 	op_function[e_sti] = exec_sti;
@@ -53,11 +53,11 @@ static t_cpu		*initialize_cpu(t_input *input)
 		mem_position = cpu->memory + (MEM_SIZE / input->num_of_players * i);
 		ft_memcpy(mem_position, player->asm_code->asa_code,
 											player->asm_code->asa_code_size);
+		player->pc = mem_position;
+		player->program_start_ptr = mem_position;
+		player->reg[1] = -player->player_number;
 	}
 	cpu->g_op_tab = input->g_op_tab;
-	cpu->pc = cpu->memory;
-	cpu->program_start_ptr = cpu->pc;
-	cpu->reg[1] = -player->player_number;
 	cpu->current_cycle_to_die = CYCLE_TO_DIE;
 	cpu->current_number_of_checks = 0;
 	cpu->cycle_cnt = 0;
@@ -66,12 +66,12 @@ static t_cpu		*initialize_cpu(t_input *input)
 }
 
 static int			execute_instruction(t_cpu *cpu, t_instruction *instruction,
-				void (**op_function)(t_cpu *, t_instruction *))
+				void (**op_function)(t_cpu *, t_instruction *), t_input *input)
 {
 	int				cycles_to_execute;
 
 	cycles_to_execute = cpu->g_op_tab[instruction->opcode].cycles;
-	if (execute_cycles(cycles_to_execute, cpu))
+	if (execute_cycles(cycles_to_execute, cpu, input))
 		return (1);
 	if (instruction->opcode)
 		op_function[instruction->opcode](cpu, instruction);
@@ -89,20 +89,20 @@ static void			execute_instructions(t_player *player, t_input *input,
 	void			(**op_function)(t_cpu *, t_instruction *);
 
 	op_function = set_op_functions();
-	instruction = parse_instruction(input, cpu->pc);
+	instruction = parse_instruction(input, player->pc);
 	while (*instruction->start_p > 0 && input->num_of_instructions_to_execute &&
-				*instruction->start_p < 17 && cpu->pc == instruction->start_p)
+				*instruction->start_p < 17 && player->pc == instruction->start_p)
 	{
-		if (execute_instruction(cpu, instruction, op_function))
+		if (execute_instruction(cpu, instruction, op_function, input))
 		{
-			ft_printf("%08x: %s\n", cpu->pc - cpu->memory,
+			ft_printf("%08x: %s\n", player->pc - cpu->memory,
 						input->g_op_tab[instruction->opcode].instruction_name);
 			break ;
 		}
 		if (input->opt & verbose)
-			print_cpu(cpu, input, instruction);
+			print_cpu(cpu, input, player, instruction);
 		free(instruction);
-		instruction = parse_instruction(input, cpu->pc);
+		instruction = parse_instruction(input, player->pc);
 		if (input->num_of_instructions_to_execute != -1)
 			input->num_of_instructions_to_execute--;
 	}
@@ -120,9 +120,9 @@ int					main(int argc, char **argv)
 
 	ft_step_args(&argc, &argv);
 	input = read_input_data(&argc, &argv);
-	if (input->file_content)
+	player = input->players[0];
+	if (player->asm_code->file_content)
 	{
-		player = input->players[0];
 		cpu = initialize_cpu(input);
 		execute_instructions(player, input, cpu);
 		print_memory(cpu);

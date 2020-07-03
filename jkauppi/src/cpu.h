@@ -6,7 +6,7 @@
 /*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/12 19:34:42 by ubuntu            #+#    #+#             */
-/*   Updated: 2020/07/02 15:03:07 by jkauppi          ###   ########.fr       */
+/*   Updated: 2020/07/03 10:46:55 by jkauppi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,11 +19,6 @@ typedef struct		s_cpu
 	t_op			*g_op_tab;
 	long long		cycle_cnt;
 	long long		next_cycle_to_die_point;
-	char			*program_start_ptr;
-	int				reg[REG_NUMBER + 1];
-	int				is_live;
-	int				carry;
-	char			*pc;
 	int				current_cycle_to_die;
 	int				current_number_of_checks;
 	char			*memory;
@@ -31,20 +26,21 @@ typedef struct		s_cpu
 
 t_input				*read_input_data(int *argc, char ***argv);
 void				read_opt(t_input *input, int *argc, char ***argv);
-void				exec_live(t_cpu *cpu, t_instruction *instruction);
-void				exec_ld(t_cpu *cpu, t_instruction *instructio);
-void				exec_zjmp(t_cpu *cpu, t_instruction *instruction);
-void				exec_sti(t_cpu *cpu, t_instruction *instruction);
-void				exec_st(t_cpu *cpu, t_instruction *instruction);
-void				exec_ldi(t_cpu *cpu, t_instruction *instruction);
-void				exec_sub(t_cpu *cpu, t_instruction *instruction);
-void				exec_add(t_cpu *cpu, t_instruction *instruction);
-void				exec_or(t_cpu *cpu, t_instruction *instruction);
-void				exec_xor(t_cpu *cpu, t_instruction *instruction);
-void				exec_and(t_cpu *cpu, t_instruction *instruction);
-void				exec_fork(t_cpu *cpu, t_instruction *instruction);
-int					execute_cycles(int cycles_to_execute, t_cpu *cpu);
-void				print_cpu(t_cpu *cpu, t_input *input,
+void				exec_live(t_player *player, t_instruction *instruction);
+void				exec_ld(t_player *player, t_instruction *instructio);
+void				exec_zjmp(t_player *player, t_instruction *instruction);
+void				exec_sti(t_player *player, t_instruction *instruction);
+void				exec_st(t_player *player, t_instruction *instruction);
+void				exec_ldi(t_player *player, t_instruction *instruction);
+void				exec_sub(t_player *player, t_instruction *instruction);
+void				exec_add(t_player *player, t_instruction *instruction);
+void				exec_or(t_player *player, t_instruction *instruction);
+void				exec_xor(t_player *player, t_instruction *instruction);
+void				exec_and(t_player *player, t_instruction *instruction);
+void				exec_fork(t_player *player, t_instruction *instruction);
+int					execute_cycles(int cycles_to_execute, t_cpu *cpu,
+															t_input *input);
+void				print_cpu(t_cpu *cpu, t_input *input, t_player *player,
 													t_instruction *instruction);
 void				print_memory(t_cpu *cpu);
 void				release(t_input *input);

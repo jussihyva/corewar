@@ -6,28 +6,28 @@
 /*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/13 09:10:10 by ubuntu            #+#    #+#             */
-/*   Updated: 2020/07/01 14:02:03 by jkauppi          ###   ########.fr       */
+/*   Updated: 2020/07/03 10:36:50 by jkauppi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cpu.h"
 
-void			exec_ld(t_cpu *cpu, t_instruction *instruction)
+void			exec_ld(t_player *player, t_instruction *instruction)
 {
 	if (instruction->param[0].type == DIR_CODE)
 	{
-		cpu->reg[instruction->param[1].value] = instruction->param[0].value;
-		cpu->carry = (instruction->param[0].value) ? 0 : 1;
+		player->reg[instruction->param[1].value] = instruction->param[0].value;
+		player->carry = (instruction->param[0].value) ? 0 : 1;
 	}
 	else
 	{
-		ft_printf("%08x: ", instruction->start_p - cpu->program_start_ptr +
+		ft_printf("%08x: ", instruction->start_p - player->program_start_ptr +
 															sizeof(t_header));
 		print_hex_string(0, instruction->start_p, instruction->length);
 		print_params(instruction->param);
 		ft_printf("\n");
 	}
-	cpu->pc = instruction->start_p + instruction->length;
+	player->pc = instruction->start_p + instruction->length;
 	return ;
 }
 
@@ -49,7 +49,7 @@ static int		save_pointer_value_to_reg(char *p)
 	return (value);
 }
 
-void			exec_ldi(t_cpu *cpu, t_instruction *instruction)
+void			exec_ldi(t_player *player, t_instruction *instruction)
 {
 	size_t		i;
 	char		*p;
@@ -59,41 +59,41 @@ void			exec_ldi(t_cpu *cpu, t_instruction *instruction)
 		i += instruction->param[0].value;
 	else if (instruction->param[0].type == IND_CODE)
 	{
-		p = cpu->pc + instruction->param[0].value;
+		p = player->pc + instruction->param[0].value;
 		i += p[0] << (8 * 1);
 		i += p[1] << (8 * 0);
 	}
 	else
-		ft_printf("%08x: ", instruction->start_p - cpu->program_start_ptr +
+		ft_printf("%08x: ", instruction->start_p - player->program_start_ptr +
 															sizeof(t_header));
 	if (instruction->param[1].type == REG_CODE)
-		i += cpu->reg[instruction->param[1].value];
+		i += player->reg[instruction->param[1].value];
 	else if (instruction->param[1].type == DIR_CODE)
 		i += instruction->param[1].value;
 	else
-		ft_printf("%08p: %p", cpu->program_start_ptr + sizeof(t_header),
-			instruction->start_p - cpu->program_start_ptr + sizeof(t_header));
-	p = cpu->pc + i;
-	cpu->reg[instruction->param[2].value] = save_pointer_value_to_reg(p);
-	cpu->pc = instruction->start_p + instruction->length;
+		ft_printf("%08p: %p", player->program_start_ptr + sizeof(t_header),
+			instruction->start_p - player->program_start_ptr + sizeof(t_header));
+	p = player->pc + i;
+	player->reg[instruction->param[2].value] = save_pointer_value_to_reg(p);
+	player->pc = instruction->start_p + instruction->length;
 }
 
-void			exec_sub(t_cpu *cpu, t_instruction *instruction)
+void			exec_sub(t_player *player, t_instruction *instruction)
 {
-	cpu->reg[instruction->param[2].value] =
-										cpu->reg[instruction->param[0].value] -
-										cpu->reg[instruction->param[1].value];
-	cpu->carry = (cpu->reg[instruction->param[2].value]) ? 0 : 1;
-	cpu->pc = instruction->start_p + instruction->length;
+	player->reg[instruction->param[2].value] =
+										player->reg[instruction->param[0].value] -
+										player->reg[instruction->param[1].value];
+	player->carry = (player->reg[instruction->param[2].value]) ? 0 : 1;
+	player->pc = instruction->start_p + instruction->length;
 	return ;
 }
 
-void			exec_add(t_cpu *cpu, t_instruction *instruction)
+void			exec_add(t_player *player, t_instruction *instruction)
 {
-	cpu->reg[instruction->param[2].value] =
-										cpu->reg[instruction->param[0].value] +
-										cpu->reg[instruction->param[1].value];
-	cpu->carry = (cpu->reg[instruction->param[2].value]) ? 0 : 1;
-	cpu->pc = instruction->start_p + instruction->length;
+	player->reg[instruction->param[2].value] =
+										player->reg[instruction->param[0].value] +
+										player->reg[instruction->param[1].value];
+	player->carry = (player->reg[instruction->param[2].value]) ? 0 : 1;
+	player->pc = instruction->start_p + instruction->length;
 	return ;
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   input_cpu.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
+/*   By: ubuntu <ubuntu@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/30 13:18:31 by jkauppi           #+#    #+#             */
-/*   Updated: 2020/07/02 18:27:44 by jkauppi          ###   ########.fr       */
+/*   Updated: 2020/07/04 12:54:01 by ubuntu           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,11 +51,14 @@ static t_input	*initialize_input(void)
 static t_player	*initalize_player(t_input *input, int fd, int player_number)
 {
 	t_player	*player;
+	char		*file_content;
+	size_t		file_content_size;
 
 	player = (t_player *)ft_memalloc(sizeof(*player));
-	input->file_content = read_input_file(fd, &input->file_content_size);
+	file_content_size = 0;
+	file_content = read_input_file(fd, &file_content_size);
 	player->player_number = player_number;
-	player->asm_code = initialize_asm_code(input, input->file_content);
+	player->asm_code = initialize_asm_code(file_content, file_content_size, input->g_op_tab);
 	return (player);
 }
 

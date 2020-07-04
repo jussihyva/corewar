@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   instruction_2.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
+/*   By: ubuntu <ubuntu@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/12 11:44:17 by ubuntu            #+#    #+#             */
-/*   Updated: 2020/07/02 14:50:11 by jkauppi          ###   ########.fr       */
+/*   Updated: 2020/07/04 12:51:43 by ubuntu           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,8 @@ t_header		*read_header(char *file_content)
 	return (header);
 }
 
-t_asm_code		*initialize_asm_code(t_input *input, char *file_content)
+t_asm_code		*initialize_asm_code(char *file_content,
+									size_t file_content_size, t_op *g_op_tab)
 {
 	t_asm_code		*asm_code;
 
@@ -29,11 +30,11 @@ t_asm_code		*initialize_asm_code(t_input *input, char *file_content)
 	asm_code->instruction_lst =
 					(t_list **)ft_memalloc(sizeof(*asm_code->instruction_lst));
 	asm_code->header = read_header(file_content);
-	asm_code->file_content = input->file_content;
-	asm_code->file_content_size = input->file_content_size;
+	asm_code->file_content = file_content;
+	asm_code->file_content_size = file_content_size;
 	asm_code->asa_code = asm_code->file_content + sizeof(t_header);
 	asm_code->asa_code_size = asm_code->file_content_size - sizeof(t_header);
-	asm_code->g_op_tab = input->g_op_tab;
+	asm_code->g_op_tab = g_op_tab;
 	return (asm_code);
 }
 

@@ -6,7 +6,7 @@
 /*   By: ubuntu <ubuntu@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/11 13:17:12 by ubuntu            #+#    #+#             */
-/*   Updated: 2020/07/02 07:49:55 by ubuntu           ###   ########.fr       */
+/*   Updated: 2020/07/04 12:51:43 by ubuntu           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,7 +112,8 @@ t_asm_code			*parse_instructions(t_input *input, char *file_content,
 	t_instruction	*instruction;
 	t_list			*elem;
 
-	asm_code = initialize_asm_code(input, file_content);
+	asm_code = initialize_asm_code(file_content, input->file_content_size,
+															input->g_op_tab);
 	end_p = file_content + size;
 	p = file_content + sizeof(*asm_code->header);
 	while (p < end_p)

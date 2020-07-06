@@ -6,7 +6,7 @@
 /*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/13 09:10:10 by ubuntu            #+#    #+#             */
-/*   Updated: 2020/07/03 10:36:50 by jkauppi          ###   ########.fr       */
+/*   Updated: 2020/07/06 12:40:41 by jkauppi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,7 @@ void			exec_ldi(t_player *player, t_instruction *instruction)
 		i += instruction->param[1].value;
 	else
 		ft_printf("%08p: %p", player->program_start_ptr + sizeof(t_header),
-			instruction->start_p - player->program_start_ptr + sizeof(t_header));
+		instruction->start_p - player->program_start_ptr + sizeof(t_header));
 	p = player->pc + i;
 	player->reg[instruction->param[2].value] = save_pointer_value_to_reg(p);
 	player->pc = instruction->start_p + instruction->length;
@@ -81,8 +81,8 @@ void			exec_ldi(t_player *player, t_instruction *instruction)
 void			exec_sub(t_player *player, t_instruction *instruction)
 {
 	player->reg[instruction->param[2].value] =
-										player->reg[instruction->param[0].value] -
-										player->reg[instruction->param[1].value];
+									player->reg[instruction->param[0].value] -
+									player->reg[instruction->param[1].value];
 	player->carry = (player->reg[instruction->param[2].value]) ? 0 : 1;
 	player->pc = instruction->start_p + instruction->length;
 	return ;
@@ -91,8 +91,8 @@ void			exec_sub(t_player *player, t_instruction *instruction)
 void			exec_add(t_player *player, t_instruction *instruction)
 {
 	player->reg[instruction->param[2].value] =
-										player->reg[instruction->param[0].value] +
-										player->reg[instruction->param[1].value];
+									player->reg[instruction->param[0].value] +
+									player->reg[instruction->param[1].value];
 	player->carry = (player->reg[instruction->param[2].value]) ? 0 : 1;
 	player->pc = instruction->start_p + instruction->length;
 	return ;

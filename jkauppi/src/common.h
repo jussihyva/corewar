@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   common.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ubuntu <ubuntu@student.42.fr>              +#+  +:+       +#+        */
+/*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/12 19:48:41 by ubuntu            #+#    #+#             */
-/*   Updated: 2020/07/04 12:45:36 by ubuntu           ###   ########.fr       */
+/*   Updated: 2020/07/06 12:39:18 by jkauppi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,6 @@ typedef struct		s_asm_code
 {
 	char			*file_content;
 	size_t			file_content_size;
-	t_op			*g_op_tab;
 	t_header		*header;
 	char			*asa_code;
 	int				asa_code_size;
@@ -126,7 +125,7 @@ void				print_params(t_op_param *param);
 void				print_instruction(t_instruction *instruction,
 													long start_ptr, char *name);
 t_asm_code			*initialize_asm_code(char *file_content,
-									size_t file_content_size, t_op *g_op_tab);
+													size_t file_content_size);
 void				remove_asm_code(t_asm_code *asm_code);
 
 #endif

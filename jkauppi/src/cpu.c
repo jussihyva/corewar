@@ -6,7 +6,7 @@
 /*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/12 19:32:46 by ubuntu            #+#    #+#             */
-/*   Updated: 2020/07/03 14:57:34 by jkauppi          ###   ########.fr       */
+/*   Updated: 2020/07/06 12:41:35 by jkauppi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,8 @@ static t_cpu		*initialize_cpu(t_input *input)
 }
 
 static int			execute_instruction(t_cpu *cpu, t_instruction *instruction,
-				void (**op_function)(t_player *, t_instruction *), t_input *input)
+							void (**op_function)(t_player *, t_instruction *),
+																t_input *input)
 {
 	int				cycles_to_execute;
 
@@ -91,7 +92,7 @@ static void			execute_instructions(t_player *player, t_input *input,
 	op_function = set_op_functions();
 	instruction = parse_instruction(input, player->pc);
 	while (*instruction->start_p > 0 && input->num_of_instructions_to_execute &&
-				*instruction->start_p < 17 && player->pc == instruction->start_p)
+			*instruction->start_p < 17 && player->pc == instruction->start_p)
 	{
 		if (execute_instruction(cpu, instruction, op_function, input))
 		{

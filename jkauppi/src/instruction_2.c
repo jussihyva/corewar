@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   instruction_2.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ubuntu <ubuntu@student.42.fr>              +#+  +:+       +#+        */
+/*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/12 11:44:17 by ubuntu            #+#    #+#             */
-/*   Updated: 2020/07/04 12:51:43 by ubuntu           ###   ########.fr       */
+/*   Updated: 2020/07/06 12:42:09 by jkauppi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ t_header		*read_header(char *file_content)
 }
 
 t_asm_code		*initialize_asm_code(char *file_content,
-									size_t file_content_size, t_op *g_op_tab)
+													size_t file_content_size)
 {
 	t_asm_code		*asm_code;
 
@@ -34,7 +34,6 @@ t_asm_code		*initialize_asm_code(char *file_content,
 	asm_code->file_content_size = file_content_size;
 	asm_code->asa_code = asm_code->file_content + sizeof(t_header);
 	asm_code->asa_code_size = asm_code->file_content_size - sizeof(t_header);
-	asm_code->g_op_tab = g_op_tab;
 	return (asm_code);
 }
 

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   input_cpu.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ubuntu <ubuntu@student.42.fr>              +#+  +:+       +#+        */
+/*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/30 13:18:31 by jkauppi           #+#    #+#             */
-/*   Updated: 2020/07/04 12:54:01 by ubuntu           ###   ########.fr       */
+/*   Updated: 2020/07/06 12:28:10 by jkauppi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ static t_input	*initialize_input(void)
 	return (input);
 }
 
-static t_player	*initalize_player(t_input *input, int fd, int player_number)
+static t_player	*initalize_player(int fd, int player_number)
 {
 	t_player	*player;
 	char		*file_content;
@@ -58,7 +58,7 @@ static t_player	*initalize_player(t_input *input, int fd, int player_number)
 	file_content_size = 0;
 	file_content = read_input_file(fd, &file_content_size);
 	player->player_number = player_number;
-	player->asm_code = initialize_asm_code(file_content, file_content_size, input->g_op_tab);
+	player->asm_code = initialize_asm_code(file_content, file_content_size);
 	return (player);
 }
 
@@ -81,12 +81,12 @@ t_input			*read_input_data(int *argc, char ***argv)
 			if (fd != -1)
 			{
 				i++;
-				input->players[i] = initalize_player(input, fd, i + 1);
+				input->players[i] = initalize_player(fd, i + 1);
 			}
 		}
 	}
 	else
-		input->players[i] = initalize_player(input, 0, 1);
+		input->players[i] = initalize_player(0, 1);
 	input->num_of_players = i + 1;
 	return (input);
 }

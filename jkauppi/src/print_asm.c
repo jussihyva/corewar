@@ -6,7 +6,7 @@
 /*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/07 22:39:50 by ubuntu            #+#    #+#             */
-/*   Updated: 2020/07/02 14:50:39 by jkauppi          ###   ########.fr       */
+/*   Updated: 2020/07/06 17:43:46 by jkauppi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,10 @@ void				print_asm(t_input *input, char *file_content, ssize_t size)
 	t_list			*elem;
 	t_instruction	*instruction;
 	t_asm_code		*asm_code;
+	t_cpu			*cpu;
 
-	asm_code = parse_instructions(input, file_content, size);
+	cpu = initialize_cpu(input);
+	asm_code = parse_instructions(input, cpu, file_content, size);
 	ft_printf("Name: %s", asm_code->header->prog_name);
 	ft_printf(" Comment: %s", asm_code->header->comment);
 	ft_printf(" Magic: %x", asm_code->header->magic);

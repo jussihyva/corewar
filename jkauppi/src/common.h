@@ -6,7 +6,7 @@
 /*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/12 19:48:41 by ubuntu            #+#    #+#             */
-/*   Updated: 2020/07/06 12:39:18 by jkauppi          ###   ########.fr       */
+/*   Updated: 2020/07/06 14:02:38 by jkauppi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,6 +97,8 @@ typedef struct		s_player
 	int				reg[REG_NUMBER + 1];
 	int				carry;
 	int				is_live;
+	long long		cycle_cnt;
+	long long		next_cycle_to_die_point;
 }					t_player;
 
 typedef struct		s_input

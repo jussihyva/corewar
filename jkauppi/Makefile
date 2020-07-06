@@ -6,7 +6,7 @@
 #    By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/05/05 11:36:37 by ubuntu            #+#    #+#              #
-#    Updated: 2020/07/02 14:21:02 by jkauppi          ###   ########.fr        #
+#    Updated: 2020/07/06 17:51:18 by jkauppi          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,7 +22,7 @@ SRC			=	input_1.c input_cpu.c memory_1.c \
 				print_hex.c print_asm.c op.c print_cpu.c print_memory.c\
 				instruction_1.c instruction_2.c \
 				execution_1.c execution_2.c execution_3.c execution_4.c \
-				cycles_cpu.c
+				cycles_cpu.c cpu_1.c
 
 HEADERS		=	decoder.h op.h cpu.h common.h
 

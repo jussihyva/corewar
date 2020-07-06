@@ -6,7 +6,7 @@
 /*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/12 19:48:41 by ubuntu            #+#    #+#             */
-/*   Updated: 2020/07/06 15:07:58 by jkauppi          ###   ########.fr       */
+/*   Updated: 2020/07/06 17:45:32 by jkauppi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,6 +97,8 @@ typedef struct		s_player
 	int				reg[REG_NUMBER + 1];
 	int				carry;
 	int				is_live;
+	size_t			cycles_to_execute;
+	t_instruction	*next_instruction;
 }					t_player;
 
 typedef struct		s_input
@@ -113,13 +115,25 @@ typedef struct		s_input
 	int				num_of_instructions_to_execute;
 }					t_input;
 
+typedef struct		s_cpu
+{
+	t_op			*g_op_tab;
+	void			(**op_function)(t_player *, t_instruction *);
+	int				current_cycle_to_die;
+	int				current_number_of_checks;
+	char			*memory;
+	long long		cycle_cnt;
+	long long		next_cycle_to_die_point;
+}					t_cpu;
+
 void				ft_step_args(int *argc, char ***argv);
 int					open_fd(char *file_path);
 void				read_g_op_tab(t_input *input);
+t_cpu				*initialize_cpu(t_input *input);
 char				*read_input_file(int fd, size_t *file_content_size);
-t_instruction		*parse_instruction(t_input *input, char *p);
-t_asm_code			*parse_instructions(t_input *input, char *file_content,
-																ssize_t size);
+t_instruction		*parse_instruction(t_cpu *cpu, char *p);
+t_asm_code			*parse_instructions(t_input *input, t_cpu *cpu,
+											char *file_content, ssize_t size);
 void				print_hex_string(ssize_t index, char *line, ssize_t size);
 void				print_params(t_op_param *param);
 void				print_instruction(t_instruction *instruction,

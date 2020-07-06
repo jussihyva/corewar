@@ -6,7 +6,7 @@
 /*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/11 13:17:12 by ubuntu            #+#    #+#             */
-/*   Updated: 2020/07/06 12:33:45 by jkauppi          ###   ########.fr       */
+/*   Updated: 2020/07/06 17:43:46 by jkauppi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,7 @@ static int			specal_coding(int opcode)
 	return (coding_byte);
 }
 
-t_instruction		*parse_instruction(t_input *input, char *p)
+t_instruction		*parse_instruction(t_cpu *cpu, char *p)
 {
 	int				opcode;
 	int				coding_byte;
@@ -89,7 +89,7 @@ t_instruction		*parse_instruction(t_input *input, char *p)
 	instruction->opcode = opcode;
 	instruction->start_p = p;
 	p += 1;
-	if (input->g_op_tab[opcode].include_coding_byte)
+	if (cpu->g_op_tab[opcode].include_coding_byte)
 	{
 		coding_byte = (char)*p;
 		p += 1;
@@ -97,14 +97,14 @@ t_instruction		*parse_instruction(t_input *input, char *p)
 	else
 		coding_byte = specal_coding(opcode);
 	if (coding_byte != -1)
-		read_parameters(coding_byte, input->g_op_tab[opcode].label_size, &p,
+		read_parameters(coding_byte, cpu->g_op_tab[opcode].label_size, &p,
 															instruction->param);
 	instruction->length = p - instruction->start_p;
 	return (instruction);
 }
 
-t_asm_code			*parse_instructions(t_input *input, char *file_content,
-																ssize_t size)
+t_asm_code			*parse_instructions(t_input *input, t_cpu *cpu,
+											char *file_content, ssize_t size)
 {
 	char			*end_p;
 	char			*p;
@@ -119,7 +119,7 @@ t_asm_code			*parse_instructions(t_input *input, char *file_content,
 	{
 		if (*p > 0 && *p < 17)
 		{
-			instruction = parse_instruction(input, p);
+			instruction = parse_instruction(cpu, p);
 			elem = ft_lstnew(&instruction, sizeof(instruction));
 			ft_lstadd_e(asm_code->instruction_lst, elem);
 			p = instruction->start_p + instruction->length;

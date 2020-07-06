@@ -6,24 +6,13 @@
 /*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/12 19:34:42 by ubuntu            #+#    #+#             */
-/*   Updated: 2020/07/06 15:07:58 by jkauppi          ###   ########.fr       */
+/*   Updated: 2020/07/06 17:47:26 by jkauppi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef CPU_H
 # define CPU_H
 # include "common.h"
-
-typedef struct		s_cpu
-{
-	t_op			*g_op_tab;
-	void			(**op_function)(t_player *, t_instruction *);
-	int				current_cycle_to_die;
-	int				current_number_of_checks;
-	char			*memory;
-	long long		cycle_cnt;
-	long long		next_cycle_to_die_point;
-}					t_cpu;
 
 t_input				*read_input_data(int *argc, char ***argv);
 void				read_opt(t_input *input, int *argc, char ***argv);
@@ -39,8 +28,8 @@ void				exec_or(t_player *player, t_instruction *instruction);
 void				exec_xor(t_player *player, t_instruction *instruction);
 void				exec_and(t_player *player, t_instruction *instruction);
 void				exec_fork(t_player *player, t_instruction *instruction);
-int					execute_cycles(int cycles_to_execute, t_cpu *cpu,
-															t_player *player);
+int					execute_cycle(t_cpu *cpu, t_player **players,
+														size_t num_of_players);
 void				print_cpu(t_cpu *cpu, t_input *input, t_player *player,
 													t_instruction *instruction);
 void				print_memory(t_cpu *cpu);

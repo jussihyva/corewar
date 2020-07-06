@@ -6,7 +6,7 @@
 /*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/12 19:32:46 by ubuntu            #+#    #+#             */
-/*   Updated: 2020/07/06 14:10:36 by jkauppi          ###   ########.fr       */
+/*   Updated: 2020/07/06 14:46:42 by jkauppi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,7 @@ static t_cpu		*initialize_cpu(t_input *input)
 
 	cpu = (t_cpu *)ft_memalloc(sizeof(*cpu));
 	cpu->memory = (char *)ft_memalloc(sizeof(*cpu->memory) * MEM_SIZE);
+	cpu->op_function = set_op_functions();
 	cpu->g_op_tab = input->g_op_tab;
 	cpu->current_cycle_to_die = CYCLE_TO_DIE;
 	cpu->current_number_of_checks = 0;
@@ -67,7 +68,6 @@ static t_cpu		*initialize_cpu(t_input *input)
 }
 
 static int			execute_instruction(t_cpu *cpu, t_instruction *instruction,
-							void (**op_function)(t_player *, t_instruction *),
 																t_input *input)
 {
 	int				cycles_to_execute;
@@ -76,7 +76,7 @@ static int			execute_instruction(t_cpu *cpu, t_instruction *instruction,
 	if (execute_cycles(cycles_to_execute, cpu, input->players[0]))
 		return (1);
 	if (instruction->opcode)
-		op_function[instruction->opcode](input->players[0], instruction);
+		cpu->op_function[instruction->opcode](input->players[0], instruction);
 	else
 	{
 		return (1);
@@ -88,14 +88,12 @@ static void			execute_instructions(t_player *player, t_input *input,
 																	t_cpu *cpu)
 {
 	t_instruction	*instruction;
-	void			(**op_function)(t_player *, t_instruction *);
 
-	op_function = set_op_functions();
 	instruction = parse_instruction(input, player->pc);
 	while (*instruction->start_p > 0 && input->num_of_instructions_to_execute &&
 			*instruction->start_p < 17 && player->pc == instruction->start_p)
 	{
-		if (execute_instruction(cpu, instruction, op_function, input))
+		if (execute_instruction(cpu, instruction, input))
 		{
 			ft_printf("%08x: %s\n", player->pc - cpu->memory,
 						input->g_op_tab[instruction->opcode].instruction_name);
@@ -109,7 +107,6 @@ static void			execute_instructions(t_player *player, t_input *input,
 			input->num_of_instructions_to_execute--;
 	}
 	ft_printf("Player %d killed.\n", player->player_number);
-	free(op_function);
 	free(instruction);
 	return ;
 }
@@ -129,6 +126,7 @@ int					main(int argc, char **argv)
 		execute_instructions(player, input, cpu);
 		print_memory(cpu);
 		free(cpu->memory);
+		free(cpu->op_function);
 		free(cpu);
 	}
 	release(input);

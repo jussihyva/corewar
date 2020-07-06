@@ -6,7 +6,7 @@
 /*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/07 19:32:46 by ubuntu            #+#    #+#             */
-/*   Updated: 2020/07/02 18:24:06 by jkauppi          ###   ########.fr       */
+/*   Updated: 2020/07/06 12:28:32 by jkauppi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,6 @@ void			release(t_input *input)
 		free(player->asm_code);
 		free(player);
 	}
-	free(input->g_op_tab);
 	free(input->file_content);
 	free(input->players);
 	free(input);

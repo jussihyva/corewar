@@ -6,7 +6,7 @@
 /*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/12 19:32:46 by ubuntu            #+#    #+#             */
-/*   Updated: 2020/07/06 12:41:35 by jkauppi          ###   ########.fr       */
+/*   Updated: 2020/07/06 14:10:36 by jkauppi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,9 @@ static t_cpu		*initialize_cpu(t_input *input)
 
 	cpu = (t_cpu *)ft_memalloc(sizeof(*cpu));
 	cpu->memory = (char *)ft_memalloc(sizeof(*cpu->memory) * MEM_SIZE);
+	cpu->g_op_tab = input->g_op_tab;
+	cpu->current_cycle_to_die = CYCLE_TO_DIE;
+	cpu->current_number_of_checks = 0;
 	i = -1;
 	while (++i < input->num_of_players)
 	{
@@ -56,12 +59,10 @@ static t_cpu		*initialize_cpu(t_input *input)
 		player->pc = mem_position;
 		player->program_start_ptr = mem_position;
 		player->reg[1] = -player->player_number;
+		player->cycle_cnt = 0;
+		player->next_cycle_to_die_point = player->cycle_cnt +
+													cpu->current_cycle_to_die;
 	}
-	cpu->g_op_tab = input->g_op_tab;
-	cpu->current_cycle_to_die = CYCLE_TO_DIE;
-	cpu->current_number_of_checks = 0;
-	cpu->cycle_cnt = 0;
-	cpu->next_cycle_to_die_point = cpu->cycle_cnt + cpu->current_cycle_to_die;
 	return (cpu);
 }
 

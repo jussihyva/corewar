@@ -6,7 +6,7 @@
 /*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/12 19:34:42 by ubuntu            #+#    #+#             */
-/*   Updated: 2020/07/06 14:42:39 by jkauppi          ###   ########.fr       */
+/*   Updated: 2020/07/06 15:07:58 by jkauppi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,8 @@ typedef struct		s_cpu
 	int				current_cycle_to_die;
 	int				current_number_of_checks;
 	char			*memory;
+	long long		cycle_cnt;
+	long long		next_cycle_to_die_point;
 }					t_cpu;
 
 t_input				*read_input_data(int *argc, char ***argv);

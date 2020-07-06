@@ -6,7 +6,7 @@
 /*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/12 19:34:42 by ubuntu            #+#    #+#             */
-/*   Updated: 2020/07/06 14:31:23 by jkauppi          ###   ########.fr       */
+/*   Updated: 2020/07/06 14:42:39 by jkauppi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 typedef struct		s_cpu
 {
 	t_op			*g_op_tab;
+	void			(**op_function)(t_player *, t_instruction *);
 	int				current_cycle_to_die;
 	int				current_number_of_checks;
 	char			*memory;

@@ -1,7 +1,10 @@
 *.o
 *.a
 cpu
+decoder.dSYM
 decoder
+corewar.dSYM
+corewar
 prog
 a.out
 jhakala/**/*.s

@@ -1,4 +1,4 @@
-.name "live_zjmp_10"
+.name "live_zjmp_20"
 .comment "I'M ALIIIIVE"
 
 l2:		sti r1, %:live, %1

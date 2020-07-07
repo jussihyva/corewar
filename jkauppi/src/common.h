@@ -6,7 +6,7 @@
 /*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/12 19:48:41 by ubuntu            #+#    #+#             */
-/*   Updated: 2020/07/06 17:45:32 by jkauppi          ###   ########.fr       */
+/*   Updated: 2020/07/07 13:39:32 by jkauppi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,8 @@ typedef enum		e_opt
 	format_hex = 0x01,
 	format_asm = 0x02,
 	verbose = 0x04,
-	leaks = 0x08
+	verbose1 = 0x08,
+	leaks = 0x10
 }					t_opt;
 
 typedef enum		e_opcode
@@ -97,8 +98,9 @@ typedef struct		s_player
 	int				reg[REG_NUMBER + 1];
 	int				carry;
 	int				is_live;
-	size_t			cycles_to_execute;
+	long long		cycle_point_for_next_instruction;
 	t_instruction	*next_instruction;
+	int				is_killed;
 }					t_player;
 
 typedef struct		s_input
@@ -117,6 +119,7 @@ typedef struct		s_input
 
 typedef struct		s_cpu
 {
+	t_opt			opt;
 	t_op			*g_op_tab;
 	void			(**op_function)(t_player *, t_instruction *);
 	int				current_cycle_to_die;
@@ -124,6 +127,7 @@ typedef struct		s_cpu
 	char			*memory;
 	long long		cycle_cnt;
 	long long		next_cycle_to_die_point;
+	size_t			total_num_of_live_instructions;
 }					t_cpu;
 
 void				ft_step_args(int *argc, char ***argv);

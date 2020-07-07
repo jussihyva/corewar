@@ -6,7 +6,7 @@
 /*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/30 13:18:31 by jkauppi           #+#    #+#             */
-/*   Updated: 2020/07/07 10:28:41 by jkauppi          ###   ########.fr       */
+/*   Updated: 2020/07/07 13:33:32 by jkauppi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,8 @@ void			read_opt(t_input *input, int *argc, char ***argv)
 	{
 		if (ft_strequ((*argv)[0], "-v"))
 			input->opt |= verbose;
+		else if (ft_strequ((*argv)[0], "-v1"))
+			input->opt |= verbose1;
 		else if (ft_strequ((*argv)[0], "-l"))
 			input->opt |= leaks;
 		else if (ft_strequ((*argv)[0], "-p"))

@@ -6,7 +6,7 @@
 /*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/06 17:50:37 by jkauppi           #+#    #+#             */
-/*   Updated: 2020/07/07 10:28:41 by jkauppi          ###   ########.fr       */
+/*   Updated: 2020/07/07 13:39:32 by jkauppi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,7 @@ t_cpu		*initialize_cpu(t_input *input)
 	cpu->memory = (char *)ft_memalloc(sizeof(*cpu->memory) * MEM_SIZE);
 	cpu->op_function = set_op_functions();
 	cpu->g_op_tab = input->g_op_tab;
+	cpu->opt = input->opt;
 	cpu->current_cycle_to_die = CYCLE_TO_DIE;
 	cpu->current_number_of_checks = 0;
 	cpu->cycle_cnt = 0;

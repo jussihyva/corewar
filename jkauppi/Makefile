@@ -6,12 +6,12 @@
 #    By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/05/05 11:36:37 by ubuntu            #+#    #+#              #
-#    Updated: 2020/07/06 17:51:18 by jkauppi          ###   ########.fr        #
+#    Updated: 2020/07/07 10:27:36 by jkauppi          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME1		=	decoder
-NAME2		=	cpu
+NAME2		=	corewar
 CC			=	clang
 C_FLAGS		=	-g -Wall -Werror -Wextra
 LIB_FOLDER	=	../jkauppi/lib
@@ -24,12 +24,12 @@ SRC			=	input_1.c input_cpu.c memory_1.c \
 				execution_1.c execution_2.c execution_3.c execution_4.c \
 				cycles_cpu.c cpu_1.c
 
-HEADERS		=	decoder.h op.h cpu.h common.h
+HEADERS		=	decoder.h op.h corewar.h common.h
 
 SRC_FOLDER	=	src
 
 NAME1_MAIN	=	$(SRC_FOLDER)/decoder.c
-NAME2_MAIN	=	$(SRC_FOLDER)/cpu.c
+NAME2_MAIN	=	$(SRC_FOLDER)/corewar.c
 
 HEADER_LIST	=	$(addprefix $(SRC_FOLDER)/, $(HEADERS))
 

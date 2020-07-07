@@ -6,11 +6,11 @@
 /*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/05 13:47:56 by ubuntu            #+#    #+#             */
-/*   Updated: 2020/07/03 10:28:13 by jkauppi          ###   ########.fr       */
+/*   Updated: 2020/07/07 10:28:41 by jkauppi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cpu.h"
+#include "corewar.h"
 
 void			exec_live(t_player *player, t_instruction *instruction)
 {

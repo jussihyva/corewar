@@ -6,7 +6,7 @@
 /*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/06 17:50:37 by jkauppi           #+#    #+#             */
-/*   Updated: 2020/07/07 13:39:32 by jkauppi          ###   ########.fr       */
+/*   Updated: 2020/07/07 16:48:09 by jkauppi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,11 +37,10 @@ static void			*set_op_functions(void)
 	return (op_function);
 }
 
-t_cpu		*initialize_cpu(t_input *input)
+t_cpu				*initialize_cpu(t_input *input)
 {
 	t_cpu			*cpu;
 	t_player		*player;
-	char			*mem_position;
 	int				i;
 
 	cpu = (t_cpu *)ft_memalloc(sizeof(*cpu));
@@ -52,16 +51,15 @@ t_cpu		*initialize_cpu(t_input *input)
 	cpu->current_cycle_to_die = CYCLE_TO_DIE;
 	cpu->current_number_of_checks = 0;
 	cpu->cycle_cnt = 0;
-	cpu->next_cycle_to_die_point = cpu->cycle_cnt + cpu->current_cycle_to_die;
+	cpu->cycle_to_die_point = set_cycle_to_die_point(cpu);
 	i = -1;
 	while (++i < input->num_of_players)
 	{
 		player = input->players[i];
-		mem_position = cpu->memory + (MEM_SIZE / input->num_of_players * i);
-		ft_memcpy(mem_position, player->asm_code->asa_code,
+		player->pc = cpu->memory + (MEM_SIZE / input->num_of_players * i);
+		ft_memcpy(player->pc, player->asm_code->asa_code,
 											player->asm_code->asa_code_size);
-		player->pc = mem_position;
-		player->program_start_ptr = mem_position;
+		player->program_start_ptr = player->pc;
 		player->reg[1] = -player->player_number;
 	}
 	return (cpu);

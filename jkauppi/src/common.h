@@ -6,7 +6,7 @@
 /*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/12 19:48:41 by ubuntu            #+#    #+#             */
-/*   Updated: 2020/07/07 13:39:32 by jkauppi          ###   ########.fr       */
+/*   Updated: 2020/07/07 16:38:01 by jkauppi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -126,7 +126,7 @@ typedef struct		s_cpu
 	int				current_number_of_checks;
 	char			*memory;
 	long long		cycle_cnt;
-	long long		next_cycle_to_die_point;
+	long long		cycle_to_die_point;
 	size_t			total_num_of_live_instructions;
 }					t_cpu;
 

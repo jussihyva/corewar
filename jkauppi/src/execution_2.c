@@ -6,7 +6,7 @@
 /*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/05 13:47:56 by ubuntu            #+#    #+#             */
-/*   Updated: 2020/07/07 10:28:41 by jkauppi          ###   ########.fr       */
+/*   Updated: 2020/07/07 13:21:54 by jkauppi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,6 @@ void			exec_live(t_player *player, t_instruction *instruction)
 {
 	player->is_live += 1;
 	player->pc = instruction->start_p + instruction->length;
-	ft_printf("Live update %d(%d)\n", player->is_live, player->reg[1]);
 	return ;
 }
 

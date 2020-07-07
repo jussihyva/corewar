@@ -1,17 +1,17 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   cpu.h                                              :+:      :+:    :+:   */
+/*   corewar.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/12 19:34:42 by ubuntu            #+#    #+#             */
-/*   Updated: 2020/07/06 17:47:26 by jkauppi          ###   ########.fr       */
+/*   Updated: 2020/07/07 16:48:09 by jkauppi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef CPU_H
-# define CPU_H
+#ifndef COREWAR_H
+# define COREWAR_H
 # include "common.h"
 
 t_input				*read_input_data(int *argc, char ***argv);
@@ -34,5 +34,6 @@ void				print_cpu(t_cpu *cpu, t_input *input, t_player *player,
 													t_instruction *instruction);
 void				print_memory(t_cpu *cpu);
 void				release(t_input *input);
+long long			set_cycle_to_die_point(t_cpu *cpu);
 
 #endif

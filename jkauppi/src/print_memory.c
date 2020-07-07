@@ -6,11 +6,11 @@
 /*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/30 17:31:57 by jkauppi           #+#    #+#             */
-/*   Updated: 2020/07/03 10:36:12 by jkauppi          ###   ########.fr       */
+/*   Updated: 2020/07/07 10:28:41 by jkauppi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cpu.h"
+#include "corewar.h"
 
 void		print_memory(t_cpu *cpu)
 {

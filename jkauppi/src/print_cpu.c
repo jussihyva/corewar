@@ -6,11 +6,11 @@
 /*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/30 15:46:25 by jkauppi           #+#    #+#             */
-/*   Updated: 2020/07/03 10:32:50 by jkauppi          ###   ########.fr       */
+/*   Updated: 2020/07/07 10:28:41 by jkauppi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cpu.h"
+#include "corewar.h"
 
 void			print_cpu(t_cpu *cpu, t_input *input, t_player *player,
 							t_instruction *instruction)

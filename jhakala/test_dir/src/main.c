@@ -6,14 +6,14 @@
 /*   By: jhakala <jhakala@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/22 21:13:41 by jhakala           #+#    #+#             */
-/*   Updated: 2020/06/23 01:15:24 by jhakala          ###   ########.fr       */
+/*   Updated: 2020/07/13 19:54:59 by jhakala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "test.h"
-#include "op.h"
 #include <stdio.h>
 
+/*
 int main(int ac, char **av)
 {
 	char *line;
@@ -41,12 +41,42 @@ int main(int ac, char **av)
 		if (REV(buf) == COREWAR_EXEC_MAGIC)
 			ft_printf("TOKA\n");
 		ft_printf("EXEC_MA = '%x'\n", COREWAR_EXEC_MAGIC);
-
+		
 //		for (int j = 0; j < sizeof(des); j++)
 //		{
 //			ft_printf("%02x ", des[j]);
 //			ft_printf("%02x ", des[j]);
 //		}
 //
+	}
+	return (0);
+}
+*/
+
+void pri(t_mem *mem)
+{
+	t_player *p;
+
+	ft_printf("dump='%d'\n", mem->dump);
+	ft_printf("n_player='%d'\n", mem->n_player);
+	p = mem->player;
+	while (p)
+	{
+		ft_printf("file_name='%s'\n", p->file_name);
+		ft_printf("id='%d'\n", p->id);
+		p = p->next;
+	}
+}
+
+int		main(int ac, char **av)
+{
+	t_mem *mem;
+
+	if (ac > 0)
+	{
+		mem = ft_init(ac, av);
+		pri(mem);
+	}
+	system("leaks prog");
 	return (0);
 }

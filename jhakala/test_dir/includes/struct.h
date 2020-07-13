@@ -1,30 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   test.h                                             :+:      :+:    :+:   */
+/*   struct.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jhakala <jhakala@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/06/22 21:10:17 by jhakala           #+#    #+#             */
-/*   Updated: 2020/07/13 18:54:00 by jhakala          ###   ########.fr       */
+/*   Created: 2020/07/13 14:14:20 by jhakala           #+#    #+#             */
+/*   Updated: 2020/07/13 18:53:49 by jhakala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef TEST_H
-# define TEST_H
+#ifndef STRUCT_H
+# define STRUCT_H
 
-# include "../libft/includes/ft_printf.h"
-# include "../libft/includes/get_next_line.h"
-# include <fcntl.h>
-# include <stdlib.h>
-# include "op.h"
-# include "struct.h"
+typedef struct			s_player
+{
+	header_t			*header;
+	int					id;
+	char				*file_name;
+	char				*input;
+	struct s_player		*next;
+}						t_player;
 
-# define REV(x) ((x << 24) | (((x>>16)<<24)>>16) | (((x<<16)>>24)<<16) | (x>>24))
-
-/*
-** init.c
-*/
-t_mem	*ft_init(int ac, char **av);
+typedef struct			s_mem
+{
+	int					dump;
+	int					n_player;
+	struct s_player		*player;
+}						t_mem;
 
 #endif

@@ -1,12 +1,13 @@
 NAME = prog
 
 SRC = \
-	main.c
+	main.c \
+	init.c
 
 S_DIR = src
 O_DIR = obj
 OBJ = $(addprefix $(O_DIR)/, $(SRC:.c=.o))
-HEAD = test.h op.h
+HEAD = test.h op.h struct.h
 H_DIR = includes
 LIBFT = libft/libft.a
 GCC = gcc #-Wall -Wextra -Werror

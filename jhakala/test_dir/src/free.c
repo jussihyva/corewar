@@ -6,7 +6,7 @@
 /*   By: jhakala <jhakala@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/16 13:11:27 by jhakala           #+#    #+#             */
-/*   Updated: 2020/07/17 16:34:30 by jhakala          ###   ########.fr       */
+/*   Updated: 2020/07/17 17:41:57 by jhakala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,23 @@
 int		free_int(int *arr)
 {
 	free(arr);
+	return (1);
+}
+
+int		free_game(t_mem *mem)
+{
+	t_carriage *c;
+	t_carriage *tmp;
+
+	while (c)
+	{
+		tmp = c;
+		c = c->next;
+		free(tmp);
+	}
+	if (mem->game->arena)
+		free(mem->game->arena);
+	free(mem->game);
 	return (1);
 }
 
@@ -34,6 +51,8 @@ int		free_memory(t_mem *mem)
 		p = p->next;
 		free(tmp);
 	}
+	if (mem->game)
+		free_game(mem);
 	free(mem);
 	return (1);
 }

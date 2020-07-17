@@ -6,7 +6,7 @@
 /*   By: jhakala <jhakala@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/22 21:13:41 by jhakala           #+#    #+#             */
-/*   Updated: 2020/07/17 16:39:48 by jhakala          ###   ########.fr       */
+/*   Updated: 2020/07/17 17:39:02 by jhakala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,13 @@ int		main(int ac, char **av)
 		if ((mem = ft_init(ac, av)) == NULL)
 		{
 			system("leaks prog");
-			ft_printf("______________PAASI LOPPUUN!_____error________\n");
+			ft_printf("______________PAASI LOPPUUN!_____error1________\n");
+			return (0);
+		}
+		else if ((mem->game = wm_init(mem)) == NULL)
+		{
+			system("leaks prog");
+			ft_printf("______________PAASI LOPPUUN!_____error2________\n");
 			return (0);
 		}
 		pri(mem);

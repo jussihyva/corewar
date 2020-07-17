@@ -6,7 +6,7 @@
 /*   By: jhakala <jhakala@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/22 21:13:41 by jhakala           #+#    #+#             */
-/*   Updated: 2020/07/13 19:54:59 by jhakala          ###   ########.fr       */
+/*   Updated: 2020/07/17 16:39:48 by jhakala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,15 +68,24 @@ void pri(t_mem *mem)
 	}
 }
 
+// makefile gcc # -Wall -Wextra -Werror
+
 int		main(int ac, char **av)
 {
 	t_mem *mem;
 
 	if (ac > 0)
 	{
-		mem = ft_init(ac, av);
+		if ((mem = ft_init(ac, av)) == NULL)
+		{
+			system("leaks prog");
+			ft_printf("______________PAASI LOPPUUN!_____error________\n");
+			return (0);
+		}
 		pri(mem);
 	}
+	ft_printf("______________PAASI LOPPUUN!_______good______\n");
+	free_memory(mem);
 	system("leaks prog");
 	return (0);
 }

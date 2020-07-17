@@ -1,33 +1,39 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   struct.h                                           :+:      :+:    :+:   */
+/*   free.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jhakala <jhakala@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/07/13 14:14:20 by jhakala           #+#    #+#             */
-/*   Updated: 2020/07/16 14:53:26 by jhakala          ###   ########.fr       */
+/*   Created: 2020/07/16 13:11:27 by jhakala           #+#    #+#             */
+/*   Updated: 2020/07/17 16:34:30 by jhakala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef STRUCT_H
-# define STRUCT_H
+#include "test.h"
 
-typedef struct			s_player
+int		free_int(int *arr)
 {
-	header_t			*header;
-	int					id;
-	char				*file_name;
-	char				*input;
-	struct s_player		*next;
-}						t_player;
+	free(arr);
+	return (1);
+}
 
-typedef struct			s_mem
+int		free_memory(t_mem *mem)
 {
-	char				**av;
-	int					dump;
-	int					n_player;
-	struct s_player		*player;
-}						t_mem;
+	t_player *p;
+	t_player *tmp;
 
-#endif
+	p = mem->player;
+	while (p)
+	{
+		if (p->header)
+			free(p->header);
+		if (p->input)
+			free(p->input);
+		tmp = p;
+		p = p->next;
+		free(tmp);
+	}
+	free(mem);
+	return (1);
+}

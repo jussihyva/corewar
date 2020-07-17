@@ -6,7 +6,7 @@
 /*   By: jhakala <jhakala@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/13 14:18:17 by jhakala           #+#    #+#             */
-/*   Updated: 2020/07/16 16:06:03 by jhakala          ###   ########.fr       */
+/*   Updated: 2020/07/17 17:30:27 by jhakala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@ void	default_values(char **av, t_mem *mem)
 	mem->dump = -1;
 	mem->n_player = 0;
 	mem->player = NULL;
+	mem->game = NULL;
 }
 
 t_mem	*ft_init(int ac, char **av)

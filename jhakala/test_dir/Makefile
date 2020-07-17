@@ -2,7 +2,8 @@ NAME = prog
 
 SRC = \
 	main.c \
-	init.c
+	init.c parse_av.c champ_init.c read_to.c \
+	free.c
 
 S_DIR = src
 O_DIR = obj

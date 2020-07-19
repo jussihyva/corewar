@@ -6,7 +6,7 @@
 /*   By: jhakala <jhakala@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/16 16:24:38 by jhakala           #+#    #+#             */
-/*   Updated: 2020/07/17 16:25:49 by jhakala          ###   ########.fr       */
+/*   Updated: 2020/07/19 16:35:48 by jhakala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,22 +80,22 @@ int		read_to(t_mem *mem)
 		p->header = (header_t*)malloc(sizeof(header_t));
 		ft_memcpy(p->header, input, sizeof(header_t));
 		size -= sizeof(header_t);
-		p->input = (char*)malloc(sizeof(char) * size);
-		ft_memcpy(p->input, &input[sizeof(header_t)], size);
-		prih(p);
-		free(input);
-		for (int i = 0; i < size; i++)
-			ft_printf("%02x, ",(unsigned char)p->input[i]);
-		ft_printf("\n");
-
 		if (size != REV(p->header->prog_size) || size > CHAMP_MAX_SIZE)
 		{
 			ft_printf("ERI KOKO || LIIAN ISO\n");
+			free(input);
 			return (1);
 		}
+		p->input = (char*)malloc(sizeof(char) * size);
+		ft_memcpy(p->input, &input[sizeof(header_t)], size);
+//		prih(p);
+		free(input);
+
+//		for (int i = 0; i < size; i++)
+//			ft_printf("%02x, ",(unsigned char)p->input[i]);
+//		ft_printf("\n");
 
 		p = p->next;
-
 	}
 	return (0);
 }

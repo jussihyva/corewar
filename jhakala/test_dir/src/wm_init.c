@@ -6,7 +6,7 @@
 /*   By: jhakala <jhakala@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/17 17:30:36 by jhakala           #+#    #+#             */
-/*   Updated: 2020/07/17 19:35:31 by jhakala          ###   ########.fr       */
+/*   Updated: 2020/07/19 18:22:46 by jhakala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,7 @@ void	print_arena(char *arena)
 			ft_printf("\n");
 		ft_printf("%02x ", (unsigned char)arena[i++]);
 	}
-	ft_printf("\n");
-	ft_printf("\n");
+	ft_printf("\n\n");
 }
 
 void	put_player_input_to_arena(t_game *game, t_mem *mem)
@@ -40,14 +39,20 @@ void	put_player_input_to_arena(t_game *game, t_mem *mem)
 	{
 		place = MEM_SIZE / mem->n_player * i++;
 		ft_memcpy(&game->arena[place], p->input, REV(p->header->prog_size));
+		new_carriage(&game->c_lst, place, NULL, p->id);
 		p = p->next;
 	}
 }
 
 void	wm_default_values(t_game *game, t_mem *mem)
 {
+	t_player *p;
+
+	p = mem->player;
+	while (p->next)
+		p = p->next;
 	game->c_lst = NULL;
-	game->last_alive = mem->n_player;
+	game->last_alive = p;
 	game->total_cycles = 0;
 	game->n_live_in_cycle = 0;
 	game->cycles_to_die = CYCLE_TO_DIE;
@@ -59,8 +64,9 @@ t_game	*wm_init(t_mem *mem)
 
 	game = (t_game*)malloc(sizeof(t_game));
 	game->arena = (char*)malloc(sizeof(char) * MEM_SIZE);
+	wm_default_values(game, mem);
 	ft_bzero(game->arena, MEM_SIZE);
-	print_arena(game->arena);
+//	print_arena(game->arena);
 	put_player_input_to_arena(game, mem);
 	print_arena(game->arena);
 	return (game);

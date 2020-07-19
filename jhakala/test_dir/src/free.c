@@ -6,7 +6,7 @@
 /*   By: jhakala <jhakala@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/16 13:11:27 by jhakala           #+#    #+#             */
-/*   Updated: 2020/07/17 17:41:57 by jhakala          ###   ########.fr       */
+/*   Updated: 2020/07/19 17:10:36 by jhakala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@ int		free_game(t_mem *mem)
 	t_carriage *c;
 	t_carriage *tmp;
 
+	c = mem->game->c_lst;
 	while (c)
 	{
 		tmp = c;

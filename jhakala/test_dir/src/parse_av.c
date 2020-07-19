@@ -6,7 +6,7 @@
 /*   By: jhakala <jhakala@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/16 13:01:15 by jhakala           #+#    #+#             */
-/*   Updated: 2020/07/16 15:09:10 by jhakala          ###   ########.fr       */
+/*   Updated: 2020/07/19 19:02:31 by jhakala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,7 +104,7 @@ void	parse_to_arg(int ac, char **av, t_mem *mem, int *arg)
 	i = 0;
 	if (ac > 2 && !ft_strcmp(av[1], "-dump") && !whole_number(av[2]))
 	{
-		mem->dump = ft_atoi(av[1]);
+		mem->dump = ft_atoi(av[2]);
 		arg[0] = 1;
 		arg[1] = 1;
 		i = 2;

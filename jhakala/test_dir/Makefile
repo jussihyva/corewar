@@ -3,7 +3,8 @@ NAME = prog
 SRC = \
 	main.c \
 	init.c parse_av.c champ_init.c read_to.c \
-	wm_init.c \
+	wm_init.c carriage.c \
+	game/run_game.c \
 	free.c
 
 S_DIR = src

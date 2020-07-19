@@ -6,7 +6,7 @@
 /*   By: jhakala <jhakala@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/13 14:14:20 by jhakala           #+#    #+#             */
-/*   Updated: 2020/07/17 19:36:19 by jhakala          ###   ########.fr       */
+/*   Updated: 2020/07/19 17:56:17 by jhakala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ typedef struct			s_carriage
 	int					live_cycle;
 	int					remaining_cycle;
 	int					place;
-	int					req[16];
+	int					reg[16];
 	struct s_carriage	*next;
 }						t_carriage;
 
@@ -38,11 +38,10 @@ typedef struct			s_game
 {
 	struct s_carriage	*c_lst;
 	char				*arena;
-	int					last_alive;
+	t_player			*last_alive;
 	int					total_cycles;
 	int					n_live_in_cycle;
-	int					cycles_to_die;;
-
+	int					cycles_to_die;
 }						t_game;
 
 typedef struct			s_mem

@@ -4,7 +4,7 @@ SRC = \
 	main.c \
 	init.c parse_av.c champ_init.c read_to.c \
 	wm_init.c carriage.c \
-	game/run_game.c \
+	game/run_game.c game/game_utils.c op.c \
 	free.c
 
 S_DIR = src

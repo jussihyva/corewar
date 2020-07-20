@@ -6,7 +6,7 @@
 /*   By: jhakala <jhakala@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/22 21:10:17 by jhakala           #+#    #+#             */
-/*   Updated: 2020/07/19 20:25:02 by jhakala          ###   ########.fr       */
+/*   Updated: 2020/07/20 19:29:10 by jhakala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,5 +66,12 @@ int		free_memory(t_mem *mem);
 ** game/run_game.c
 */
 int		run_game(t_mem *mem);
+
+/*
+** game/game_utils.c
+*/
+int		read_statement_code(t_carriage *c, char *arena, int place);
+
+t_op		g_op_tab[17];
 
 #endif

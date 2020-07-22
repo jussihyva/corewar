@@ -6,23 +6,25 @@
 /*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/30 15:00:30 by jkauppi           #+#    #+#             */
-/*   Updated: 2020/07/22 16:44:40 by jkauppi          ###   ########.fr       */
+/*   Updated: 2020/07/22 20:00:49 by jkauppi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "corewar.h"
 
-static int			are_players_alive(t_process **process_list, size_t num_of_players)
+static int			are_players_alive(t_list *process_list)
 {
 	t_process		*process;
 	int				num_of_players_alive;
 	size_t			i;
+	t_list			*process_elem;
 
 	num_of_players_alive = 0;
 	i = -1;
-	while (++i < num_of_players)
+	process_elem = process_list;
+	while (process_elem)
 	{
-		process = process_list[i];
+		process = *(t_process **)process_elem->content;
 		if (!process->is_killed)
 		{
 			if (process->is_live)
@@ -34,6 +36,7 @@ static int			are_players_alive(t_process **process_list, size_t num_of_players)
 			}
 			process->is_live = 0;
 		}
+		process_elem = process_elem->next;
 	}
 	return (num_of_players_alive);
 }
@@ -84,28 +87,29 @@ static void			execute_instruction(t_cpu *cpu, t_process *process,
 	return ;
 }
 
-int					execute_cycle(t_cpu *cpu, t_process **process_list,
+int					execute_cycle(t_cpu *cpu, t_list *process_list,
 														size_t num_of_players)
 {
 	int				num_of_players_alive;
 	t_process		*process;
-	size_t			i;
 	int				is_cycle_printed;
+	t_list			*process_elem;
 
 	is_cycle_printed = 0;
 	num_of_players_alive = 0;
 	cpu->cycle_cnt++;
-	i = -1;
-	while (++i < num_of_players)
+	process_elem = process_list;
+	while (process_elem)
 	{
-		process = process_list[i];
+		process = *(t_process **)process_elem->content;
 		if (!process->is_killed &&
 					process->cycle_point_for_next_instruction == cpu->cycle_cnt)
 			execute_instruction(cpu, process, &is_cycle_printed);
+		process_elem = process_elem->next;
 	}
 	if (cpu->cycle_cnt == cpu->cycle_to_die_point)
 	{
-		num_of_players_alive = are_players_alive(process_list, num_of_players);
+		num_of_players_alive = are_players_alive(process_list);
 		cpu->current_number_of_checks++;
 		if (cpu->total_num_of_live_instructions >= NBR_LIVE ||
 					cpu->current_number_of_checks >= MAX_CHECKS)
@@ -122,15 +126,16 @@ int					execute_cycle(t_cpu *cpu, t_process **process_list,
 				ft_printf("Number of cycles to die <= 0 (%d)\n",
 													cpu->current_cycle_to_die);
 				num_of_players_alive = 0;
-				i = -1;
-				while (++i < num_of_players)
+				process_elem = process_list;
+				while (process_elem)
 				{
-					process = process_list[i];
+					process = *(t_process **)process_elem->content;
 					if (!process->is_killed)
 					{
 						process->is_killed = 1;
-						ft_printf("Player %d is killed\n", i + 1);
+						ft_printf("Process %d is killed\n", process->process_id);
 					}
+					process_elem = process_elem->next;
 				}
 			}
 			cpu->current_number_of_checks = 0;

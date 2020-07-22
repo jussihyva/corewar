@@ -6,7 +6,7 @@
 /*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/06 17:50:37 by jkauppi           #+#    #+#             */
-/*   Updated: 2020/07/22 17:26:46 by jkauppi          ###   ########.fr       */
+/*   Updated: 2020/07/22 20:21:59 by jkauppi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,27 +37,27 @@ static void			*set_op_functions(void)
 	return (op_function);
 }
 
-static t_process	*initialize_process(t_x_player *x_player, char *pc)
+static t_process	*initialize_process(t_player *player, char *pc)
 {
 	t_process		*process;
 
 	process = (t_process *)ft_memalloc(sizeof(*process));
-	process->process_id = x_player->player_number;
+	process->process_id = player->player_number;
 	process->pc = pc;
-	ft_memcpy(pc, x_player->asm_code->asa_code,
-											x_player->asm_code->asa_code_size);
+	ft_memcpy(pc, player->asm_code->asa_code, player->asm_code->asa_code_size);
 	process->program_start_ptr = process->pc;
 	process->reg[1] = -process->process_id;
-//	process->asm_code = initialize_asm_code(x_player->file_content, x_player->file_content_size);
 	return (process);
 }
 
 t_cpu				*initialize_cpu(t_input *input)
 {
 	t_cpu			*cpu;
-	t_x_player		*x_player;
+	t_player		*player;
 	int				i;
 	char			*pc;
+	t_process		*process;
+	t_list			*process_elem;
 
 	cpu = (t_cpu *)ft_memalloc(sizeof(*cpu));
 	cpu->memory = (char *)ft_memalloc(sizeof(*cpu->memory) * MEM_SIZE);
@@ -71,9 +71,11 @@ t_cpu				*initialize_cpu(t_input *input)
 	i = -1;
 	while (++i < input->num_of_players)
 	{
-		x_player = input->x_players[i];
+		player = input->players[i];
 		pc = cpu->memory + (MEM_SIZE / input->num_of_players * i);
-		input->process_list[i] = initialize_process(x_player, pc);
+		process = initialize_process(player, pc);
+		process_elem = ft_lstnew(&process, sizeof(process));
+		ft_lstadd(&cpu->process_list, process_elem);
 	}
 	return (cpu);
 }

@@ -5,6 +5,7 @@ SRC = \
 	init.c parse_av.c champ_init.c read_to.c \
 	wm_init.c carriage.c \
 	game/run_game.c game/game_utils.c op.c \
+	statements/st.c \
 	free.c
 
 S_DIR = src
@@ -50,3 +51,5 @@ $(LIBFT):
 
 $(O_DIR):
 	mkdir $(O_DIR)
+	mkdir $(O_DIR)/game
+	mkdir $(O_DIR)/statements

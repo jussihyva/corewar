@@ -6,7 +6,7 @@
 /*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/12 19:48:41 by ubuntu            #+#    #+#             */
-/*   Updated: 2020/07/22 17:28:50 by jkauppi          ###   ########.fr       */
+/*   Updated: 2020/07/22 20:18:05 by jkauppi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,20 +93,13 @@ typedef struct		s_player
 {
 	int				player_number;
 	t_asm_code		*asm_code;
-	char			*pc;
-	char			*program_start_ptr;
-	int				reg[REG_NUMBER + 1];
-	int				carry;
-	int				is_live;
-	long long		cycle_point_for_next_instruction;
-	t_instruction	*next_instruction;
+	int				last_live_cycle;
 	int				is_killed;
-}					t_x_player;
+}					t_player;
 
 typedef struct		s_process
 {
 	int				process_id;
-	t_asm_code		*asm_code;
 	char			*pc;
 	char			*program_start_ptr;
 	int				reg[REG_NUMBER + 1];
@@ -127,8 +120,7 @@ typedef struct		s_input
 	char			*input_file;
 	int				player_number;
 	int				num_of_players;
-	t_x_player		**x_players;
-	t_process		**process_list;
+	t_player		**players;
 	int				num_of_instructions_to_execute;
 }					t_input;
 
@@ -143,6 +135,7 @@ typedef struct		s_cpu
 	long long		cycle_cnt;
 	long long		cycle_to_die_point;
 	size_t			total_num_of_live_instructions;
+	t_list			*process_list;
 }					t_cpu;
 
 void				ft_step_args(int *argc, char ***argv);

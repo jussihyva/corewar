@@ -6,7 +6,7 @@
 /*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/07 19:32:46 by ubuntu            #+#    #+#             */
-/*   Updated: 2020/07/06 12:28:32 by jkauppi          ###   ########.fr       */
+/*   Updated: 2020/07/22 15:51:09 by jkauppi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,19 +44,19 @@ void			remove_asm_code(t_asm_code *asm_code)
 void			release(t_input *input)
 {
 	int			i;
-	t_player	*player;
+	t_x_player	*x_player;
 
 	i = -1;
 	while (++i < input->num_of_players)
 	{
-		player = input->players[i];
-		free(player->asm_code->header);
-		free(player->asm_code->instruction_lst);
-		free(player->asm_code);
-		free(player);
+		x_player = input->x_players[i];
+		free(x_player->asm_code->header);
+		free(x_player->asm_code->instruction_lst);
+		free(x_player->asm_code);
+		free(x_player);
 	}
 	free(input->file_content);
-	free(input->players);
+	free(input->x_players);
 	free(input);
 	return ;
 }

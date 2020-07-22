@@ -6,26 +6,26 @@
 /*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/05 13:47:56 by ubuntu            #+#    #+#             */
-/*   Updated: 2020/07/07 13:21:54 by jkauppi          ###   ########.fr       */
+/*   Updated: 2020/07/22 15:57:24 by jkauppi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "corewar.h"
 
-void			exec_live(t_player *player, t_instruction *instruction)
+void			exec_live(t_process *process, t_instruction *instruction)
 {
-	player->is_live += 1;
-	player->pc = instruction->start_p + instruction->length;
+	process->is_live += 1;
+	process->pc = instruction->start_p + instruction->length;
 	return ;
 }
 
-void			exec_fork(t_player *player, t_instruction *instruction)
+void			exec_fork(t_process *process, t_instruction *instruction)
 {
-	player->pc = instruction->start_p + instruction->length;
+	process->pc = instruction->start_p + instruction->length;
 	return ;
 }
 
-void			exec_sti(t_player *player, t_instruction *instruction)
+void			exec_sti(t_process *process, t_instruction *instruction)
 {
 	size_t		i;
 	char		*p;
@@ -35,22 +35,22 @@ void			exec_sti(t_player *player, t_instruction *instruction)
 		i += instruction->param[1].value;
 	else if (instruction->param[1].type == IND_CODE)
 	{
-		p = player->pc + instruction->param[1].value;
+		p = process->pc + instruction->param[1].value;
 		i += p[0] << (8 * 1);
 		i += p[1] << (8 * 0);
 	}
 	if (instruction->param[2].type == DIR_CODE)
 		i += instruction->param[2].value;
-	p = player->pc + i;
-	p[0] = (player->reg[instruction->param[0].value] >> (8 * 3)) & 0xff;
-	p[1] = (player->reg[instruction->param[0].value] >> (8 * 2)) & 0xff;
-	p[2] = (player->reg[instruction->param[0].value] >> (8 * 1)) & 0xff;
-	p[3] = (player->reg[instruction->param[0].value] >> (8 * 0)) & 0xff;
-	player->pc = instruction->start_p + instruction->length;
+	p = process->pc + i;
+	p[0] = (process->reg[instruction->param[0].value] >> (8 * 3)) & 0xff;
+	p[1] = (process->reg[instruction->param[0].value] >> (8 * 2)) & 0xff;
+	p[2] = (process->reg[instruction->param[0].value] >> (8 * 1)) & 0xff;
+	p[3] = (process->reg[instruction->param[0].value] >> (8 * 0)) & 0xff;
+	process->pc = instruction->start_p + instruction->length;
 	return ;
 }
 
-void			exec_st(t_player *player, t_instruction *instruction)
+void			exec_st(t_process *process, t_instruction *instruction)
 {
 	size_t		i;
 	char		*p;
@@ -58,20 +58,20 @@ void			exec_st(t_player *player, t_instruction *instruction)
 	if (instruction->param[1].type == IND_CODE)
 	{
 		i = instruction->param[1].value;
-		p = player->pc + i;
-		p[0] = (player->reg[instruction->param[0].value] >> (8 * 3)) & 0xff;
-		p[1] = (player->reg[instruction->param[0].value] >> (8 * 2)) & 0xff;
-		p[2] = (player->reg[instruction->param[0].value] >> (8 * 1)) & 0xff;
-		p[3] = (player->reg[instruction->param[0].value] >> (8 * 0)) & 0xff;
+		p = process->pc + i;
+		p[0] = (process->reg[instruction->param[0].value] >> (8 * 3)) & 0xff;
+		p[1] = (process->reg[instruction->param[0].value] >> (8 * 2)) & 0xff;
+		p[2] = (process->reg[instruction->param[0].value] >> (8 * 1)) & 0xff;
+		p[3] = (process->reg[instruction->param[0].value] >> (8 * 0)) & 0xff;
 	}
 	else
 	{
-		ft_printf("%08x: ", instruction->start_p - player->program_start_ptr +
+		ft_printf("%08x: ", instruction->start_p - process->program_start_ptr +
 															sizeof(t_header));
 		print_hex_string(0, instruction->start_p, instruction->length);
 		print_params(instruction->param);
 		ft_printf("\n");
 	}
-	player->pc = instruction->start_p + instruction->length;
+	process->pc = instruction->start_p + instruction->length;
 	return ;
 }

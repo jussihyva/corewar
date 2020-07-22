@@ -12,3 +12,5 @@ jhakala/*/*.cor
 jhakala/**/asm
 jhakala/t_dir
 .DS_Store
+*#
+*~

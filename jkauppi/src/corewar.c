@@ -6,7 +6,7 @@
 /*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/12 19:32:46 by ubuntu            #+#    #+#             */
-/*   Updated: 2020/07/07 16:23:50 by jkauppi          ###   ########.fr       */
+/*   Updated: 2020/07/22 16:46:11 by jkauppi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,22 +15,22 @@
 static void			execute_cpu_cycles(t_input *input, t_cpu *cpu)
 {
 	size_t			num_of_players_alive;
-	t_player		*player;
+	t_process		*process;
 	int				i;
 
 	i = -1;
 	while (++i < input->num_of_players)
 	{
-		player = input->players[i];
-		player->next_instruction = parse_instruction(cpu, player->pc);
-		player->cycle_point_for_next_instruction = cpu->cycle_cnt +
-						cpu->g_op_tab[player->next_instruction->opcode].cycles;
+		process = input->process_list[i];
+		process->next_instruction = parse_instruction(cpu, process->pc);
+		process->cycle_point_for_next_instruction = cpu->cycle_cnt +
+						cpu->g_op_tab[process->next_instruction->opcode].cycles;
 	}
 	i = 0;
 	num_of_players_alive = input->num_of_players;
 	while (num_of_players_alive)
 	{
-		num_of_players_alive = execute_cycle(cpu, input->players,
+		num_of_players_alive = execute_cycle(cpu, input->process_list,
 														input->num_of_players);
 		if (input->num_of_instructions_to_execute != -1)
 			input->num_of_instructions_to_execute--;

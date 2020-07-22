@@ -6,7 +6,7 @@
 /*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/12 19:48:41 by ubuntu            #+#    #+#             */
-/*   Updated: 2020/07/07 16:38:01 by jkauppi          ###   ########.fr       */
+/*   Updated: 2020/07/22 17:28:50 by jkauppi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,7 +101,21 @@ typedef struct		s_player
 	long long		cycle_point_for_next_instruction;
 	t_instruction	*next_instruction;
 	int				is_killed;
-}					t_player;
+}					t_x_player;
+
+typedef struct		s_process
+{
+	int				process_id;
+	t_asm_code		*asm_code;
+	char			*pc;
+	char			*program_start_ptr;
+	int				reg[REG_NUMBER + 1];
+	int				carry;
+	int				is_live;
+	long long		cycle_point_for_next_instruction;
+	t_instruction	*next_instruction;
+	int				is_killed;
+}					t_process;
 
 typedef struct		s_input
 {
@@ -113,7 +127,8 @@ typedef struct		s_input
 	char			*input_file;
 	int				player_number;
 	int				num_of_players;
-	t_player		**players;
+	t_x_player		**x_players;
+	t_process		**process_list;
 	int				num_of_instructions_to_execute;
 }					t_input;
 
@@ -121,7 +136,7 @@ typedef struct		s_cpu
 {
 	t_opt			opt;
 	t_op			*g_op_tab;
-	void			(**op_function)(t_player *, t_instruction *);
+	void			(**op_function)(t_process *, t_instruction *);
 	int				current_cycle_to_die;
 	int				current_number_of_checks;
 	char			*memory;

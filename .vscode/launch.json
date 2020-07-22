@@ -10,7 +10,7 @@
             "request": "launch",
 //            "program": "${workspaceFolder}/jkauppi/decoder",
             "program": "${workspaceFolder}/jkauppi/corewar",
-            "args": ["-v", "-p", "42", "jkauppi/test/live_zjmp_1.cor", "jkauppi/test/live_zjmp_20.cor"],
+            "args": ["-v", "-p", "42", "jkauppi/test/live_zjmp_1.cor", "jkauppi/test/live_zjmp_1.cor"],
             "stopAtEntry": false,
             "cwd": "${workspaceFolder}",
             "environment": [],

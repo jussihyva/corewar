@@ -6,7 +6,7 @@
 /*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/12 19:34:42 by ubuntu            #+#    #+#             */
-/*   Updated: 2020/07/22 19:37:43 by jkauppi          ###   ########.fr       */
+/*   Updated: 2020/07/23 10:56:16 by jkauppi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,18 +16,18 @@
 
 t_input				*read_input_data(int *argc, char ***argv);
 void				read_opt(t_input *input, int *argc, char ***argv);
-void				exec_live(t_process *process, t_instruction *instruction);
-void				exec_ld(t_process *process, t_instruction *instructio);
-void				exec_zjmp(t_process *process, t_instruction *instruction);
-void				exec_sti(t_process *process, t_instruction *instruction);
-void				exec_st(t_process *process, t_instruction *instruction);
-void				exec_ldi(t_process *process, t_instruction *instruction);
-void				exec_sub(t_process *process, t_instruction *instruction);
-void				exec_add(t_process *process, t_instruction *instruction);
-void				exec_or(t_process *process, t_instruction *instruction);
-void				exec_xor(t_process *process, t_instruction *instruction);
-void				exec_and(t_process *process, t_instruction *instruction);
-void				exec_fork(t_process *process, t_instruction *instruction);
+void				exec_live(t_cpu *cpu, t_process *process, t_instruction *instruction);
+void				exec_ld(t_cpu *cpu, t_process *process, t_instruction *instructio);
+void				exec_zjmp(t_cpu *cpu, t_process *process, t_instruction *instruction);
+void				exec_sti(t_cpu *cpu, t_process *process, t_instruction *instruction);
+void				exec_st(t_cpu *cpu, t_process *process, t_instruction *instruction);
+void				exec_ldi(t_cpu *cpu, t_process *process, t_instruction *instruction);
+void				exec_sub(t_cpu *cpu, t_process *process, t_instruction *instruction);
+void				exec_add(t_cpu *cpu, t_process *process, t_instruction *instruction);
+void				exec_or(t_cpu *cpu, t_process *process, t_instruction *instruction);
+void				exec_xor(t_cpu *cpu, t_process *process, t_instruction *instruction);
+void				exec_and(t_cpu *cpu, t_process *process, t_instruction *instruction);
+void				exec_fork(t_cpu *cpu, t_process *process, t_instruction *instruction);
 int					execute_cycle(t_cpu *cpu, t_list *process_list,
 														size_t num_of_players);
 void				print_cpu(t_cpu *cpu, t_input *input, t_process *process,

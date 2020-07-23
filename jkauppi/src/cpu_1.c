@@ -6,7 +6,7 @@
 /*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/06 17:50:37 by jkauppi           #+#    #+#             */
-/*   Updated: 2020/07/22 20:21:59 by jkauppi          ###   ########.fr       */
+/*   Updated: 2020/07/23 11:49:29 by jkauppi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,10 @@
 
 static void			*set_op_functions(void)
 {
-	void	(**op_function)(t_process *, t_instruction *);
+	void	(**op_function)(t_cpu *cpu, t_process *, t_instruction *);
 
-	op_function = (void (**)(t_process *process, t_instruction *instruction))
-										ft_memalloc(sizeof(*op_function) * 17);
+	op_function = (void (**)(t_cpu *cpu, t_process *process,
+			t_instruction *instruction))ft_memalloc(sizeof(*op_function) * 17);
 	op_function[e_lfork] = NULL;
 	op_function[e_sti] = exec_sti;
 	op_function[e_fork] = exec_fork;
@@ -37,19 +37,6 @@ static void			*set_op_functions(void)
 	return (op_function);
 }
 
-static t_process	*initialize_process(t_player *player, char *pc)
-{
-	t_process		*process;
-
-	process = (t_process *)ft_memalloc(sizeof(*process));
-	process->process_id = player->player_number;
-	process->pc = pc;
-	ft_memcpy(pc, player->asm_code->asa_code, player->asm_code->asa_code_size);
-	process->program_start_ptr = process->pc;
-	process->reg[1] = -process->process_id;
-	return (process);
-}
-
 t_cpu				*initialize_cpu(t_input *input)
 {
 	t_cpu			*cpu;
@@ -65,17 +52,19 @@ t_cpu				*initialize_cpu(t_input *input)
 	cpu->g_op_tab = input->g_op_tab;
 	cpu->opt = input->opt;
 	cpu->current_cycle_to_die = CYCLE_TO_DIE;
-	cpu->current_number_of_checks = 0;
-	cpu->cycle_cnt = 0;
 	cpu->cycle_to_die_point = set_cycle_to_die_point(cpu);
 	i = -1;
 	while (++i < input->num_of_players)
 	{
 		player = input->players[i];
 		pc = cpu->memory + (MEM_SIZE / input->num_of_players * i);
-		process = initialize_process(player, pc);
+		ft_memcpy(pc, player->asm_code->asa_code,
+											player->asm_code->asa_code_size);
+		cpu->process_cnt++;
+		process = initialize_process(cpu, pc);
 		process_elem = ft_lstnew(&process, sizeof(process));
 		ft_lstadd(&cpu->process_list, process_elem);
+		cpu->process_cnt++;
 	}
 	return (cpu);
 }

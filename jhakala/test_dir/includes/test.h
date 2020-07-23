@@ -6,7 +6,7 @@
 /*   By: jhakala <jhakala@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/22 21:10:17 by jhakala           #+#    #+#             */
-/*   Updated: 2020/07/22 22:14:10 by jhakala          ###   ########.fr       */
+/*   Updated: 2020/07/23 17:28:52 by jhakala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,12 +70,32 @@ int		run_game(t_mem *mem);
 /*
 ** game/game_utils.c
 */
+int		**get_argument_type_codes(int type);
+int		possible_arg(int **types, int op_code);
+int		arg_sizes(char *arena, int place, int **types, int code);
+int		read_game_param(char *arena, int from, int size, int **types);
 int		read_statement_code(t_carriage *c, t_game *game, int place);
 
 /*
 ** statements/
 */
-void	st(t_game *game, int place, int types[3][2], t_carriage *);
+int		op_live(t_game *game, int place, t_carriage *c);
+int		op_ld(t_game *game, int place, t_carriage *c);
+int		op_st(t_game *game, int place, t_carriage *c);
+int		op_add(t_game *game, int place, t_carriage *c);
+int		op_sub(t_game *game, int place, t_carriage *c);
+int		op_and(t_game *game, int place, t_carriage *c);
+int		op_or(t_game *game, int place, t_carriage *c);
+int		op_xor(t_game *game, int place, t_carriage *c);
+int		op_zjmp(t_game *game, int place, t_carriage *c);
+int		op_ldi(t_game *game, int place, t_carriage *c);
+int		op_sti(t_game *game, int place, t_carriage *c);
+int		op_fork(t_game *game, int place, t_carriage *c);
+int		op_lld(t_game *game, int place, t_carriage *c);
+int		op_lldi(t_game *game, int place, t_carriage *c);
+int		op_lfork(t_game *game, int place, t_carriage *c);
+int		op_aff(t_game *game, int place, t_carriage *c);
+
 
 t_op		g_op_tab[17];
 

@@ -6,7 +6,7 @@
 /*   By: jhakala <jhakala@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/19 16:40:53 by jhakala           #+#    #+#             */
-/*   Updated: 2020/07/19 18:40:33 by jhakala          ###   ########.fr       */
+/*   Updated: 2020/07/23 12:06:15 by jhakala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ void	new_carriage(t_carriage **alst, int place, t_carriage *parent, int id)
 	new->place = place;
 	new->statement_code = -1;
 	new->live_cycle = 0;
-	new->remaining_cycle = 1;
+	new->remaining_cycle = 0;
 	new->carry = parent != NULL ? parent->carry : 0;
 	new->reg[0] = parent != NULL ? parent->reg[0] : -id;
 	i = 0;

@@ -6,11 +6,34 @@
 /*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/30 15:00:30 by jkauppi           #+#    #+#             */
-/*   Updated: 2020/07/22 20:00:49 by jkauppi          ###   ########.fr       */
+/*   Updated: 2020/07/23 10:35:41 by jkauppi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "corewar.h"
+
+static void			verbose_print(t_cpu *cpu, t_process *process,
+														int *is_cycle_printed)
+{
+	if (cpu->opt & verbose || cpu->opt & verbose1)
+	{
+		if (cpu->opt & verbose ||
+			cpu->g_op_tab[process->next_instruction->opcode].opcode == e_live)
+		{
+			if (!*is_cycle_printed)
+			{
+				ft_printf("Cycle : %lld (%lld)\n", cpu->cycle_cnt,
+									cpu->cycle_to_die_point - cpu->cycle_cnt);
+				*is_cycle_printed = 1;
+			}
+			ft_printf("Execute instruction %u(%s) of process id %u\n",
+				process->next_instruction->opcode,
+				cpu->g_op_tab[process->next_instruction->opcode].
+										instruction_name, process->process_id);
+		}
+	}
+	return ;
+}
 
 static int			are_players_alive(t_list *process_list)
 {
@@ -54,24 +77,8 @@ long long			set_cycle_to_die_point(t_cpu *cpu)
 static void			execute_instruction(t_cpu *cpu, t_process *process,
 														int *is_cycle_printed)
 {
-	if (cpu->opt & verbose || cpu->opt & verbose1)
-	{
-		if (cpu->opt & verbose ||
-			cpu->g_op_tab[process->next_instruction->opcode].opcode == e_live)
-		{
-			if (!*is_cycle_printed)
-			{
-				ft_printf("Cycle : %lld (%lld)\n", cpu->cycle_cnt,
-									cpu->cycle_to_die_point - cpu->cycle_cnt);
-				*is_cycle_printed = 1;
-			}
-			ft_printf("Execute instruction %u(%s) for player %u\n",
-				process->next_instruction->opcode,
-				cpu->g_op_tab[process->next_instruction->opcode].
-											instruction_name, process->process_id);
-		}
-	}
-	cpu->op_function[process->next_instruction->opcode](process,
+	verbose_print(cpu, process, is_cycle_printed);
+	cpu->op_function[process->next_instruction->opcode](cpu, process,
 										process->next_instruction);
 	if (cpu->g_op_tab[process->next_instruction->opcode].opcode ==
 																e_live)

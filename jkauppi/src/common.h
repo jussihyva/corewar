@@ -6,7 +6,7 @@
 /*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/12 19:48:41 by ubuntu            #+#    #+#             */
-/*   Updated: 2020/07/23 11:49:52 by jkauppi          ###   ########.fr       */
+/*   Updated: 2020/07/23 15:38:14 by jkauppi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -137,6 +137,8 @@ typedef struct		s_cpu
 	size_t			total_num_of_live_instructions;
 	t_list			*process_list;
 	int				process_cnt;
+	int				check_carry;
+	int				modify_carry;
 }					t_cpu;
 
 void				ft_step_args(int *argc, char ***argv);

@@ -6,7 +6,7 @@
 /*   By: jhakala <jhakala@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/13 14:14:20 by jhakala           #+#    #+#             */
-/*   Updated: 2020/07/20 19:29:34 by jhakala          ###   ########.fr       */
+/*   Updated: 2020/07/22 18:49:52 by jhakala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,7 @@ typedef struct		s_op
 	char            *info;
 	int				type;
 	int				carriage_maybe;
+	int				s_dir;
 }					t_op;
 
 //t_op        g_op_tab[17];

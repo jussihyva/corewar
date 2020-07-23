@@ -6,15 +6,19 @@
 /*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/30 15:00:30 by jkauppi           #+#    #+#             */
-/*   Updated: 2020/07/23 10:35:41 by jkauppi          ###   ########.fr       */
+/*   Updated: 2020/07/23 16:54:33 by jkauppi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "corewar.h"
 
 static void			verbose_print(t_cpu *cpu, t_process *process,
-														int *is_cycle_printed)
+										int *is_cycle_printed, int carry_old)
 {
+	t_opcode		opcode;
+	char			*result_string;
+
+	opcode = process->next_instruction->opcode;
 	if (cpu->opt & verbose || cpu->opt & verbose1)
 	{
 		if (cpu->opt & verbose ||
@@ -26,10 +30,18 @@ static void			verbose_print(t_cpu *cpu, t_process *process,
 									cpu->cycle_to_die_point - cpu->cycle_cnt);
 				*is_cycle_printed = 1;
 			}
-			ft_printf("Execute instruction %u(%s) of process id %u\n",
-				process->next_instruction->opcode,
-				cpu->g_op_tab[process->next_instruction->opcode].
-										instruction_name, process->process_id);
+			result_string = ft_strnew(sizeof(*result_string) * 100);
+			if (cpu->check_carry & 1 << opcode)
+				ft_sprintf(result_string, "    (carry=%d)", process->carry);
+			else if (cpu->modify_carry & 1 << opcode)
+				ft_sprintf(result_string, "    (carry: %d-->%d)", carry_old, process->carry);
+			else
+				ft_sprintf(result_string, " ");
+			ft_printf("P %5d | %s ", process->process_id,
+			cpu->g_op_tab[process->next_instruction->opcode].instruction_name);
+			print_params(process->next_instruction->param);
+			ft_printf("%s\n", result_string);
+			ft_strdel(&result_string);
 		}
 	}
 	return ;
@@ -77,16 +89,19 @@ long long			set_cycle_to_die_point(t_cpu *cpu)
 static void			execute_instruction(t_cpu *cpu, t_process *process,
 														int *is_cycle_printed)
 {
-	verbose_print(cpu, process, is_cycle_printed);
+	int		carry_old;
+
+	carry_old = process->carry;
 	cpu->op_function[process->next_instruction->opcode](cpu, process,
 										process->next_instruction);
 	if (cpu->g_op_tab[process->next_instruction->opcode].opcode ==
 																e_live)
 	{
 		cpu->total_num_of_live_instructions++;
-		ft_printf("Total num of live instructions: %d\n",
+		ft_printf("Sum of live: %d\n",
 								cpu->total_num_of_live_instructions);
 	}
+	verbose_print(cpu, process, is_cycle_printed, carry_old);
 	free(process->next_instruction);
 	process->next_instruction = parse_instruction(cpu, process->pc);
 	process->cycle_point_for_next_instruction = cpu->cycle_cnt +
@@ -140,7 +155,7 @@ int					execute_cycle(t_cpu *cpu, t_list *process_list,
 					if (!process->is_killed)
 					{
 						process->is_killed = 1;
-						ft_printf("Process %d is killed\n", process->process_id);
+						ft_printf("Process %d hasn't lived for xx cycles (CTD %d)\n", process->process_id, cpu->current_cycle_to_die);
 					}
 					process_elem = process_elem->next;
 				}

@@ -6,7 +6,7 @@
 /*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/05 13:47:56 by ubuntu            #+#    #+#             */
-/*   Updated: 2020/07/23 11:50:16 by jkauppi          ###   ########.fr       */
+/*   Updated: 2020/07/23 13:46:56 by jkauppi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,10 +25,17 @@ void			exec_fork(t_cpu *cpu, t_process *process, t_instruction *instruction)
 	t_process		*new_process;
 	char			*new_pc;
 	t_list			*process_elem;
+	int				i;
 
 	cpu->process_cnt++;
 	new_pc = process->pc + instruction->param[0].value;
 	new_process = initialize_process(cpu, new_pc);
+	i = -1;
+	while (++i < REG_NUMBER)
+		new_process->reg[i] = process->reg[i];
+	new_process->carry = process->carry;
+	new_process->is_live = process->is_live;
+	new_process->is_killed = process->is_killed;
 	process_elem = ft_lstnew(&new_process, sizeof(new_process));
 	ft_lstadd(&cpu->process_list, process_elem);
 	process->pc = instruction->start_p + instruction->length;

@@ -6,7 +6,7 @@
 /*   By: jhakala <jhakala@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/16 16:24:38 by jhakala           #+#    #+#             */
-/*   Updated: 2020/07/19 16:35:48 by jhakala          ###   ########.fr       */
+/*   Updated: 2020/07/23 16:17:01 by jhakala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,7 @@ int		read_to(t_mem *mem)
 		p->header = (header_t*)malloc(sizeof(header_t));
 		ft_memcpy(p->header, input, sizeof(header_t));
 		size -= sizeof(header_t);
-		if (size != REV(p->header->prog_size) || size > CHAMP_MAX_SIZE)
+		if (size != (int)REV(p->header->prog_size) || size > CHAMP_MAX_SIZE)
 		{
 			ft_printf("ERI KOKO || LIIAN ISO\n");
 			free(input);

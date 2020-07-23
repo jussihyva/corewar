@@ -6,7 +6,7 @@
 /*   By: jhakala <jhakala@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/17 17:30:36 by jhakala           #+#    #+#             */
-/*   Updated: 2020/07/19 18:22:46 by jhakala          ###   ########.fr       */
+/*   Updated: 2020/07/23 17:54:46 by jhakala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,15 +47,23 @@ void	put_player_input_to_arena(t_game *game, t_mem *mem)
 void	wm_default_values(t_game *game, t_mem *mem)
 {
 	t_player *p;
+	int i;
 
 	p = mem->player;
+	game->players = (t_player**)malloc(sizeof(t_player*) * mem->n_player);
+//need to free him at the end
+	i = 0;
 	while (p->next)
+	{
+		game->players[i++] = p;
 		p = p->next;
+	}
 	game->c_lst = NULL;
 	game->last_alive = p;
-	game->total_cycles = 0;
+	game->total_cycles = 1;
 	game->n_live_in_cycle = 0;
 	game->cycles_to_die = CYCLE_TO_DIE;
+	game->n_player = mem->n_player;
 }
 
 t_game	*wm_init(t_mem *mem)

@@ -6,14 +6,15 @@
 /*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/13 09:10:10 by ubuntu            #+#    #+#             */
-/*   Updated: 2020/07/22 16:00:13 by jkauppi          ###   ########.fr       */
+/*   Updated: 2020/07/23 10:57:25 by jkauppi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "corewar.h"
 
-void			exec_ld(t_process *process, t_instruction *instruction)
+void			exec_ld(t_cpu *cpu, t_process *process, t_instruction *instruction)
 {
+	(void)cpu;
 	if (instruction->param[0].type == DIR_CODE)
 	{
 		process->reg[instruction->param[1].value] = instruction->param[0].value;
@@ -49,11 +50,12 @@ static int		save_pointer_value_to_reg(char *p)
 	return (value);
 }
 
-void			exec_ldi(t_process *process, t_instruction *instruction)
+void			exec_ldi(t_cpu *cpu, t_process *process, t_instruction *instruction)
 {
 	size_t		i;
 	char		*p;
 
+	(void)cpu;
 	i = 0;
 	if (instruction->param[0].type == DIR_CODE)
 		i += instruction->param[0].value;
@@ -78,8 +80,9 @@ void			exec_ldi(t_process *process, t_instruction *instruction)
 	process->pc = instruction->start_p + instruction->length;
 }
 
-void			exec_sub(t_process *process, t_instruction *instruction)
+void			exec_sub(t_cpu *cpu, t_process *process, t_instruction *instruction)
 {
+	(void)cpu;
 	process->reg[instruction->param[2].value] =
 									process->reg[instruction->param[0].value] -
 									process->reg[instruction->param[1].value];
@@ -88,8 +91,9 @@ void			exec_sub(t_process *process, t_instruction *instruction)
 	return ;
 }
 
-void			exec_add(t_process *process, t_instruction *instruction)
+void			exec_add(t_cpu *cpu, t_process *process, t_instruction *instruction)
 {
+	(void)cpu;
 	process->reg[instruction->param[2].value] =
 									process->reg[instruction->param[0].value] +
 									process->reg[instruction->param[1].value];

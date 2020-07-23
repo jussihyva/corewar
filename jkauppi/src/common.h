@@ -6,7 +6,7 @@
 /*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/12 19:48:41 by ubuntu            #+#    #+#             */
-/*   Updated: 2020/07/22 20:18:05 by jkauppi          ###   ########.fr       */
+/*   Updated: 2020/07/23 15:38:14 by jkauppi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -128,7 +128,7 @@ typedef struct		s_cpu
 {
 	t_opt			opt;
 	t_op			*g_op_tab;
-	void			(**op_function)(t_process *, t_instruction *);
+	void			(**op_function)(struct s_cpu *cpu, t_process *, t_instruction *);
 	int				current_cycle_to_die;
 	int				current_number_of_checks;
 	char			*memory;
@@ -136,6 +136,9 @@ typedef struct		s_cpu
 	long long		cycle_to_die_point;
 	size_t			total_num_of_live_instructions;
 	t_list			*process_list;
+	int				process_cnt;
+	int				check_carry;
+	int				modify_carry;
 }					t_cpu;
 
 void				ft_step_args(int *argc, char ***argv);
@@ -153,5 +156,6 @@ void				print_instruction(t_instruction *instruction,
 t_asm_code			*initialize_asm_code(char *file_content,
 													size_t file_content_size);
 void				remove_asm_code(t_asm_code *asm_code);
+t_process			*initialize_process(t_cpu *cpu, char *pc);
 
 #endif

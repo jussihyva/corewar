@@ -6,7 +6,7 @@
 /*   By: jhakala <jhakala@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/13 14:14:20 by jhakala           #+#    #+#             */
-/*   Updated: 2020/07/22 18:49:52 by jhakala          ###   ########.fr       */
+/*   Updated: 2020/07/23 17:48:35 by jhakala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,8 @@ typedef struct			s_game
 	int					total_cycles;
 	int					n_live_in_cycle;
 	int					cycles_to_die;
+	int					n_player;
+	t_player			**players;
 }						t_game;
 
 typedef struct			s_mem
@@ -64,6 +66,7 @@ typedef struct		s_op
 	int				type;
 	int				carriage_maybe;
 	int				s_dir;
+	int				(*f)();
 }					t_op;
 
 //t_op        g_op_tab[17];

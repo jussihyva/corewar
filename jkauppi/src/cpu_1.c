@@ -6,7 +6,7 @@
 /*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/06 17:50:37 by jkauppi           #+#    #+#             */
-/*   Updated: 2020/07/23 11:49:29 by jkauppi          ###   ########.fr       */
+/*   Updated: 2020/07/23 15:45:52 by jkauppi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,8 @@ t_cpu				*initialize_cpu(t_input *input)
 	cpu->opt = input->opt;
 	cpu->current_cycle_to_die = CYCLE_TO_DIE;
 	cpu->cycle_to_die_point = set_cycle_to_die_point(cpu);
+	cpu->check_carry =  0b00000001000000000;
+	cpu->modify_carry = 0b00000000111110100;
 	i = -1;
 	while (++i < input->num_of_players)
 	{

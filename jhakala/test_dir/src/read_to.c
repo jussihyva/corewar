@@ -6,7 +6,7 @@
 /*   By: jhakala <jhakala@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/16 16:24:38 by jhakala           #+#    #+#             */
-/*   Updated: 2020/07/23 16:17:01 by jhakala          ###   ########.fr       */
+/*   Updated: 2020/07/24 21:53:08 by jhakala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,7 +94,7 @@ int		read_to(t_mem *mem)
 //		for (int i = 0; i < size; i++)
 //			ft_printf("%02x, ",(unsigned char)p->input[i]);
 //		ft_printf("\n");
-
+		
 		p = p->next;
 	}
 	return (0);

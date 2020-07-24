@@ -6,7 +6,7 @@
 /*   By: jhakala <jhakala@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/20 18:31:16 by jhakala           #+#    #+#             */
-/*   Updated: 2020/07/23 17:31:10 by jhakala          ###   ########.fr       */
+/*   Updated: 2020/07/24 21:07:11 by jhakala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,9 +73,9 @@ int		arg_sizes(char *arena, int place, int **types, int code)
 
 	size = 0;
 	i = -1;
-	while (++i < g_op_tab[(int)arena[place - 2]].n_arg)
+//	ft_printf("n_arg=%d\n", g_op_tab[(int)arena[place - 2] - 1].n_arg);
+	while (++i < g_op_tab[(int)arena[place - 2] - 1].n_arg)
 	{
-
 		if (types[i][0] == 1)
 		{
 			types[i][1] = arena[place + size];
@@ -94,6 +94,7 @@ int		arg_sizes(char *arena, int place, int **types, int code)
 			size += IND_SIZE;
 //			ft_printf("---'%d'\n", types[i][1]);
 		}
+//		ft_printf("size=%d\n",size);
 	}
 	return (size);
 }

@@ -6,7 +6,7 @@
 /*   By: jhakala <jhakala@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/19 17:41:20 by jhakala           #+#    #+#             */
-/*   Updated: 2020/07/24 13:31:59 by jhakala          ###   ########.fr       */
+/*   Updated: 2020/07/24 21:52:48 by jhakala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,10 +43,24 @@ int		cycle_through_c(t_game *game)
 	return (0);
 }		
 
+void	print_player_weights(t_mem *mem)
+{
+	t_player *p;
+
+	p = mem->player;
+	while (p)
+	{
+		ft_printf("* Player %d, weighing %d bytes, \"%s\" (\"%s\") !\n", p->id, REV(p->header->prog_size),
+				p->header->prog_name, p->header->comment);
+		p = p->next;
+	}
+}
+
 int		run_game(t_mem *mem)
 {
 	t_game *game;
 
+	print_player_weights(mem);
 	game = mem->game;
 	while (game->c_lst)
 	{

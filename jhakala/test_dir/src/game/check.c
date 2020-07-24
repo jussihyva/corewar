@@ -6,7 +6,7 @@
 /*   By: jhakala <jhakala@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/24 13:00:59 by jhakala           #+#    #+#             */
-/*   Updated: 2020/07/24 13:34:37 by jhakala          ###   ########.fr       */
+/*   Updated: 2020/07/24 18:52:50 by jhakala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,12 +48,23 @@ int		check_carriages(t_game *game)
 		c = prev->next;
 	}
 	ft_printf("	MAKE CHECK\n");
-	ft_printf("nbr_live=%d, get_die=%d\n", game->n_live_in_cycle, game->get_die);
+	ft_printf("	nbr_live=%d, get_die=%d\n", game->n_live_in_cycle, game->get_die);
 	if (game->c_lst == NULL)
 		return (1);
-	if (game->n_live_in_cycle > NBR_LIVE)
+	if (game->n_live_in_cycle >= NBR_LIVE)
+	{
 		game->get_die -= CYCLE_DELTA;
+		game->max_check = 0;
+	}
+	else
+	{
+		if (++game->max_check >= MAX_CHECKS)
+		{
+			game->get_die -= CYCLE_DELTA;
+			game->max_check = 0;
+		}
+	}
 	game->n_live_in_cycle = 0;
-	game->cycles_to_die = game->get_die;
+	game->cycles_to_die = game->get_die > 0 ? game->get_die : 1;
 	return (0);
 }

@@ -6,12 +6,19 @@
 /*   By: jhakala <jhakala@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/22 21:13:41 by jhakala           #+#    #+#             */
-/*   Updated: 2020/07/19 20:24:23 by jhakala          ###   ########.fr       */
+/*   Updated: 2020/07/24 19:00:19 by jhakala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "test.h"
 #include <stdio.h>
+
+void print_p(t_player *p) //
+{
+	ft_printf("p->id='%d'\n", p->id);
+	ft_printf("p->file_name='%s'\n", p->file_name);
+	ft_printf("p->input='%s'\n", p->input);
+}
 
 void pri(t_mem *mem) //
 {
@@ -54,8 +61,8 @@ int		main(int ac, char **av)
 	}
 	else if (!run_game(mem))
 	{
-		ft_printf("Contestant %d, \"%s\", (\"%s\") !\n", mem->game->last_alive->id,
-				  mem->game->last_alive->header->prog_name, mem->game->last_alive->header->comment);
+		ft_printf("Contestant %d, \"%s\", has won !\n", mem->game->last_alive->id,
+				  mem->game->last_alive->header->prog_name);
 	}
 //	pri(mem);
 //	print_c_lst(mem->game->c_lst);

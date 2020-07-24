@@ -6,7 +6,7 @@
 /*   By: jhakala <jhakala@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/22 21:10:17 by jhakala           #+#    #+#             */
-/*   Updated: 2020/07/24 13:17:59 by jhakala          ###   ########.fr       */
+/*   Updated: 2020/07/24 18:39:01 by jhakala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,10 +21,12 @@
 # include "struct.h"
 
 # define REV(x) ((x << 24) | (((x>>16)<<24)>>16) | (((x<<16)>>24)<<16) | (x>>24))
+# define REV_S(x) ((x << 16) >> 24) | ((x<<24)>>16)
 
 //print functions for testing -> poista
 void print_c_lst(t_carriage *c); // carriage.c
 void    print_arena(char *arena); // wm_init.c
+void	print_p(t_player *p); //main.c
 
 /*
 ** init.c

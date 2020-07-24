@@ -4,7 +4,8 @@ SRC = \
 	main.c \
 	init.c parse_av.c champ_init.c read_to.c \
 	wm_init.c carriage.c \
-	game/run_game.c game/game_utils.c op.c \
+	game/run_game.c game/game_utils.c game/check.c \
+	op.c \
 	statements/op_live.c statements/op_ld.c statements/op_st.c statements/op_add.c \
 	statements/op_sub.c statements/op_and.c statements/op_or.c statements/op_xor.c \
 	statements/op_zjmp.c statements/op_ldi.c statements/op_sti.c statements/op_fork.c \

@@ -6,7 +6,7 @@
 /*   By: jhakala <jhakala@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/23 11:47:41 by jhakala           #+#    #+#             */
-/*   Updated: 2020/07/23 17:52:37 by jhakala          ###   ########.fr       */
+/*   Updated: 2020/07/24 13:30:19 by jhakala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,8 @@ int		op_live(t_game *game, int place, t_carriage *c)
 
 	ft_memcpy(&res, &game->arena[place + 1], 4);
 	res = REV(res);
+	c->live_cycle = game->total_cycles;
+	game->n_live_in_cycle++;
 	ft_printf("	P   %d | live %d\n", c->id, res);
 	if (res < 0 && res >= -(game->n_player))
 	{

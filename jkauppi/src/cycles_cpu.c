@@ -6,7 +6,7 @@
 /*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/30 15:00:30 by jkauppi           #+#    #+#             */
-/*   Updated: 2020/07/24 14:38:18 by jkauppi          ###   ########.fr       */
+/*   Updated: 2020/07/24 15:32:56 by jkauppi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@ static void			verbose_print(t_cpu *cpu, t_process *process,
 {
 	t_opcode		opcode;
 	char			*result_string;
+	char			*ptr;
 
 	opcode = process->next_instruction->opcode;
 	if (cpu->opt & verbose || cpu->opt & verbose1)
@@ -44,6 +45,14 @@ static void			verbose_print(t_cpu *cpu, t_process *process,
 			ft_strdel(&result_string);
 		}
 	}
+	ptr = process->pc - process->next_instruction->length;
+	ft_printf("    ");
+	while (ptr < process->pc)
+	{
+		ft_printf(" %.2x", (unsigned char)*ptr);
+		ptr++;
+	}
+	ft_printf("\n");
 	return ;
 }
 
@@ -110,7 +119,11 @@ static void			execute_instruction(t_cpu *cpu, t_process *process,
 		process->next_instruction = NULL;
 	}
 	else
+	{
+		ft_printf("P %5d | %.2x <-- Unknown opcode!\n", process->process_id,
+												(unsigned char)*process->pc);
 		process->pc++;
+	}
 	next_opcode = *process->pc;
 	if (next_opcode > 0 && next_opcode < 17)
 		process->cycle_point_for_next_instruction = cpu->cycle_cnt +

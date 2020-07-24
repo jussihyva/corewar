@@ -6,7 +6,7 @@
 /*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/30 15:00:30 by jkauppi           #+#    #+#             */
-/*   Updated: 2020/07/23 16:54:33 by jkauppi          ###   ########.fr       */
+/*   Updated: 2020/07/24 15:32:56 by jkauppi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@ static void			verbose_print(t_cpu *cpu, t_process *process,
 {
 	t_opcode		opcode;
 	char			*result_string;
+	char			*ptr;
 
 	opcode = process->next_instruction->opcode;
 	if (cpu->opt & verbose || cpu->opt & verbose1)
@@ -44,6 +45,14 @@ static void			verbose_print(t_cpu *cpu, t_process *process,
 			ft_strdel(&result_string);
 		}
 	}
+	ptr = process->pc - process->next_instruction->length;
+	ft_printf("    ");
+	while (ptr < process->pc)
+	{
+		ft_printf(" %.2x", (unsigned char)*ptr);
+		ptr++;
+	}
+	ft_printf("\n");
 	return ;
 }
 
@@ -89,23 +98,38 @@ long long			set_cycle_to_die_point(t_cpu *cpu)
 static void			execute_instruction(t_cpu *cpu, t_process *process,
 														int *is_cycle_printed)
 {
-	int		carry_old;
+	int			carry_old;
+	t_opcode	next_opcode;
 
 	carry_old = process->carry;
-	cpu->op_function[process->next_instruction->opcode](cpu, process,
-										process->next_instruction);
-	if (cpu->g_op_tab[process->next_instruction->opcode].opcode ==
-																e_live)
+	if (*process->pc > 0 && *process->pc < 17)
 	{
-		cpu->total_num_of_live_instructions++;
-		ft_printf("Sum of live: %d\n",
-								cpu->total_num_of_live_instructions);
+		process->next_instruction = parse_instruction(cpu, process->pc);
+		cpu->op_function[process->next_instruction->opcode](cpu, process,
+											process->next_instruction);
+		if (cpu->g_op_tab[process->next_instruction->opcode].opcode ==
+																	e_live)
+		{
+			cpu->total_num_of_live_instructions++;
+			ft_printf("Sum of live: %d\n",
+									cpu->total_num_of_live_instructions);
+		}
+		verbose_print(cpu, process, is_cycle_printed, carry_old);
+		free(process->next_instruction);
+		process->next_instruction = NULL;
 	}
-	verbose_print(cpu, process, is_cycle_printed, carry_old);
-	free(process->next_instruction);
-	process->next_instruction = parse_instruction(cpu, process->pc);
-	process->cycle_point_for_next_instruction = cpu->cycle_cnt +
-				cpu->g_op_tab[process->next_instruction->opcode].cycles;
+	else
+	{
+		ft_printf("P %5d | %.2x <-- Unknown opcode!\n", process->process_id,
+												(unsigned char)*process->pc);
+		process->pc++;
+	}
+	next_opcode = *process->pc;
+	if (next_opcode > 0 && next_opcode < 17)
+		process->cycle_point_for_next_instruction = cpu->cycle_cnt +
+						cpu->g_op_tab[next_opcode].cycles;
+	else
+		process->cycle_point_for_next_instruction = cpu->cycle_cnt + 1;
 	return ;
 }
 

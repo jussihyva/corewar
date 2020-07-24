@@ -6,7 +6,7 @@
 /*   By: jhakala <jhakala@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/22 21:10:17 by jhakala           #+#    #+#             */
-/*   Updated: 2020/07/23 17:28:52 by jhakala          ###   ########.fr       */
+/*   Updated: 2020/07/24 13:17:59 by jhakala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ t_game	*wm_init(t_mem *mem);
 /*
 ** carriage.c
 */
-void	new_carriage(t_carriage **alst, int place, t_carriage *parent, int id);
+void	new_carriage(t_carriage **alst, int place, t_carriage *parent, t_game *game);
 
 /*
 ** free.c
@@ -75,6 +75,11 @@ int		possible_arg(int **types, int op_code);
 int		arg_sizes(char *arena, int place, int **types, int code);
 int		read_game_param(char *arena, int from, int size, int **types);
 int		read_statement_code(t_carriage *c, t_game *game, int place);
+
+/*
+** game/check.c
+*/
+int		check_carriages(t_game *game);
 
 /*
 ** statements/

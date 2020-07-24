@@ -6,7 +6,7 @@
 /*   By: jhakala <jhakala@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/17 17:30:36 by jhakala           #+#    #+#             */
-/*   Updated: 2020/07/23 17:54:46 by jhakala          ###   ########.fr       */
+/*   Updated: 2020/07/24 13:33:49 by jhakala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ void	put_player_input_to_arena(t_game *game, t_mem *mem)
 	{
 		place = MEM_SIZE / mem->n_player * i++;
 		ft_memcpy(&game->arena[place], p->input, REV(p->header->prog_size));
-		new_carriage(&game->c_lst, place, NULL, p->id);
+		new_carriage(&game->c_lst, place, NULL, game);
 		p = p->next;
 	}
 }
@@ -64,6 +64,8 @@ void	wm_default_values(t_game *game, t_mem *mem)
 	game->n_live_in_cycle = 0;
 	game->cycles_to_die = CYCLE_TO_DIE;
 	game->n_player = mem->n_player;
+	game->c_nbr = 1;
+	game->get_die = CYCLE_TO_DIE;
 }
 
 t_game	*wm_init(t_mem *mem)

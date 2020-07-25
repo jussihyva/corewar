@@ -6,7 +6,7 @@
 /*   By: jhakala <jhakala@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/22 21:10:17 by jhakala           #+#    #+#             */
-/*   Updated: 2020/07/24 18:39:01 by jhakala          ###   ########.fr       */
+/*   Updated: 2020/07/25 18:50:33 by jhakala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,6 +74,7 @@ int		run_game(t_mem *mem);
 */
 int		**get_argument_type_codes(int type);
 int		possible_arg(int **types, int op_code);
+int		read_types(char *arena, int from, int size);
 int		arg_sizes(char *arena, int place, int **types, int code);
 int		read_game_param(char *arena, int from, int size, int **types);
 int		read_statement_code(t_carriage *c, t_game *game, int place);

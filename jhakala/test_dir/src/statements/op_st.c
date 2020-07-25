@@ -6,7 +6,7 @@
 /*   By: jhakala <jhakala@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/22 21:25:37 by jhakala           #+#    #+#             */
-/*   Updated: 2020/07/23 17:28:25 by jhakala          ###   ########.fr       */
+/*   Updated: 2020/07/25 18:18:16 by jhakala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@ int		op_st(t_game *game, int place, t_carriage *c)
 	}
 	else if (types[1][0] == 3)
 	{
+		types[1][1] = types[1][1] % IDX_MOD;
 		game->arena[place + types[1][1]] = (c->reg[types[0][1] - 1] >> 24) & 0xFF;
 		game->arena[place + types[1][1] + 1] = (c->reg[types[0][1] - 1] >> 16) & 0xFF;
 		game->arena[place + types[1][1] + 2] = (c->reg[types[0][1] - 1] >> 8) & 0xFF;

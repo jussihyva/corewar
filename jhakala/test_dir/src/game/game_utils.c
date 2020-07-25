@@ -6,7 +6,7 @@
 /*   By: jhakala <jhakala@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/20 18:31:16 by jhakala           #+#    #+#             */
-/*   Updated: 2020/07/24 21:07:11 by jhakala          ###   ########.fr       */
+/*   Updated: 2020/07/25 18:55:54 by jhakala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,9 +24,10 @@ int		**get_argument_type_codes(int type)
 	i = 0;
 	while (i < 3)
 		types[i++] = (int*)malloc(sizeof(int*) * 2);
-    types[0][0] = type >> 6;
+    types[0][0] = (type >> 6) & 3;
     types[1][0] = (type >> 4) & 3;
     types[2][0] = (type >> 2) & 3;
+//	ft_printf("%d, %d, %d,\n", types[0][0], types[1][0], types[2][0]);
 	return (types);
 }
 
@@ -76,6 +77,7 @@ int		arg_sizes(char *arena, int place, int **types, int code)
 //	ft_printf("n_arg=%d\n", g_op_tab[(int)arena[place - 2] - 1].n_arg);
 	while (++i < g_op_tab[(int)arena[place - 2] - 1].n_arg)
 	{
+//		ft_printf("types[i][0] = %d\n", types[i][0]);
 		if (types[i][0] == 1)
 		{
 			types[i][1] = arena[place + size];
@@ -96,6 +98,7 @@ int		arg_sizes(char *arena, int place, int **types, int code)
 		}
 //		ft_printf("size=%d\n",size);
 	}
+
 	return (size);
 }
 

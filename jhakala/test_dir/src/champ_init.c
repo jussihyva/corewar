@@ -6,7 +6,7 @@
 /*   By: jhakala <jhakala@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/16 14:35:03 by jhakala           #+#    #+#             */
-/*   Updated: 2020/07/17 16:01:14 by jhakala          ###   ########.fr       */
+/*   Updated: 2020/07/25 18:05:05 by jhakala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,8 @@ int		pick(int *n_arr, int n)
 {
 	int i;
 
-	i = -1;
-	while (++i < n)
+	i = n;
+	while (--i > -1)
 	{
 		if (n_arr[i] == 0)
 		{

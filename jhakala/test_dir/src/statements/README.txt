@@ -3,19 +3,24 @@ Done:
 	ld
 	st
 	add
-
-	zjmp
-	sti
-
-
-Not yet:
 	sub
 	and
-	or
-	xor
-	ldi
+
+	zjmp
+
+	sti
 	fork
+
+	lfork
+
+Done but not tested:
+	 or
+	 xor
+	 ldi
+
+Not yet:
 	lld
 	lldi
-	lfork
 	aff
+
+read_types in game/game_utils.c over added // need to test that too

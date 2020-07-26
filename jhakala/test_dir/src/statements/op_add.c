@@ -6,7 +6,7 @@
 /*   By: jhakala <jhakala@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/23 11:51:27 by jhakala           #+#    #+#             */
-/*   Updated: 2020/07/25 18:51:26 by jhakala          ###   ########.fr       */
+/*   Updated: 2020/07/26 17:40:00 by jhakala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,6 @@ int    op_add(t_game *game, int place, t_carriage *c)
 
     types = get_argument_type_codes(game->arena[place + 1]);
     size = arg_sizes(game->arena, place + 2, types, game->arena[place]) + 2;
-	ft_printf("size=%d\n", size);
 	if (possible_arg(types, game->arena[place] - 1))
         return (read_game_param(game->arena, place, size, types));
 	ft_printf(" P   %d | add r%d r%d r%d", c->id, types[0][1], types[1][1], types[2][1]);

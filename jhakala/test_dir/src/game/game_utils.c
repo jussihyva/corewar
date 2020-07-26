@@ -6,7 +6,7 @@
 /*   By: jhakala <jhakala@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/20 18:31:16 by jhakala           #+#    #+#             */
-/*   Updated: 2020/07/25 18:55:54 by jhakala          ###   ########.fr       */
+/*   Updated: 2020/07/26 20:01:46 by jhakala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,12 +56,18 @@ int read_types(char *arena, int from, int size)
 {
 	int type;
 	int times;
+	int over;
 
 	type = 0;
 	times = 0;
 	while (--size > -1)
 	{
-		type += arena[from + size] << (8 * times);
+//		ft_printf("--%x\n", arena[from+size] & 0xFF);
+		if (from + size >= MEM_SIZE)
+			over = MEM_SIZE;
+		else
+			over = 0;
+		type += ((arena[from + size - over] & 0xFF) << (8 * times));
 		times++;
 	}
 	return (type);
@@ -132,5 +138,7 @@ int		read_statement_code(t_carriage *c, t_game *game, int place)
 	if ((c->statement_code == game->arena[place] ||
 		c->statement_code == -1) && game->arena[place] > 0 && game->arena[place] < 17)
 		return (g_op_tab[game->arena[place] - 1].f(game, place, c));
+//	else
+//		ft_printf("place->%02x\n", game->arena[place]);
 	return (read_game_param(game->arena, place, 1, NULL));
 }

@@ -6,7 +6,7 @@
 /*   By: jhakala <jhakala@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/19 17:41:20 by jhakala           #+#    #+#             */
-/*   Updated: 2020/07/24 21:52:48 by jhakala          ###   ########.fr       */
+/*   Updated: 2020/07/26 19:45:47 by jhakala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,16 @@ int		cycle_through_c(t_game *game)
 	ft_printf("cycle_n = '%d'\n", game->total_cycles);
 	while (c)
 	{
+		if (c->place >= MEM_SIZE)
+		{
+//			ft_printf("c->place >= MEM_SIZE");
+			c->place -= MEM_SIZE;
+		}
+		else if (c->place < 0)
+		{
+//			ft_printf("c->place < 0");
+			c->place += MEM_SIZE;
+		}
 		if (c->remaining_cycle == 1)
 		{
 			size = read_statement_code(c, game, c->place);
@@ -30,11 +40,17 @@ int		cycle_through_c(t_game *game)
 		else if (c->remaining_cycle == 0)
 		{
 //			ft_printf("id='%d'place='%d'\n", c->id, c->place);
-			c->statement_code = game->arena[c->place];
+			
+			c->statement_code = (game->arena[c->place] & 0xFF);
 			if (c->statement_code > 0 && c->statement_code < 17)
 				c->remaining_cycle = g_op_tab[c->statement_code - 1].n_cycles;
 			else
+			{
+//				ft_printf("	place%d->%02x, ", c->id, game->arena[c->place]);
+//				ft_printf("	%d\n", c->place);
  				c->remaining_cycle = 1;
+				c->place++;
+			}
 		}
 		c->remaining_cycle--;
 		c = c->next;

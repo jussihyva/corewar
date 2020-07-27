@@ -6,7 +6,7 @@
 /*   By: jhakala <jhakala@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/20 00:15:32 by jhakala           #+#    #+#             */
-/*   Updated: 2020/06/24 18:10:25 by jhakala          ###   ########.fr       */
+/*   Updated: 2020/07/27 15:39:22 by jhakala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,17 +77,15 @@ void	init_champ(int fd, int *op, char *str)
 	if (!(champ = (t_champ*)malloc(sizeof(t_champ))))
 		return ;
 	if (!(champ->name = get_str(fd, NAME_CMD_STRING, &r)))
-		return ;
+		return (n_error("Name_error\n", op));
 	if (!(champ->comment = get_str(fd, COMMENT_CMD_STRING, &r)))
-		return ;
+		return (n_error("Comment_error\n", op));
 	champ->size = 0;
 	champ->label = NULL;
 	if (!(champ->cmd = get_lines(champ, fd, r)))
-		return ;
+		return (n_error("Code_empty_error\n", op));
 	if (check_champ(champ) == 0 && check_name(&fd, str, op, ".cor") == 1)
 		write_to_file(champ, fd);
-//	free_champ(champ);
 	if (op[20] == 1)
 		system("leaks asm");
-//	prio(op);
 }

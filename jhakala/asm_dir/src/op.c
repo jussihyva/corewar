@@ -6,7 +6,7 @@
 /*   By: zaz <marvin@42.fr>                         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2013/10/04 11:43:01 by zaz               #+#    #+#             */
-/*   Updated: 2020/06/20 22:43:33 by jhakala          ###   ########.fr       */
+/*   Updated: 2020/07/27 16:22:01 by jhakala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ t_op	g_op_tab[17] =
 	{0, 0, 0, {0}, 0, 0, 0}
 };
 
-t_error	g_error[7] =
+t_error	g_error[9] =
 {
 	{""},
 	{"Argument type error."},
@@ -42,5 +42,7 @@ t_error	g_error[7] =
 	{"Argument dir/ind value syntax error."},
 	{"Argument dir/ind label syntax error."},
 	{"Invalid argument end."},
-	{"No label named as:"}
+	{"No label named as:"},
+	{"Invalid operation."},
+	{"No endline after code."}
 };

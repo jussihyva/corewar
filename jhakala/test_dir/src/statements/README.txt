@@ -5,22 +5,20 @@ Done:
 	add
 	sub
 	and
-
+	or
+	xor
 	zjmp
-
+	ldi
 	sti
 	fork
-
-	lfork
-
-Done but not tested:
-	 or
-	 xor
-	 ldi
-
-Not yet:
 	lld
 	lldi
+	lfork
 	aff
 
-read_types in game/game_utils.c over added // need to test that too
+Done but not tested:
+
+
+Not yet:
+
+

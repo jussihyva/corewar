@@ -6,7 +6,7 @@
 /*   By: jhakala <jhakala@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/22 10:59:35 by jhakala           #+#    #+#             */
-/*   Updated: 2020/06/22 11:48:04 by jhakala          ###   ########.fr       */
+/*   Updated: 2020/07/27 17:21:49 by jhakala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,27 +99,30 @@ void	write_to_file(t_champ *champ, int fd)
 {
 	t_cmd *cmd;
 	t_arg *arg;
-	
+
 	write_header(champ, fd);
 	champ->size = 0;
 	cmd = champ->cmd;
 	while (cmd)
 	{
-		write_byte(fd, cmd->op_code, 1);// 		if (cmd->op_code != 0)
-		if (cmd->statement_code == 1)
-			write_statement_code(cmd->arg, fd);
-		arg = cmd->arg;
-		while (arg)
+		if (cmd->op_code > 0)
 		{
-			if (arg->type == 1)
-				write_byte(fd, arg->value, 1);
-			else if (arg->type == 2)
-				write_dir(fd, arg, cmd->dir_size, champ);
-			else if (arg->type == 3)
-				write_dir(fd, arg, IND_SIZE, champ);
-			arg = arg->next;
+			write_byte(fd, cmd->op_code, 1);// 		if (cmd->op_code != 0)
+			if (cmd->statement_code == 1)
+				write_statement_code(cmd->arg, fd);
+			arg = cmd->arg;
+			while (arg)
+			{
+				if (arg->type == 1)
+					write_byte(fd, arg->value, 1);
+				else if (arg->type == 2)
+					write_dir(fd, arg, cmd->dir_size, champ);
+				else if (arg->type == 3)
+					write_dir(fd, arg, IND_SIZE, champ);
+				arg = arg->next;
+			}
+			champ->size += cmd->size;
 		}
-		champ->size += cmd->size;
 		cmd = cmd->next;
 	}
 }

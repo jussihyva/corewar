@@ -6,7 +6,7 @@
 /*   By: jhakala <jhakala@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/05 14:12:25 by jhakala           #+#    #+#             */
-/*   Updated: 2019/11/23 16:31:09 by jhakala          ###   ########.fr       */
+/*   Updated: 2020/07/27 16:59:51 by jhakala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,8 +27,6 @@ static int	use_line(char **str, char **line)
 		tmp = ft_strdup(&(*str)[j + 1]);
 		free(*str);
 		*str = tmp;
-		if (*str[0] == '\0')
-			ft_strdel(str);
 	}
 	else
 	{

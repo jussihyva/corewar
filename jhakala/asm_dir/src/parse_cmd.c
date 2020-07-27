@@ -6,7 +6,7 @@
 /*   By: jhakala <jhakala@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/20 15:17:54 by jhakala           #+#    #+#             */
-/*   Updated: 2020/06/22 11:45:39 by jhakala          ###   ########.fr       */
+/*   Updated: 2020/07/27 15:49:18 by jhakala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,6 +114,8 @@ int		parse_cmd(t_cmd *cmd, char *line, int i)
 		}
 		j++;
 	}
+	if (j == 16)
+		cmd->error = 7;
 	free(word);
 	return (0);
 }

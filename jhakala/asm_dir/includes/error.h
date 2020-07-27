@@ -6,7 +6,7 @@
 /*   By: jhakala <jhakala@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/20 17:02:22 by jhakala           #+#    #+#             */
-/*   Updated: 2020/06/20 22:38:43 by jhakala          ###   ########.fr       */
+/*   Updated: 2020/07/27 16:21:15 by jhakala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,13 +18,18 @@
 # define ARG_ERROR_3 3;
 # define ARG_ERROR_4 4;
 # define ARG_ERROR_5 5;
-//# define  6; taken
+# define ARG_ERROR_6 6;
+# define ARG_ERROR_7 7;
+# define ARG_ERROR_8 8;
 
 typedef struct      s_error
 {
     char            *str;
 }                   t_error;
 
-t_error             g_error[7];
+/*
+** op.c
+*/
+t_error             g_error[9];
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: jhakala <jhakala@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/20 01:08:26 by jhakala           #+#    #+#             */
-/*   Updated: 2020/06/20 19:53:04 by jhakala          ###   ########.fr       */
+/*   Updated: 2020/07/27 16:13:06 by jhakala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,10 +22,25 @@ int		skip_whitespace(char *str, int i)
 
 int		skip_to(char *str, char c, int i)
 {
+	int j;
+
+	if (i < 0 || str[i++] != '"')
+		return (-1);
 	while (str[i] && str[i] != c)
 		i++;
 	if (str[i] != c)
-		return (0);
+		return (-1);
+	j = i;
+	if (str[j] == '"')
+		j++;
+	while (str[j])
+	{
+		if (str[j] == COMMENT_CHAR || str[j] == '\n')
+			break ;
+		if (str[j] != ' ' && str[j] != '	')
+			return (-1);
+		j++;
+	}
 	return (i);
 }
 

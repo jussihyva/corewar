@@ -6,7 +6,7 @@
 /*   By: jhakala <jhakala@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/19 23:21:33 by jhakala           #+#    #+#             */
-/*   Updated: 2020/06/24 18:09:30 by jhakala          ###   ########.fr       */
+/*   Updated: 2020/07/27 15:05:32 by jhakala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,6 +73,8 @@ typedef struct		s_op
 
 t_op				g_op_tab[17];
 
+
+void				n_error(char *str, int *op);
 
 /*
 ** init.c

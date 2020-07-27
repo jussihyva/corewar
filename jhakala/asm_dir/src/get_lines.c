@@ -6,7 +6,7 @@
 /*   By: jhakala <jhakala@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/20 14:36:47 by jhakala           #+#    #+#             */
-/*   Updated: 2020/07/27 16:28:08 by jhakala          ###   ########.fr       */
+/*   Updated: 2020/07/27 17:20:24 by jhakala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,18 @@ t_label	*new_label(t_champ *champ, char *line)
 	return (label);
 }
 
+void	default_cmd(t_cmd *cmd)
+{
+	cmd->op_code = 0;
+	cmd->statement_code = 0;
+	cmd->dir_size = 0;
+	cmd->n_arg = 0;
+	cmd->size = 0;
+	cmd->error = 0;
+	cmd->next = NULL;
+	cmd->arg = NULL;
+}
+
 t_cmd	*new_cmd(t_champ *champ, char *line, int row_n)
 {
 	t_cmd	*cmd;
@@ -39,9 +51,7 @@ t_cmd	*new_cmd(t_champ *champ, char *line, int row_n)
 
 	if (!(cmd = (t_cmd*)malloc(sizeof(t_cmd))))
 		return (NULL);
-	cmd->next = NULL;
-	cmd->arg = NULL;
-	cmd->size = 0;
+	default_cmd(cmd);
 	cmd->row = row_n;
 	if ((j = is_label(line)) > 0)
 		add_label(&champ->label, new_label(champ, line));
@@ -54,20 +64,40 @@ t_cmd	*new_cmd(t_champ *champ, char *line, int row_n)
 	return (cmd);
 }
 
+int		check_last_line(char *str)
+{
+	int i;
+
+	i = skip_whitespace(str, 0);
+	if (str[i] != '\0')
+	{
+		free(str);
+		return (0);
+	}
+	free(str);
+	return (1);
+}
+
 t_cmd	*get_lines(t_champ *champ, int fd, int row_n)
 {
 	char	*line;
+	char	*last_line;
 	t_cmd	*cmd;
 	int		i;
 
 	cmd = NULL;
+	last_line = NULL;
 	while ((i = get_next_line(fd, &line)) > 0)
 	{
 		row_n++;
 		if (ft_strlen(line) > 0	&& !is_comment(line, 0) && !is_empty(line, 0))
 			add_cmd(&cmd, new_cmd(champ, line, row_n));
-		free(line);
+		if (last_line != NULL)
+			free(last_line);
+		last_line = line;
 	}
+	if (check_last_line(last_line) == 0)
+		cmd->error = 8;
 	if (cmd != NULL)
 		rev_cmd(&cmd);
 	if (champ->label != NULL)

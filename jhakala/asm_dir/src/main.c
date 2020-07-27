@@ -6,15 +6,25 @@
 /*   By: jhakala <jhakala@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/19 23:35:12 by jhakala           #+#    #+#             */
-/*   Updated: 2020/06/24 17:41:00 by jhakala          ###   ########.fr       */
+/*   Updated: 2020/07/27 15:05:21 by jhakala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "asm.h"
 
+void	n_error(char *str, int *op)
+{
+	ft_printf("%s", str);
+	if (op[20] == 1)
+		system("leaks asm");
+	free(op);
+}
+
 int		*o_error(char *str, int *op)
 {
 	ft_printf("%s", str);
+	if (op[20] == 1)
+		system("leaks asm");
 	free(op);
 	return (NULL);
 }
@@ -85,7 +95,7 @@ int		main(int ac, char **av)
 		else if (fd == -1 && ac == 2)
 			ft_printf("ERROR: Can't read source file %s\n", av[1]);
 		else if (fd == -1 && ac == 3)
-			ft_printf("ERROR: Can't read source file %s\n", av[2]);
+			ft_printf("ERROR: Can' t read source file %s\n", av[2]);
 	}
 
 	return (0);

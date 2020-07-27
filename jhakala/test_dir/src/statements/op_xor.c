@@ -6,7 +6,7 @@
 /*   By: jhakala <jhakala@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/23 11:53:06 by jhakala           #+#    #+#             */
-/*   Updated: 2020/07/26 18:50:53 by jhakala          ###   ########.fr       */
+/*   Updated: 2020/07/27 13:09:13 by jhakala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ int    op_xor(t_game *game, int place, t_carriage *c)
         val2 = types[1][1];
     else
         val2 = read_types(game->arena, place + (types[1][1] % IDX_MOD), REG_SIZE);
-    c->reg[types[2][1] - 1] = val1 | val2;
+    c->reg[types[2][1] - 1] = val1 ^ val2;
     if (c->reg[types[2][1] - 1] == 0)
         c->carry = 1;
     else

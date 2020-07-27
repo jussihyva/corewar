@@ -6,7 +6,7 @@
 /*   By: jhakala <jhakala@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/23 11:55:31 by jhakala           #+#    #+#             */
-/*   Updated: 2020/07/23 16:58:01 by jhakala          ###   ########.fr       */
+/*   Updated: 2020/07/27 13:25:18 by jhakala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,13 @@
 
 int    op_aff(t_game *game, int place, t_carriage *c)
 {
-	ft_printf("", game, place, c);
-	return (1);
+	int **types;
+    int size;
+
+    types = get_argument_type_codes(game->arena[place + 1]);
+    size = arg_sizes(game->arena, place + 2, types, game->arena[place]) + 2;
+    if (possible_arg(types, game->arena[place] - 1))
+        return (read_game_param(game->arena, place, size, types));
+	ft_printf(" P   %d | aff r%d | %c", c->id, types[0][1], c->reg[types[0][1] - 1]);
+	return (read_game_param(game->arena, place, size, types));
 }

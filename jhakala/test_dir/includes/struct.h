@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   struct.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jhakala <jhakala@student.hive.fi>          +#+  +:+       +#+        */
+/*   By: hopham <hopham@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/13 14:14:20 by jhakala           #+#    #+#             */
-/*   Updated: 2020/07/24 18:42:23 by jhakala          ###   ########.fr       */
+/*   Updated: 2020/07/28 11:56:02 by hopham           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 
 typedef struct			s_player
 {
-	header_t			*header;
+	t_header			*header;
 	int					id;
 	char				*file_name;
 	char				*input;

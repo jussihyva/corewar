@@ -6,7 +6,7 @@
 /*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/06 17:50:37 by jkauppi           #+#    #+#             */
-/*   Updated: 2020/07/23 15:45:52 by jkauppi          ###   ########.fr       */
+/*   Updated: 2020/07/29 17:09:07 by jkauppi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,6 @@ t_cpu				*initialize_cpu(t_input *input)
 		process = initialize_process(cpu, pc);
 		process_elem = ft_lstnew(&process, sizeof(process));
 		ft_lstadd(&cpu->process_list, process_elem);
-		cpu->process_cnt++;
 	}
 	return (cpu);
 }

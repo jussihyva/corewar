@@ -6,7 +6,7 @@
 /*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/30 15:00:30 by jkauppi           #+#    #+#             */
-/*   Updated: 2020/07/24 15:32:56 by jkauppi          ###   ########.fr       */
+/*   Updated: 2020/07/29 13:49:18 by jkauppi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@ static void			verbose_print(t_cpu *cpu, t_process *process,
 	t_opcode		opcode;
 	char			*result_string;
 	char			*ptr;
+	char			*end_ptr;
 
 	opcode = process->next_instruction->opcode;
 	if (cpu->opt & verbose || cpu->opt & verbose1)
@@ -45,9 +46,10 @@ static void			verbose_print(t_cpu *cpu, t_process *process,
 			ft_strdel(&result_string);
 		}
 	}
-	ptr = process->pc - process->next_instruction->length;
+	end_ptr = process->next_instruction->start_p + process->next_instruction->length;
+	ptr = process->next_instruction->start_p;
 	ft_printf("    ");
-	while (ptr < process->pc)
+	while (ptr < end_ptr)
 	{
 		ft_printf(" %.2x", (unsigned char)*ptr);
 		ptr++;

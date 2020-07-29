@@ -6,7 +6,7 @@
 /*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/12 11:44:17 by ubuntu            #+#    #+#             */
-/*   Updated: 2020/07/06 12:42:09 by jkauppi          ###   ########.fr       */
+/*   Updated: 2020/07/29 13:57:49 by jkauppi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,14 +51,14 @@ void			print_params(t_op_param *param)
 		else if (param[i].type == DIR_CODE)
 		{
 			if (param[i].value < 0)
-				ft_printf("%%-%#x", -param[i].value);
+				ft_printf("%%-%#hx", -param[i].value);
 			else
 				ft_printf("%%%#x", param[i].value);
 		}
 		else if (param[i].type == IND_CODE)
 		{
 			if (param[i].value < 0)
-				ft_printf("-%#x", -param[i].value);
+				ft_printf("-%#hx", -param[i].value);
 			else
 				ft_printf("%#x", param[i].value);
 		}

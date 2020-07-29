@@ -6,7 +6,7 @@
 /*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/12 19:32:46 by ubuntu            #+#    #+#             */
-/*   Updated: 2020/07/24 14:29:54 by jkauppi          ###   ########.fr       */
+/*   Updated: 2020/07/29 15:45:02 by jkauppi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ static void			execute_cpu_cycles(t_input *input, t_cpu *cpu)
 	size_t			num_of_players_alive;
 
 	num_of_players_alive = input->num_of_players;
-	while (num_of_players_alive)
+	while (num_of_players_alive && input->num_of_instructions_to_execute)
 	{
 		num_of_players_alive = execute_cycle(cpu, cpu->process_list,
 														input->num_of_players);
@@ -38,7 +38,8 @@ int					main(int argc, char **argv)
 	{
 		cpu = initialize_cpu(input);
 		execute_cpu_cycles(input, cpu);
-		print_memory(cpu);
+		if (input->opt & dump)
+			print_memory(cpu);
 		free(cpu->memory);
 		free(cpu->op_function);
 		free(cpu);

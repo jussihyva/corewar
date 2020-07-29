@@ -6,7 +6,7 @@
 /*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/12 19:48:41 by ubuntu            #+#    #+#             */
-/*   Updated: 2020/07/23 15:38:14 by jkauppi          ###   ########.fr       */
+/*   Updated: 2020/07/29 17:02:38 by jkauppi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,11 +20,12 @@
 
 typedef enum		e_opt
 {
-	format_hex = 0x01,
+	format_hex = 0b01,
 	format_asm = 0x02,
 	verbose = 0x04,
 	verbose1 = 0x08,
-	leaks = 0x10
+	leaks = 0x10,
+	dump = 0x20
 }					t_opt;
 
 typedef enum		e_opcode
@@ -122,6 +123,7 @@ typedef struct		s_input
 	int				num_of_players;
 	t_player		**players;
 	int				num_of_instructions_to_execute;
+	int				player_start_number;
 }					t_input;
 
 typedef struct		s_cpu

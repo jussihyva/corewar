@@ -6,7 +6,7 @@
 /*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/30 15:46:25 by jkauppi           #+#    #+#             */
-/*   Updated: 2020/07/22 15:53:54 by jkauppi          ###   ########.fr       */
+/*   Updated: 2020/07/30 14:49:14 by jkauppi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ void			print_cpu(t_cpu *cpu, t_input *input, t_process *process,
 {
 	int			reg;
 
-	print_instruction(instruction, instruction->start_p - cpu->memory,
+	print_instruction(cpu, instruction,
 						input->g_op_tab[instruction->opcode].instruction_name);
 	ft_printf("%85s", "CPU: ");
 	reg = 0;

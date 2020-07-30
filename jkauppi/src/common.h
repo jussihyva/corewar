@@ -6,7 +6,7 @@
 /*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/12 19:48:41 by ubuntu            #+#    #+#             */
-/*   Updated: 2020/07/29 17:02:38 by jkauppi          ###   ########.fr       */
+/*   Updated: 2020/07/30 14:48:19 by jkauppi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ typedef struct		s_op_param
 
 typedef struct		s_instruction
 {
-	char		*start_p;
+	int			start_index;
 	ssize_t		length;
 	t_opcode	opcode;
 	t_op_param	param[3];
@@ -101,7 +101,7 @@ typedef struct		s_player
 typedef struct		s_process
 {
 	int				process_id;
-	char			*pc;
+	int				pc_index;
 	char			*program_start_ptr;
 	int				reg[REG_NUMBER + 1];
 	int				carry;
@@ -150,11 +150,11 @@ t_cpu				*initialize_cpu(t_input *input);
 char				*read_input_file(int fd, size_t *file_content_size);
 t_instruction		*parse_instruction(t_cpu *cpu, char *p);
 t_asm_code			*parse_instructions(t_input *input, t_cpu *cpu,
-											char *file_content, ssize_t size);
+															char *file_content);
 void				print_hex_string(ssize_t index, char *line, ssize_t size);
 void				print_params(t_op_param *param);
-void				print_instruction(t_instruction *instruction,
-													long start_ptr, char *name);
+void				print_instruction(t_cpu *cpu, t_instruction *instruction,
+																	char *name);
 t_asm_code			*initialize_asm_code(char *file_content,
 													size_t file_content_size);
 void				remove_asm_code(t_asm_code *asm_code);

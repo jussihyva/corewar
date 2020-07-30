@@ -6,7 +6,7 @@
 /*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/05 14:28:50 by ubuntu            #+#    #+#             */
-/*   Updated: 2020/07/23 11:01:41 by jkauppi          ###   ########.fr       */
+/*   Updated: 2020/07/30 14:57:36 by jkauppi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ void			exec_or(t_cpu *cpu, t_process *process, t_instruction *instruction)
 		param[1] = process->reg[instruction->param[1].value];
 	process->reg[instruction->param[2].value] = param[0] | param[1];
 	process->carry = (process->reg[instruction->param[2].value]) ? 0 : 1;
-	process->pc = instruction->start_p + instruction->length;
+	process->pc_index = instruction->start_index + instruction->length;
 	return ;
 }
 
@@ -40,7 +40,7 @@ void			exec_xor(t_cpu *cpu, t_process *process, t_instruction *instruction)
 		param[1] = process->reg[instruction->param[1].value];
 	process->reg[instruction->param[2].value] = param[0] ^ param[1];
 	process->carry = (process->reg[instruction->param[2].value]) ? 0 : 1;
-	process->pc = instruction->start_p + instruction->length;
+	process->pc_index = instruction->start_index + instruction->length;
 	return ;
 }
 
@@ -56,6 +56,6 @@ void			exec_and(t_cpu *cpu, t_process *process, t_instruction *instruction)
 		param[1] = process->reg[instruction->param[1].value];
 	process->reg[instruction->param[2].value] = param[0] & param[1];
 	process->carry = (process->reg[instruction->param[2].value]) ? 0 : 1;
-	process->pc = instruction->start_p + instruction->length;
+	process->pc_index = instruction->start_index + instruction->length;
 	return ;
 }

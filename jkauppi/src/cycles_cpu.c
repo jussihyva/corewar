@@ -6,7 +6,7 @@
 /*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/30 15:00:30 by jkauppi           #+#    #+#             */
-/*   Updated: 2020/07/30 11:41:46 by jkauppi          ###   ########.fr       */
+/*   Updated: 2020/07/30 15:05:59 by jkauppi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,9 +42,9 @@ static void			verbose_print(t_cpu *cpu, t_process *process,
 			ft_printf("%30s", result_string);
 			ft_strdel(&result_string);
 		}
-		end_ptr = process->next_instruction->start_p + process->next_instruction->length;
-		ptr = process->next_instruction->start_p;
-		ft_printf("    %08x: ", process->next_instruction->start_p - cpu->memory);
+		end_ptr = cpu->memory + process->next_instruction->start_index + process->next_instruction->length;
+		ptr = cpu->memory + process->next_instruction->start_index;
+		ft_printf("    %08x: ", process->next_instruction->start_index + cpu->memory);
 		while (ptr < end_ptr)
 		{
 			ft_printf(" %.2x", (unsigned char)*ptr);
@@ -98,12 +98,13 @@ static void			execute_instruction(t_cpu *cpu, t_process *process,
 														int *is_cycle_printed)
 {
 	int			carry_old;
-	t_opcode	next_opcode;
+	t_opcode	opcode;
 
 	carry_old = process->carry;
-	if (*process->pc > 0 && *process->pc < 17)
+	opcode = *(cpu->memory + process->pc_index);
+	if (opcode > 0 && opcode < 17)
 	{
-		process->next_instruction = parse_instruction(cpu, process->pc);
+		process->next_instruction = parse_instruction(cpu, cpu->memory + process->pc_index);
 		cpu->op_function[process->next_instruction->opcode](cpu, process,
 											process->next_instruction);
 		verbose_print(cpu, process, is_cycle_printed, carry_old);
@@ -120,13 +121,13 @@ static void			execute_instruction(t_cpu *cpu, t_process *process,
 	else
 	{
 		ft_printf("P %5d | %.2x <-- Unknown opcode!\n", process->process_id,
-												(unsigned char)*process->pc);
-		process->pc++;
+												(unsigned char)opcode);
+		process->pc_index++;
 	}
-	next_opcode = *process->pc;
-	if (next_opcode > 0 && next_opcode < 17)
+	opcode = *(cpu->memory + process->pc_index);
+	if (opcode > 0 && opcode < 17)
 		process->cycle_point_for_next_instruction = cpu->cycle_cnt +
-						cpu->g_op_tab[next_opcode].cycles;
+						cpu->g_op_tab[opcode].cycles;
 	else
 		process->cycle_point_for_next_instruction = cpu->cycle_cnt + 1;
 	return ;

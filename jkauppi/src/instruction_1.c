@@ -6,7 +6,7 @@
 /*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/11 13:17:12 by ubuntu            #+#    #+#             */
-/*   Updated: 2020/07/06 17:43:46 by jkauppi          ###   ########.fr       */
+/*   Updated: 2020/07/30 13:30:58 by jkauppi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ static int			read_param(char **p, int size, int length)
 	return (param);
 }
 
-static void			read_parameters(int coding_byte, int label_size, char **p,
+static void			read_parameters(int coding_byte, int label_size, char **ptr,
 															t_op_param *param)
 {
 	size_t			i;
@@ -50,16 +50,16 @@ static void			read_parameters(int coding_byte, int label_size, char **p,
 	{
 		param[i].type = (coding_byte >> (2 + (2 * (2 - i)))) & 0x3;
 		if (param[i].type == IND_CODE)
-			param[i].value = read_param(p, IND_SIZE, 0);
+			param[i].value = read_param(ptr, IND_SIZE, 0);
 		else if (param[i].type == DIR_CODE)
 		{
 			if (label_size)
-				param[i].value = read_param(p, IND_SIZE, 0);
+				param[i].value = read_param(ptr, IND_SIZE, 0);
 			else
-				param[i].value = read_param(p, DIR_SIZE, 1);
+				param[i].value = read_param(ptr, DIR_SIZE, 1);
 		}
 		else if (param[i].type == REG_CODE)
-			param[i].value = read_param(p, 1, 0);
+			param[i].value = read_param(ptr, 1, 0);
 	}
 	return ;
 }
@@ -87,7 +87,7 @@ t_instruction		*parse_instruction(t_cpu *cpu, char *p)
 	instruction = (t_instruction *)ft_memalloc(sizeof(*instruction));
 	opcode = *p;
 	instruction->opcode = opcode;
-	instruction->start_p = p;
+	instruction->start_index = p - cpu->memory;
 	p += 1;
 	if (cpu->g_op_tab[opcode].include_coding_byte)
 	{
@@ -99,35 +99,35 @@ t_instruction		*parse_instruction(t_cpu *cpu, char *p)
 	if (coding_byte != -1)
 		read_parameters(coding_byte, cpu->g_op_tab[opcode].label_size, &p,
 															instruction->param);
-	instruction->length = p - instruction->start_p;
+	instruction->length = p - cpu->memory - instruction->start_index;
 	return (instruction);
 }
 
 t_asm_code			*parse_instructions(t_input *input, t_cpu *cpu,
-											char *file_content, ssize_t size)
+															char *file_content)
 {
-	char			*end_p;
-	char			*p;
+	char			*end_ptr;
+	char			*ptr;
 	t_asm_code		*asm_code;
 	t_instruction	*instruction;
 	t_list			*elem;
 
 	asm_code = initialize_asm_code(file_content, input->file_content_size);
-	end_p = file_content + size;
-	p = file_content + sizeof(*asm_code->header);
-	while (p < end_p)
+	end_ptr = cpu->memory + MEM_SIZE;
+	ptr = file_content + sizeof(*asm_code->header);
+	while (ptr < end_ptr)
 	{
-		if (*p > 0 && *p < 17)
+		if (*ptr > 0 && *ptr < 17)
 		{
-			instruction = parse_instruction(cpu, p);
+			instruction = parse_instruction(cpu, ptr);
 			elem = ft_lstnew(&instruction, sizeof(instruction));
 			ft_lstadd_e(asm_code->instruction_lst, elem);
-			p = instruction->start_p + instruction->length;
+			ptr += instruction->length;
 		}
 		else
 		{
-			ft_printf("%08x: .\n", p - file_content);
-			p++;
+			ft_printf("%08x: .\n", ptr);
+			ptr++;
 		}
 	}
 	return (asm_code);

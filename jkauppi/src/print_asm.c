@@ -6,13 +6,13 @@
 /*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/07 22:39:50 by ubuntu            #+#    #+#             */
-/*   Updated: 2020/07/06 17:43:46 by jkauppi          ###   ########.fr       */
+/*   Updated: 2020/07/30 14:48:49 by jkauppi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "decoder.h"
 
-void				print_asm(t_input *input, char *file_content, ssize_t size)
+void				print_asm(t_input *input, char *file_content)
 {
 	t_list			*elem;
 	t_instruction	*instruction;
@@ -20,7 +20,7 @@ void				print_asm(t_input *input, char *file_content, ssize_t size)
 	t_cpu			*cpu;
 
 	cpu = initialize_cpu(input);
-	asm_code = parse_instructions(input, cpu, file_content, size);
+	asm_code = parse_instructions(input, cpu, file_content);
 	ft_printf("Name: %s", asm_code->header->prog_name);
 	ft_printf(" Comment: %s", asm_code->header->comment);
 	ft_printf(" Magic: %x", asm_code->header->magic);
@@ -29,8 +29,7 @@ void				print_asm(t_input *input, char *file_content, ssize_t size)
 	while (elem)
 	{
 		instruction = *(t_instruction **)elem->content;
-		print_instruction(instruction,
-								instruction->start_p - asm_code->file_content,
+		print_instruction(cpu, instruction,
 						input->g_op_tab[instruction->opcode].instruction_name);
 		elem = elem->next;
 	}

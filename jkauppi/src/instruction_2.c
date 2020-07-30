@@ -6,7 +6,7 @@
 /*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/12 11:44:17 by ubuntu            #+#    #+#             */
-/*   Updated: 2020/07/29 13:57:49 by jkauppi          ###   ########.fr       */
+/*   Updated: 2020/07/30 14:47:45 by jkauppi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,11 +66,12 @@ void			print_params(t_op_param *param)
 	return ;
 }
 
-void			print_instruction(t_instruction *instruction, long start_ptr,
+void			print_instruction(t_cpu *cpu, t_instruction *instruction,
 																	char *name)
 {
-	ft_printf("%08x: ", start_ptr);
-	print_hex_string(0, instruction->start_p, instruction->length);
+	ft_printf("%08x: ", cpu->memory + instruction->start_index);
+	print_hex_string(0, cpu->memory + instruction->start_index,
+														instruction->length);
 	ft_printf("%-8s", name);
 	print_params(instruction->param);
 	ft_printf("\n");

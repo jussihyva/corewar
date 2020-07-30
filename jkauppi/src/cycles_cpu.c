@@ -6,7 +6,7 @@
 /*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/30 15:00:30 by jkauppi           #+#    #+#             */
-/*   Updated: 2020/07/30 15:05:59 by jkauppi          ###   ########.fr       */
+/*   Updated: 2020/07/30 16:42:19 by jkauppi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -122,7 +122,7 @@ static void			execute_instruction(t_cpu *cpu, t_process *process,
 	{
 		ft_printf("P %5d | %.2x <-- Unknown opcode!\n", process->process_id,
 												(unsigned char)opcode);
-		process->pc_index++;
+		process->pc_index = (process->pc_index + 1) % MEM_SIZE;
 	}
 	opcode = *(cpu->memory + process->pc_index);
 	if (opcode > 0 && opcode < 17)

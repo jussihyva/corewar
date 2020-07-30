@@ -6,7 +6,7 @@
 /*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/06 17:50:37 by jkauppi           #+#    #+#             */
-/*   Updated: 2020/07/29 17:09:07 by jkauppi          ###   ########.fr       */
+/*   Updated: 2020/07/30 16:34:58 by jkauppi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,7 @@ t_cpu				*initialize_cpu(t_input *input)
 	char			*pc;
 	t_process		*process;
 	t_list			*process_elem;
+	int				pc_index;
 
 	cpu = (t_cpu *)ft_memalloc(sizeof(*cpu));
 	cpu->memory = (char *)ft_memalloc(sizeof(*cpu->memory) * MEM_SIZE);
@@ -59,11 +60,12 @@ t_cpu				*initialize_cpu(t_input *input)
 	while (++i < input->num_of_players)
 	{
 		player = input->players[i];
-		pc = cpu->memory + (MEM_SIZE / input->num_of_players * i);
+		pc_index = MEM_SIZE / input->num_of_players * i;
+		pc = cpu->memory + pc_index;
 		ft_memcpy(pc, player->asm_code->asa_code,
 											player->asm_code->asa_code_size);
 		cpu->process_cnt++;
-		process = initialize_process(cpu, pc);
+		process = initialize_process(cpu, pc_index);
 		process_elem = ft_lstnew(&process, sizeof(process));
 		ft_lstadd(&cpu->process_list, process_elem);
 	}

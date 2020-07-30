@@ -6,7 +6,7 @@
 /*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/30 15:00:30 by jkauppi           #+#    #+#             */
-/*   Updated: 2020/07/29 13:49:18 by jkauppi          ###   ########.fr       */
+/*   Updated: 2020/07/30 11:41:46 by jkauppi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,12 +26,9 @@ static void			verbose_print(t_cpu *cpu, t_process *process,
 		if (cpu->opt & verbose ||
 			cpu->g_op_tab[process->next_instruction->opcode].opcode == e_live)
 		{
-			if (!*is_cycle_printed)
-			{
-				ft_printf("Cycle : %lld (%lld)\n", cpu->cycle_cnt,
+			ft_printf("Cycle : %lld (%4lld) ", cpu->cycle_cnt,
 									cpu->cycle_to_die_point - cpu->cycle_cnt);
-				*is_cycle_printed = 1;
-			}
+			*is_cycle_printed = 1;
 			result_string = ft_strnew(sizeof(*result_string) * 100);
 			if (cpu->check_carry & 1 << opcode)
 				ft_sprintf(result_string, "    (carry=%d)", process->carry);
@@ -42,19 +39,19 @@ static void			verbose_print(t_cpu *cpu, t_process *process,
 			ft_printf("P %5d | %s ", process->process_id,
 			cpu->g_op_tab[process->next_instruction->opcode].instruction_name);
 			print_params(process->next_instruction->param);
-			ft_printf("%s\n", result_string);
+			ft_printf("%30s", result_string);
 			ft_strdel(&result_string);
 		}
+		end_ptr = process->next_instruction->start_p + process->next_instruction->length;
+		ptr = process->next_instruction->start_p;
+		ft_printf("    %08x: ", process->next_instruction->start_p - cpu->memory);
+		while (ptr < end_ptr)
+		{
+			ft_printf(" %.2x", (unsigned char)*ptr);
+			ptr++;
+		}
+		ft_printf("\n");
 	}
-	end_ptr = process->next_instruction->start_p + process->next_instruction->length;
-	ptr = process->next_instruction->start_p;
-	ft_printf("    ");
-	while (ptr < end_ptr)
-	{
-		ft_printf(" %.2x", (unsigned char)*ptr);
-		ptr++;
-	}
-	ft_printf("\n");
 	return ;
 }
 
@@ -92,7 +89,7 @@ long long			set_cycle_to_die_point(t_cpu *cpu)
 	long long		cycle_to_die_point;
 
 	cycle_to_die_point = cpu->cycle_cnt + cpu->current_cycle_to_die;
-	ft_printf("%60s %d\n", "Updated cycle to die cnt:",
+	ft_printf("%160s %d\n", "Updated cycle to die cnt:",
 													cpu->current_cycle_to_die);
 	return (cycle_to_die_point);
 }
@@ -109,14 +106,14 @@ static void			execute_instruction(t_cpu *cpu, t_process *process,
 		process->next_instruction = parse_instruction(cpu, process->pc);
 		cpu->op_function[process->next_instruction->opcode](cpu, process,
 											process->next_instruction);
+		verbose_print(cpu, process, is_cycle_printed, carry_old);
 		if (cpu->g_op_tab[process->next_instruction->opcode].opcode ==
 																	e_live)
 		{
 			cpu->total_num_of_live_instructions++;
-			ft_printf("Sum of live: %d\n",
+			ft_printf("%148s%d\n", "Sum of live: ",
 									cpu->total_num_of_live_instructions);
 		}
-		verbose_print(cpu, process, is_cycle_printed, carry_old);
 		free(process->next_instruction);
 		process->next_instruction = NULL;
 	}

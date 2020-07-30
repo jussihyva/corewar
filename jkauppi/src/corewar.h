@@ -6,7 +6,7 @@
 /*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/12 19:34:42 by ubuntu            #+#    #+#             */
-/*   Updated: 2020/07/23 10:56:16 by jkauppi          ###   ########.fr       */
+/*   Updated: 2020/07/30 17:30:49 by jkauppi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,8 +28,7 @@ void				exec_or(t_cpu *cpu, t_process *process, t_instruction *instruction);
 void				exec_xor(t_cpu *cpu, t_process *process, t_instruction *instruction);
 void				exec_and(t_cpu *cpu, t_process *process, t_instruction *instruction);
 void				exec_fork(t_cpu *cpu, t_process *process, t_instruction *instruction);
-int					execute_cycle(t_cpu *cpu, t_list *process_list,
-														size_t num_of_players);
+int					execute_cycle(t_cpu *cpu, t_list *process_list, t_input *input);
 void				print_cpu(t_cpu *cpu, t_input *input, t_process *process,
 													t_instruction *instruction);
 void				print_memory(t_cpu *cpu);

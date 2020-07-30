@@ -6,7 +6,7 @@
 /*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/13 09:10:10 by ubuntu            #+#    #+#             */
-/*   Updated: 2020/07/23 10:57:25 by jkauppi          ###   ########.fr       */
+/*   Updated: 2020/07/30 14:51:49 by jkauppi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,13 +22,12 @@ void			exec_ld(t_cpu *cpu, t_process *process, t_instruction *instruction)
 	}
 	else
 	{
-		ft_printf("%08x: ", instruction->start_p - process->program_start_ptr +
-															sizeof(t_header));
-		print_hex_string(0, instruction->start_p, instruction->length);
+		ft_printf("%08x: ", instruction->start_index);
+		print_hex_string(0, cpu->memory + instruction->start_index, instruction->length);
 		print_params(instruction->param);
 		ft_printf("\n");
 	}
-	process->pc = instruction->start_p + instruction->length;
+	process->pc_index = instruction->start_index + instruction->length;
 	return ;
 }
 
@@ -61,23 +60,21 @@ void			exec_ldi(t_cpu *cpu, t_process *process, t_instruction *instruction)
 		i += instruction->param[0].value;
 	else if (instruction->param[0].type == IND_CODE)
 	{
-		p = process->pc + instruction->param[0].value;
+		p = cpu->memory + ((process->pc_index + instruction->param[0].value) % MEM_SIZE);
 		i += p[0] << (8 * 1);
 		i += p[1] << (8 * 0);
 	}
 	else
-		ft_printf("%08x: ", instruction->start_p - process->program_start_ptr +
-															sizeof(t_header));
+		ft_printf("%08x: ", instruction->start_index);
 	if (instruction->param[1].type == REG_CODE)
 		i += process->reg[instruction->param[1].value];
 	else if (instruction->param[1].type == DIR_CODE)
 		i += instruction->param[1].value;
 	else
-		ft_printf("%08p: %p", process->program_start_ptr + sizeof(t_header),
-		instruction->start_p - process->program_start_ptr + sizeof(t_header));
-	p = process->pc + i;
+		ft_printf("%08p:", instruction->start_index);
+	p = cpu->memory + ((process->pc_index + i) % MEM_SIZE);
 	process->reg[instruction->param[2].value] = save_pointer_value_to_reg(p);
-	process->pc = instruction->start_p + instruction->length;
+	process->pc_index = (instruction->start_index + instruction->length) % MEM_SIZE;
 }
 
 void			exec_sub(t_cpu *cpu, t_process *process, t_instruction *instruction)
@@ -87,7 +84,7 @@ void			exec_sub(t_cpu *cpu, t_process *process, t_instruction *instruction)
 									process->reg[instruction->param[0].value] -
 									process->reg[instruction->param[1].value];
 	process->carry = (process->reg[instruction->param[2].value]) ? 0 : 1;
-	process->pc = instruction->start_p + instruction->length;
+	process->pc_index = (instruction->start_index + instruction->length) % MEM_SIZE;
 	return ;
 }
 
@@ -98,6 +95,6 @@ void			exec_add(t_cpu *cpu, t_process *process, t_instruction *instruction)
 									process->reg[instruction->param[0].value] +
 									process->reg[instruction->param[1].value];
 	process->carry = (process->reg[instruction->param[2].value]) ? 0 : 1;
-	process->pc = instruction->start_p + instruction->length;
+	process->pc_index = (instruction->start_index + instruction->length) % MEM_SIZE;
 	return ;
 }

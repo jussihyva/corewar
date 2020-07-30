@@ -6,7 +6,7 @@
 /*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/12 19:48:41 by ubuntu            #+#    #+#             */
-/*   Updated: 2020/07/30 14:48:19 by jkauppi          ###   ########.fr       */
+/*   Updated: 2020/07/30 16:31:25 by jkauppi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,7 +102,6 @@ typedef struct		s_process
 {
 	int				process_id;
 	int				pc_index;
-	char			*program_start_ptr;
 	int				reg[REG_NUMBER + 1];
 	int				carry;
 	int				is_live;
@@ -158,6 +157,6 @@ void				print_instruction(t_cpu *cpu, t_instruction *instruction,
 t_asm_code			*initialize_asm_code(char *file_content,
 													size_t file_content_size);
 void				remove_asm_code(t_asm_code *asm_code);
-t_process			*initialize_process(t_cpu *cpu, char *pc);
+t_process			*initialize_process(t_cpu *cpu, int new_pc_index);
 
 #endif

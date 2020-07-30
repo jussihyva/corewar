@@ -6,7 +6,7 @@
 /*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/30 15:00:30 by jkauppi           #+#    #+#             */
-/*   Updated: 2020/07/30 16:42:19 by jkauppi          ###   ########.fr       */
+/*   Updated: 2020/07/30 17:43:38 by jkauppi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,12 +94,14 @@ long long			set_cycle_to_die_point(t_cpu *cpu)
 	return (cycle_to_die_point);
 }
 
-static void			execute_instruction(t_cpu *cpu, t_process *process,
+static int			execute_instruction(t_cpu *cpu, t_process *process,
 														int *is_cycle_printed)
 {
 	int			carry_old;
 	t_opcode	opcode;
+	int			player;
 
+	player = 0;
 	carry_old = process->carry;
 	opcode = *(cpu->memory + process->pc_index);
 	if (opcode > 0 && opcode < 17)
@@ -114,6 +116,7 @@ static void			execute_instruction(t_cpu *cpu, t_process *process,
 			cpu->total_num_of_live_instructions++;
 			ft_printf("%148s%d\n", "Sum of live: ",
 									cpu->total_num_of_live_instructions);
+			player = -process->next_instruction->param[0].value;
 		}
 		free(process->next_instruction);
 		process->next_instruction = NULL;
@@ -130,16 +133,17 @@ static void			execute_instruction(t_cpu *cpu, t_process *process,
 						cpu->g_op_tab[opcode].cycles;
 	else
 		process->cycle_point_for_next_instruction = cpu->cycle_cnt + 1;
-	return ;
+	return (player);
 }
 
 int					execute_cycle(t_cpu *cpu, t_list *process_list,
-														size_t num_of_players)
+														t_input *input)
 {
 	int				num_of_players_alive;
 	t_process		*process;
 	int				is_cycle_printed;
 	t_list			*process_elem;
+	int				player;
 
 	is_cycle_printed = 0;
 	num_of_players_alive = 0;
@@ -150,7 +154,11 @@ int					execute_cycle(t_cpu *cpu, t_list *process_list,
 		process = *(t_process **)process_elem->content;
 		if (!process->is_killed &&
 					process->cycle_point_for_next_instruction == cpu->cycle_cnt)
-			execute_instruction(cpu, process, &is_cycle_printed);
+		{
+			player = execute_instruction(cpu, process, &is_cycle_printed);
+			if (player > 0 && player <= input->num_of_players)
+				input->players[player - 1]->last_live_cycle = cpu->cycle_cnt;
+		}
 		process_elem = process_elem->next;
 	}
 	if (cpu->cycle_cnt == cpu->cycle_to_die_point)
@@ -191,6 +199,6 @@ int					execute_cycle(t_cpu *cpu, t_list *process_list,
 			cpu->cycle_to_die_point = set_cycle_to_die_point(cpu);
 	}
 	else
-		num_of_players_alive = num_of_players;
+		num_of_players_alive = input->num_of_players;
 	return (num_of_players_alive);
 }

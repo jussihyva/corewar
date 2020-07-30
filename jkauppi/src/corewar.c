@@ -6,7 +6,7 @@
 /*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/12 19:32:46 by ubuntu            #+#    #+#             */
-/*   Updated: 2020/07/29 15:45:02 by jkauppi          ###   ########.fr       */
+/*   Updated: 2020/07/30 17:27:56 by jkauppi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,7 @@ static void			execute_cpu_cycles(t_input *input, t_cpu *cpu)
 	num_of_players_alive = input->num_of_players;
 	while (num_of_players_alive && input->num_of_instructions_to_execute)
 	{
-		num_of_players_alive = execute_cycle(cpu, cpu->process_list,
-														input->num_of_players);
+		num_of_players_alive = execute_cycle(cpu, cpu->process_list, input);
 		if (input->num_of_instructions_to_execute != -1)
 			input->num_of_instructions_to_execute--;
 	}

@@ -6,7 +6,7 @@
 /*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/05 13:47:56 by ubuntu            #+#    #+#             */
-/*   Updated: 2020/07/30 14:56:37 by jkauppi          ###   ########.fr       */
+/*   Updated: 2020/07/30 16:03:20 by jkauppi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,13 +23,13 @@ void			exec_live(t_cpu *cpu, t_process *process, t_instruction *instruction)
 void			exec_fork(t_cpu *cpu, t_process *process, t_instruction *instruction)
 {
 	t_process		*new_process;
-	char			*new_pc;
+	int				new_pc_index;
 	t_list			*process_elem;
 	int				i;
 
 	cpu->process_cnt++;
-	new_pc = cpu->memory + process->pc_index + instruction->param[0].value;
-	new_process = initialize_process(cpu, new_pc);
+	new_pc_index = (process->pc_index + (instruction->param[0].value % IDX_MOD)) % MEM_SIZE;
+	new_process = initialize_process(cpu, new_pc_index);
 	i = -1;
 	while (++i < REG_NUMBER)
 		new_process->reg[i] = process->reg[i];

@@ -6,7 +6,7 @@
 /*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/05 11:28:48 by ubuntu            #+#    #+#             */
-/*   Updated: 2020/07/02 15:05:13 by jkauppi          ###   ########.fr       */
+/*   Updated: 2020/07/30 15:08:47 by jkauppi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ int					main(int argc, char **argv)
 
 	input = read_input_data(&argc, &argv);
 	if (input->opt & format_asm)
-		print_asm(input, input->file_content, input->file_content_size);
+		print_asm(input, input->file_content);
 	else
 		print_hex(input->file_content, input->file_content_size);
 	free(input->file_content);

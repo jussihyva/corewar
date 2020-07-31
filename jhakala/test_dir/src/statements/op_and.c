@@ -6,23 +6,23 @@
 /*   By: jhakala <jhakala@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/23 11:52:25 by jhakala           #+#    #+#             */
-/*   Updated: 2020/07/26 17:50:29 by jhakala          ###   ########.fr       */
+/*   Updated: 2020/07/31 22:02:22 by jhakala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "test.h"
 
-int    op_and(t_game *game, int place, t_carriage *c)
+int		op_and(t_game *game, int place, t_carriage *c)
 {
 	int **types;
-    int size;
+	int size;
 	int val1;
 	int val2;
 
-    types = get_argument_type_codes(game->arena[place + 1]);
-    size = arg_sizes(game->arena, place + 2, types, game->arena[place]) + 2;
-    if (possible_arg(types, game->arena[place] - 1))
-        return (read_game_param(game->arena, place, size, types));
+	types = get_argument_type_codes(game->arena[place + 1]);
+	size = arg_sizes(game->arena, place + 2, types, game->arena[place]) + 2;
+	if (possible_arg(types, game->arena[place] - 1))
+		return (read_game_param(game->arena, place, size, types));
 	if (types[0][0] == 1)
 		val1 = c->reg[types[0][1] - 1];
 	else if (types[0][0] == 2)

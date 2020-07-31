@@ -6,13 +6,13 @@
 /*   By: jhakala <jhakala@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/23 11:53:27 by jhakala           #+#    #+#             */
-/*   Updated: 2020/07/26 18:43:13 by jhakala          ###   ########.fr       */
+/*   Updated: 2020/07/31 21:56:25 by jhakala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "test.h"
 
-int    op_zjmp(t_game *game, int place, t_carriage *c)
+int		op_zjmp(t_game *game, int place, t_carriage *c)
 {
 	int res;
 	int val1;

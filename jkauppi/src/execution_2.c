@@ -6,7 +6,7 @@
 /*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/05 13:47:56 by ubuntu            #+#    #+#             */
-/*   Updated: 2020/07/30 16:03:20 by jkauppi          ###   ########.fr       */
+/*   Updated: 2020/08/05 15:56:31 by jkauppi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,9 @@ void			exec_sti(t_cpu *cpu, t_process *process, t_instruction *instruction)
 	}
 	if (instruction->param[2].type == DIR_CODE)
 		i += instruction->param[2].value;
-	p = cpu->memory + process->pc_index + i;
+	else if (instruction->param[2].type == REG_CODE)
+		i += process->reg[instruction->param[2].value];
+	p = cpu->memory + ((process->pc_index + i) % MEM_SIZE);
 	p[0] = (process->reg[instruction->param[0].value] >> (8 * 3)) & 0xff;
 	p[1] = (process->reg[instruction->param[0].value] >> (8 * 2)) & 0xff;
 	p[2] = (process->reg[instruction->param[0].value] >> (8 * 1)) & 0xff;

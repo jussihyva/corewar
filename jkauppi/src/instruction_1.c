@@ -6,7 +6,7 @@
 /*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/11 13:17:12 by ubuntu            #+#    #+#             */
-/*   Updated: 2020/07/30 13:30:58 by jkauppi          ###   ########.fr       */
+/*   Updated: 2020/08/05 14:59:29 by jkauppi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,15 +24,9 @@ static int			read_param(char **p, int size, int length)
 	while (++c < size)
 	{
 		if (length)
-		{
-			param += (*p)[c] & 0xff;
-			param = param << (8 * (size - (c + 1)));
-		}
+			param += ((*p)[c] & 0xff) << (8 * (size - (c + 1)));
 		else
-		{
-			param_short += (*p)[c] & 0xff;
-			param_short = param_short << (8 * (size - (c + 1)));
-		}
+			param_short += ((*p)[c] & 0xff) << (8 * (size - (c + 1)));
 	}
 	if (!length)
 		param = (int)param_short;

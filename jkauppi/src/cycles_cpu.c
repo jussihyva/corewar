@@ -6,7 +6,7 @@
 /*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/30 15:00:30 by jkauppi           #+#    #+#             */
-/*   Updated: 2020/08/05 12:17:13 by jkauppi          ###   ########.fr       */
+/*   Updated: 2020/08/05 19:26:59 by jkauppi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,8 @@ static void			verbose_print(t_cpu *cpu, t_process *process,
 {
 	t_opcode		opcode;
 	char			*result_string;
-	char			*ptr;
-	char			*end_ptr;
+	unsigned char	*ptr;
+	unsigned char	*end_ptr;
 
 	opcode = process->next_instruction->opcode;
 	if (cpu->opt & verbose || cpu->opt & verbose1)

@@ -27,7 +27,7 @@ DEPS = $(patsubst %,$(H_DIR)/%,$(HEAD))
 all: $(NAME)
 
 $(NAME): $(OBJ) | $(LIBFT)
-	@$(GCC) -o $@ $^ -I $(H_DIR) $(LIBFT)
+	$(GCC) -o $@ $^ -I $(H_DIR) $(LIBFT)
 	@echo  "asm \033[1;32m[OK]\033[0m"
 
 $(O_DIR)/%.o : $(S_DIR)/%.c $(DEPS)

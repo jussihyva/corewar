@@ -6,7 +6,7 @@
 /*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/01 14:01:23 by jkauppi           #+#    #+#             */
-/*   Updated: 2020/07/30 15:00:09 by jkauppi          ###   ########.fr       */
+/*   Updated: 2020/08/05 16:02:18 by jkauppi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,5 +31,6 @@ void			exec_zjmp(t_cpu *cpu, t_process *process,
 		ft_printf("\n");
 		process->pc_index += instruction->param[0].value;
 	}
+	process->pc_index = process->pc_index % MEM_SIZE;
 	return ;
 }

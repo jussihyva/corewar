@@ -6,7 +6,7 @@
 /*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/06 17:50:37 by jkauppi           #+#    #+#             */
-/*   Updated: 2020/07/30 16:34:58 by jkauppi          ###   ########.fr       */
+/*   Updated: 2020/08/05 19:27:53 by jkauppi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,13 +42,16 @@ t_cpu				*initialize_cpu(t_input *input)
 	t_cpu			*cpu;
 	t_player		*player;
 	int				i;
-	char			*pc;
-	t_process		*process;
+	unsigned char	*pc;
+	t_process	
+	
+	
+		*process;
 	t_list			*process_elem;
 	int				pc_index;
 
 	cpu = (t_cpu *)ft_memalloc(sizeof(*cpu));
-	cpu->memory = (char *)ft_memalloc(sizeof(*cpu->memory) * MEM_SIZE);
+	cpu->memory = (unsigned char *)ft_memalloc(sizeof(*cpu->memory) * MEM_SIZE);
 	cpu->op_function = set_op_functions();
 	cpu->g_op_tab = input->g_op_tab;
 	cpu->opt = input->opt;

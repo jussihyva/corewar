@@ -6,7 +6,7 @@
 /*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/07 18:30:16 by ubuntu            #+#    #+#             */
-/*   Updated: 2020/07/01 11:46:53 by jkauppi          ###   ########.fr       */
+/*   Updated: 2020/08/05 19:19:45 by jkauppi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,15 +47,15 @@ static t_list	**read_file_content(int fd, size_t *file_content_size)
 	return (content_lst);
 }
 
-char			*read_input_file(int fd, size_t *file_content_size)
+unsigned char	*read_input_file(int fd, size_t *file_content_size)
 {
-	char		*file_content;
-	t_list		**content_lst;
-	t_list		*elem;
-	size_t		i;
+	unsigned char	*file_content;
+	t_list			**content_lst;
+	t_list			*elem;
+	size_t			i;
 
 	content_lst = read_file_content(fd, file_content_size);
-	file_content = (char *)ft_memalloc(sizeof(*file_content) *
+	file_content = (unsigned char *)ft_memalloc(sizeof(*file_content) *
 															*file_content_size);
 	elem = *content_lst;
 	i = 0;

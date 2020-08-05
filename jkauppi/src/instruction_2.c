@@ -6,13 +6,13 @@
 /*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/12 11:44:17 by ubuntu            #+#    #+#             */
-/*   Updated: 2020/07/30 14:47:45 by jkauppi          ###   ########.fr       */
+/*   Updated: 2020/08/05 19:20:25 by jkauppi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "decoder.h"
 
-t_header		*read_header(char *file_content)
+t_header		*read_header(unsigned char *file_content)
 {
 	t_header	*header;
 
@@ -21,7 +21,7 @@ t_header		*read_header(char *file_content)
 	return (header);
 }
 
-t_asm_code		*initialize_asm_code(char *file_content,
+t_asm_code		*initialize_asm_code(unsigned char *file_content,
 													size_t file_content_size)
 {
 	t_asm_code		*asm_code;

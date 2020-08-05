@@ -6,7 +6,7 @@
 /*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/12 19:48:41 by ubuntu            #+#    #+#             */
-/*   Updated: 2020/07/30 16:31:25 by jkauppi          ###   ########.fr       */
+/*   Updated: 2020/08/05 19:28:51 by jkauppi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,10 +82,10 @@ typedef struct		s_op
 
 typedef struct		s_asm_code
 {
-	char			*file_content;
+	unsigned char	*file_content;
 	size_t			file_content_size;
 	t_header		*header;
-	char			*asa_code;
+	unsigned char	*asa_code;
 	int				asa_code_size;
 	t_list			**instruction_lst;
 }					t_asm_code;
@@ -114,7 +114,7 @@ typedef struct		s_input
 {
 	t_input_error	error;
 	t_opt			opt;
-	char			*file_content;
+	unsigned char	*file_content;
 	size_t			file_content_size;
 	t_op			*g_op_tab;
 	char			*input_file;
@@ -132,7 +132,7 @@ typedef struct		s_cpu
 	void			(**op_function)(struct s_cpu *cpu, t_process *, t_instruction *);
 	int				current_cycle_to_die;
 	int				current_number_of_checks;
-	char			*memory;
+	unsigned char	*memory;
 	long long		cycle_cnt;
 	long long		cycle_to_die_point;
 	size_t			total_num_of_live_instructions;
@@ -146,15 +146,15 @@ void				ft_step_args(int *argc, char ***argv);
 int					open_fd(char *file_path);
 void				read_g_op_tab(t_input *input);
 t_cpu				*initialize_cpu(t_input *input);
-char				*read_input_file(int fd, size_t *file_content_size);
-t_instruction		*parse_instruction(t_cpu *cpu, char *p);
+unsigned char		*read_input_file(int fd, size_t *file_content_size);
+t_instruction		*parse_instruction(t_cpu *cpu, unsigned char *p);
 t_asm_code			*parse_instructions(t_input *input, t_cpu *cpu,
-															char *file_content);
-void				print_hex_string(ssize_t index, char *line, ssize_t size);
+												unsigned char *file_content);
+void				print_hex_string(ssize_t index, unsigned char *line, ssize_t size);
 void				print_params(t_op_param *param);
 void				print_instruction(t_cpu *cpu, t_instruction *instruction,
 																	char *name);
-t_asm_code			*initialize_asm_code(char *file_content,
+t_asm_code			*initialize_asm_code(unsigned char *file_content,
 													size_t file_content_size);
 void				remove_asm_code(t_asm_code *asm_code);
 t_process			*initialize_process(t_cpu *cpu, int new_pc_index);

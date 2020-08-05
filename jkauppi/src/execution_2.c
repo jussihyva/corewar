@@ -6,7 +6,7 @@
 /*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/05 13:47:56 by ubuntu            #+#    #+#             */
-/*   Updated: 2020/08/05 15:56:31 by jkauppi          ###   ########.fr       */
+/*   Updated: 2020/08/05 19:26:21 by jkauppi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,10 +44,9 @@ void			exec_fork(t_cpu *cpu, t_process *process, t_instruction *instruction)
 
 void			exec_sti(t_cpu *cpu, t_process *process, t_instruction *instruction)
 {
-	size_t		i;
-	char		*p;
+	size_t			i;
+	unsigned char	*p;
 
-	(void)cpu;
 	i = 0;
 	if (instruction->param[1].type == DIR_CODE)
 		i += instruction->param[1].value;
@@ -72,8 +71,8 @@ void			exec_sti(t_cpu *cpu, t_process *process, t_instruction *instruction)
 
 void			exec_st(t_cpu *cpu, t_process *process, t_instruction *instruction)
 {
-	size_t		i;
-	char		*p;
+	size_t			i;
+	unsigned char	*p;
 
 	if (instruction->param[1].type == IND_CODE)
 	{

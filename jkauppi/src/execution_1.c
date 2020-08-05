@@ -6,7 +6,7 @@
 /*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/13 09:10:10 by ubuntu            #+#    #+#             */
-/*   Updated: 2020/07/30 14:51:49 by jkauppi          ###   ########.fr       */
+/*   Updated: 2020/08/05 19:07:45 by jkauppi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,30 +31,23 @@ void			exec_ld(t_cpu *cpu, t_process *process, t_instruction *instruction)
 	return ;
 }
 
-static int		save_pointer_value_to_reg(char *p)
+static int		save_pointer_value_to_reg(unsigned char *p)
 {
-	int			value;
+	int	value;
 
 	value = 0;
-	value += p[1] << (8 * 3);
-	value += p[2] << (8 * 2);
-	value += p[3] << (8 * 1);
-	value += p[4] << (8 * 0);
-	ft_printf("%x\n", p);
-	ft_printf("%d\n", p[0]);
-	ft_printf("%d\n", p[1]);
-	ft_printf("%d\n", p[2]);
-	ft_printf("%d\n", p[3]);
-	ft_printf("%d\n", p[4]);
+	value += p[0] << (8 * 3);
+	value += p[1] << (8 * 2);
+	value += p[2] << (8 * 1);
+	value += p[3] << (8 * 0);
 	return (value);
 }
 
 void			exec_ldi(t_cpu *cpu, t_process *process, t_instruction *instruction)
 {
-	size_t		i;
-	char		*p;
+	int				i;
+	unsigned char	*p;
 
-	(void)cpu;
 	i = 0;
 	if (instruction->param[0].type == DIR_CODE)
 		i += instruction->param[0].value;
@@ -72,7 +65,10 @@ void			exec_ldi(t_cpu *cpu, t_process *process, t_instruction *instruction)
 		i += instruction->param[1].value;
 	else
 		ft_printf("%08p:", instruction->start_index);
-	p = cpu->memory + ((process->pc_index + i) % MEM_SIZE);
+	if (process->pc_index + i < 0)
+		p = cpu->memory + (MEM_SIZE + ((process->pc_index + i) % MEM_SIZE));
+	else
+		p = cpu->memory + ((process->pc_index + i) % MEM_SIZE);
 	process->reg[instruction->param[2].value] = save_pointer_value_to_reg(p);
 	process->pc_index = (instruction->start_index + instruction->length) % MEM_SIZE;
 }

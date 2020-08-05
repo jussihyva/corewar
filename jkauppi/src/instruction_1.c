@@ -6,13 +6,13 @@
 /*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/11 13:17:12 by ubuntu            #+#    #+#             */
-/*   Updated: 2020/08/05 14:59:29 by jkauppi          ###   ########.fr       */
+/*   Updated: 2020/08/05 19:14:56 by jkauppi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "decoder.h"
 
-static int			read_param(char **p, int size, int length)
+static int			read_param(unsigned char **p, int size, int length)
 {
 	int				param;
 	short int		param_short;
@@ -34,7 +34,7 @@ static int			read_param(char **p, int size, int length)
 	return (param);
 }
 
-static void			read_parameters(int coding_byte, int label_size, char **ptr,
+static void			read_parameters(int coding_byte, int label_size, unsigned char **ptr,
 															t_op_param *param)
 {
 	size_t			i;
@@ -72,7 +72,7 @@ static int			specal_coding(int opcode)
 	return (coding_byte);
 }
 
-t_instruction		*parse_instruction(t_cpu *cpu, char *p)
+t_instruction		*parse_instruction(t_cpu *cpu, unsigned char *p)
 {
 	int				opcode;
 	int				coding_byte;
@@ -98,10 +98,10 @@ t_instruction		*parse_instruction(t_cpu *cpu, char *p)
 }
 
 t_asm_code			*parse_instructions(t_input *input, t_cpu *cpu,
-															char *file_content)
+													unsigned char *file_content)
 {
-	char			*end_ptr;
-	char			*ptr;
+	unsigned char	*end_ptr;
+	unsigned char	*ptr;
 	t_asm_code		*asm_code;
 	t_instruction	*instruction;
 	t_list			*elem;

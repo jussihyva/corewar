@@ -6,7 +6,7 @@
 /*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/30 13:18:31 by jkauppi           #+#    #+#             */
-/*   Updated: 2020/07/29 17:24:32 by jkauppi          ###   ########.fr       */
+/*   Updated: 2020/08/05 19:17:52 by jkauppi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,9 +62,9 @@ static t_input	*initialize_input(void)
 
 static t_player	*initalize_player(int fd, int player_number)
 {
-	t_player	*player;
-	char		*file_content;
-	size_t		file_content_size;
+	t_player		*player;
+	unsigned char	*file_content;
+	size_t			file_content_size;
 
 	player = (t_player *)ft_memalloc(sizeof(*player));
 	file_content_size = 0;

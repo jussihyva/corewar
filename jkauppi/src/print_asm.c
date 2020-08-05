@@ -6,13 +6,13 @@
 /*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/07 22:39:50 by ubuntu            #+#    #+#             */
-/*   Updated: 2020/07/30 14:48:49 by jkauppi          ###   ########.fr       */
+/*   Updated: 2020/08/05 19:16:00 by jkauppi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "decoder.h"
 
-void				print_asm(t_input *input, char *file_content)
+void				print_asm(t_input *input, unsigned char *file_content)
 {
 	t_list			*elem;
 	t_instruction	*instruction;

@@ -6,12 +6,13 @@
 /*   By: jhakala <jhakala@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/05 14:12:25 by jhakala           #+#    #+#             */
-/*   Updated: 2020/07/27 16:59:51 by jhakala          ###   ########.fr       */
+/*   Updated: 2020/08/05 17:05:10 by jhakala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 #include "get_next_line.h"
+#include <stdio.h>
 
 static int	use_line(char **str, char **line)
 {
@@ -23,7 +24,7 @@ static int	use_line(char **str, char **line)
 		j++;
 	if ((*str)[j] == '\n')
 	{
-		*line = ft_strsub(*str, 0, j);
+		*line = ft_strsub(*str, 0, j + 1);
 		tmp = ft_strdup(&(*str)[j + 1]);
 		free(*str);
 		*str = tmp;

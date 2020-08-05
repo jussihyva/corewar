@@ -6,7 +6,7 @@
 /*   By: jhakala <jhakala@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/20 20:25:54 by jhakala           #+#    #+#             */
-/*   Updated: 2020/06/20 23:57:52 by jhakala          ###   ########.fr       */
+/*   Updated: 2020/08/05 17:13:08 by jhakala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,7 @@ int		check_champ(t_champ *champ)
 	while (cmd)
 	{
 		arg = cmd->arg;
+//		ft_printf("%d, %d, %d, %d\n", cmd->op_code, cmd->size, cmd->row, cmd->error);
 		if (cmd->error != 0)
 			return (ft_error(cmd->row, g_error[cmd->error].str));
 		while (arg)

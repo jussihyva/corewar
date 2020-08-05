@@ -6,7 +6,7 @@
 /*   By: jhakala <jhakala@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/20 00:21:50 by jhakala           #+#    #+#             */
-/*   Updated: 2020/07/27 15:30:11 by jhakala          ###   ########.fr       */
+/*   Updated: 2020/08/05 17:05:23 by jhakala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,9 +18,10 @@ int		comment_line(char *line)
 	int i;
 
 	i = 0;
+
 	while (line[i] && line[i] == ' ' && line[i] == '	')
 		i++;
-	if (line[i] == COMMENT_CHAR)
+	if (line[0] == '\n' || line[i] == COMMENT_CHAR)
 	{
 		free(line);
 		return (1);

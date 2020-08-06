@@ -6,7 +6,7 @@
 /*   By: jhakala <jhakala@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/23 11:53:48 by jhakala           #+#    #+#             */
-/*   Updated: 2020/08/06 13:22:02 by jhakala          ###   ########.fr       */
+/*   Updated: 2020/08/06 16:49:24 by jhakala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,8 @@
 int		op_ldi(t_game *game, int place, t_carriage *c)
 {
 	int **types;
-	int val1;
-	int val2;
+	short val1;
+	short val2;
 
 	if (!(types = get_arg_types(game, c)))
 		return (c->size);

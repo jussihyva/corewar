@@ -6,7 +6,7 @@
 /*   By: jhakala <jhakala@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/23 11:54:08 by jhakala           #+#    #+#             */
-/*   Updated: 2020/08/06 18:33:01 by jhakala          ###   ########.fr       */
+/*   Updated: 2020/08/06 18:56:52 by jhakala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,20 @@
 
 
 
-void	print_sti(t_carriage *c, int **types, int value)
+void	print_sti(t_game *game, t_carriage *c, int **types, int value)
 {
-	ft_printf(" P   %d | sti r%d %d %d | %d %% IDX_MOD\n", c->id, types[0][0],
-			  types[1][0] == 1 ? c->reg[types[1][1] - 1] : (short)types[1][1],
-			  types[2][0] == 1 ? c->reg[types[2][1] - 1] : (short)types[2][1], value);
+	ft_printf(" P   %d | sti r%d", c->id, types[0][0]);
+	if ( types[1][0] == 1)
+		ft_printf(" %d", c->reg[types[1][1] - 1]);
+	else if (types[1][0] == 2)
+		ft_printf(" %d", (short)types[1][1]);
+	else
+		ft_printf(" %d", read_types(game->arena, c->place + types[1][1] % IDX_MOD, 4));
+	if (types[1][0] == 1)
+		ft_printf(" %d", c->reg[types[1][1] - 1]);
+	else
+		ft_printf(" %d", (short)types[1][1]);
+	ft_printf(" | %d %% IDX_MOD\n", value);
 }
 
 int		op_sti(t_game *game, int place, t_carriage *c)
@@ -38,7 +47,7 @@ int		op_sti(t_game *game, int place, t_carriage *c)
 	else
 		val1 = read_types(game->arena, place + types[1][1] % IDX_MOD, 4);
 	val1 += val2 + (types[2][0] == 1 ? c->reg[types[2][1] - 1] : types[2][1]);
-	print_sti(c, types, val1);
+	print_sti(game, c, types, val1);
 	val1 = val1 % IDX_MOD;
 	game->arena[ft_place(place + val1)] = (c->reg[types[0][1] - 1] >> 24) & 0xFF;
 	game->arena[ft_place(place + val1 + 1)] = (c->reg[types[0][1] - 1] >> 16) & 0xFF;

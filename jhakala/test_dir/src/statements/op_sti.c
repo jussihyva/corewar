@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   op_sti.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jhakala <jhakala@student.hive.fi>          +#+  +:+       +#+        */
+/*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/23 11:54:08 by jhakala           #+#    #+#             */
-/*   Updated: 2020/08/06 18:56:52 by jhakala          ###   ########.fr       */
+/*   Updated: 2020/08/06 19:12:08 by jkauppi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,10 +23,10 @@ void	print_sti(t_game *game, t_carriage *c, int **types, int value)
 		ft_printf(" %d", (short)types[1][1]);
 	else
 		ft_printf(" %d", read_types(game->arena, c->place + types[1][1] % IDX_MOD, 4));
-	if (types[1][0] == 1)
-		ft_printf(" %d", c->reg[types[1][1] - 1]);
+	if (types[2][0] == 1)
+		ft_printf(" %d", c->reg[types[2][1] - 1]);
 	else
-		ft_printf(" %d", (short)types[1][1]);
+		ft_printf(" %d", (short)types[2][1]);
 	ft_printf(" | %d %% IDX_MOD\n", value);
 }
 

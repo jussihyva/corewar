@@ -6,7 +6,7 @@
 /*   By: jhakala <jhakala@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/23 11:54:42 by jhakala           #+#    #+#             */
-/*   Updated: 2020/07/31 21:58:50 by jhakala          ###   ########.fr       */
+/*   Updated: 2020/08/06 16:32:24 by jhakala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,12 +15,9 @@
 int		op_lld(t_game *game, int place, t_carriage *c)
 {
 	int **types;
-	int size;
 
-	types = get_argument_type_codes(game->arena[place + 1]);
-	size = arg_sizes(game->arena, place + 2, types, game->arena[place]) + 2;
-	if (possible_arg(types, game->arena[place] - 1))
-		return (read_game_param(game->arena, place, size, types));
+	if (!(types = get_arg_types(game, c)))
+		return (c->size);
 	if (types[0][0] == 2)
 		c->reg[types[1][1] - 1] = types[0][1];
 	else
@@ -31,5 +28,5 @@ int		op_lld(t_game *game, int place, t_carriage *c)
 		c->carry = 0;
 	ft_printf(" P   %d | lld %d r%d | %d | carry = %d\n", c->id, c->reg[types[1][1] - 1], types[1][1],
 			c->reg[types[1][1] - 1], c->carry);
-	return (read_game_param(game->arena, place, size, types));
+	return (read_game_param(game->arena, place, c->size, types));
 }

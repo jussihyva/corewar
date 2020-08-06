@@ -6,7 +6,7 @@
 /*   By: jhakala <jhakala@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/22 21:13:41 by jhakala           #+#    #+#             */
-/*   Updated: 2020/07/24 19:00:19 by jhakala          ###   ########.fr       */
+/*   Updated: 2020/08/06 11:56:14 by jhakala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,25 @@ void pri(t_mem *mem) //
 }
 
 // makefile gcc # -Wall -Wextra -Werror
+/*
+int		main(int ac, char **av)
+{
+	t_mem *mem;
+
+	if (ac < 2)
+		return(printf("usage: ./prog bla bla bla... print usage and flags like
+		original ./corewar does\n"));
+	if ((mem = ft_init(ac, av)) == NULL)
+		return (0);
+	else if ((mem->game = wm_init(mem)) == NULL)
+		return (0);
+	else if (!run_game(mem))
+		ft_printf("Contestant %d, \"%s\", has won !\n",
+		mem->game->last_alive->id, mem->game->last_alive->header->prog_name);
+	free_memory(mem);
+	return (0);
+}
+*/
 
 int		main(int ac, char **av)
 {

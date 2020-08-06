@@ -6,7 +6,7 @@
 /*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/12 19:32:46 by ubuntu            #+#    #+#             */
-/*   Updated: 2020/08/05 17:22:47 by jkauppi          ###   ########.fr       */
+/*   Updated: 2020/08/05 20:14:49 by jkauppi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,6 @@ int					main(int argc, char **argv)
 	}
 	release(input);
 	if (input->opt & leaks)
-		system("leaks cpu");
+		system("leaks corevar");
 	return (0);
 }

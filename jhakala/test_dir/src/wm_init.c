@@ -6,7 +6,7 @@
 /*   By: jhakala <jhakala@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/17 17:30:36 by jhakala           #+#    #+#             */
-/*   Updated: 2020/08/06 11:57:31 by jhakala          ###   ########.fr       */
+/*   Updated: 2020/08/06 15:47:05 by jhakala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,13 +53,13 @@ void	wm_default_values(t_game *game, t_mem *mem)
 	game->players = (t_player**)malloc(sizeof(t_player*) * mem->n_player);
 	i = 0;
 	game->players[i] = p;
-	while (p->next)
+	while (p)
 	{
 		game->players[i++] = p;
+		game->last_alive = p;
 		p = p->next;
 	}
 	game->c_lst = NULL;
-	game->last_alive = p;
 	game->total_cycles = 1;
 	game->n_live_in_cycle = 0;
 	game->cycles_to_die = CYCLE_TO_DIE;

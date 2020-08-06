@@ -11,7 +11,7 @@ start:		or r1, r1, r2
 			aff r6
 			add r6, r5, r6
 			aff r6
-			sti r6, %:loop, %1
+			sti r6, :loop, %1
 			xor r2, r2, r3
 loop:		live %42
 			zjmp %:loop

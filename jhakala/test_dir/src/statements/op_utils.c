@@ -6,7 +6,7 @@
 /*   By: jhakala <jhakala@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/06 12:19:55 by jhakala           #+#    #+#             */
-/*   Updated: 2020/08/06 13:22:26 by jhakala          ###   ########.fr       */
+/*   Updated: 2020/08/06 14:18:06 by jhakala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ int		arg_sizes(char *arena, int place, int **types, int code)
 		}
 		else if (types[i][0] == 2)
 		{
-			types[i][1] = read_types(arena, place + size, g_op_tab[code - 1].s_dir);
+			types[i][1] = read_types(arena, place + size, g_op_tab[code].s_dir);
 			size += g_op_tab[code].s_dir;
 		}
 		else if (types[i][0] == 3)
@@ -69,7 +69,7 @@ int		read_game_param(char *arena, int from, int size, int **types)
 	int i;
 
 	i = 0;
-	ft_printf(" (0x%04x -> 0x%04x) ", from, from + size >= MEM_SIZE ?
+	ft_printf("	(0x%04x -> 0x%04x) ", from, from + size >= MEM_SIZE ?
 			MEM_SIZE - (from + size) : from + size);
 	while (i < size)
 	{

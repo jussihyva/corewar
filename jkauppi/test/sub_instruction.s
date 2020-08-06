@@ -6,7 +6,7 @@
 store:		live %0
 start:		or r1, r1, r2
 			xor r2, r2, r3
-			ld %2, r5
+			ld %258, r5
 			sub r4, r5, r6
 			aff r6
 			sti r6, %:loop, %1

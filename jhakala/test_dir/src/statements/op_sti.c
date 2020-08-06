@@ -6,7 +6,7 @@
 /*   By: jhakala <jhakala@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/23 11:54:08 by jhakala           #+#    #+#             */
-/*   Updated: 2020/08/06 13:14:55 by jhakala          ###   ########.fr       */
+/*   Updated: 2020/08/06 14:18:46 by jhakala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,14 +15,14 @@
 void	print_sti(t_carriage *c, int **types, int value)
 {
 	ft_printf(" P   %d | sti r%d %d %d | %d %% IDX_MOD\n", c->id, types[0][0],
-			types[1][0] == 1 ? c->reg[types[1][1] - 1] : types[1][1],
-			types[2][0] == 1 ? c->reg[types[2][1] - 1] : types[2][1], value);
+			  types[1][0] == 1 ? c->reg[types[1][1] - 1] : (short)types[1][1],
+			  types[2][0] == 1 ? c->reg[types[2][1] - 1] : (short)types[2][1], value);
 }
 
 int		op_sti(t_game *game, int place, t_carriage *c)
 {
 	int **types;
-	int val1;
+	short val1;
 
 	if (!(types = get_arg_types(game, c)))
 		return (c->size);

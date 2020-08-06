@@ -1,4 +1,5 @@
-Done:
+Not yet:
+
 	live
 	ld
 	st
@@ -9,7 +10,7 @@ Done:
 	xor
 	zjmp
 	ldi
-	sti
+
 	fork
 	lld
 	lldi
@@ -19,6 +20,8 @@ Done:
 Done but not tested:
 
 
-Not yet:
 
 
+
+Done:
+	sti

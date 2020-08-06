@@ -6,7 +6,7 @@
 /*   By: hopham <hopham@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/13 14:14:20 by jhakala           #+#    #+#             */
-/*   Updated: 2020/07/28 11:56:02 by hopham           ###   ########.fr       */
+/*   Updated: 2020/08/06 12:43:53 by jhakala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@ typedef struct			s_carriage
 	int					id;
 	int					carry;
 	int					statement_code;
+	int					size; //from start of statement to end for op_*.c
 	int					live_cycle;
 	int					remaining_cycle;
 	int					place;

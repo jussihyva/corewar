@@ -1,6 +1,11 @@
 Not yet:
 
+
+
+Done:
 	live
+	sti
+	ldi
 	ld
 	st
 	add
@@ -9,19 +14,8 @@ Not yet:
 	or
 	xor
 	zjmp
-	ldi
-
 	fork
+	lfork
 	lld
 	lldi
-	lfork
 	aff
-
-Done but not tested:
-
-
-
-
-
-Done:
-	sti

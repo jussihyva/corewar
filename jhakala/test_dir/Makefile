@@ -10,6 +10,7 @@ SRC = \
 	statements/op_sub.c statements/op_and.c statements/op_or.c statements/op_xor.c \
 	statements/op_zjmp.c statements/op_ldi.c statements/op_sti.c statements/op_fork.c \
 	statements/op_lld.c statements/op_lldi.c statements/op_lfork.c statements/op_aff.c \
+	statements/op_utils.c \
 	free.c
 
 S_DIR = src

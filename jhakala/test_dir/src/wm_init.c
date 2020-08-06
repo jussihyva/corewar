@@ -6,7 +6,7 @@
 /*   By: jhakala <jhakala@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/17 17:30:36 by jhakala           #+#    #+#             */
-/*   Updated: 2020/07/24 18:47:09 by jhakala          ###   ########.fr       */
+/*   Updated: 2020/08/06 11:57:31 by jhakala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,6 @@ void	wm_default_values(t_game *game, t_mem *mem)
 
 	p = mem->player;
 	game->players = (t_player**)malloc(sizeof(t_player*) * mem->n_player);
-//need to free him at the end
 	i = 0;
 	game->players[i] = p;
 	while (p->next)
@@ -78,7 +77,6 @@ t_game	*wm_init(t_mem *mem)
 	game->arena = (char*)malloc(sizeof(char) * MEM_SIZE);
 	wm_default_values(game, mem);
 	ft_bzero(game->arena, MEM_SIZE);
-//	print_arena(game->arena);
 	put_player_input_to_arena(game, mem);
 	print_arena(game->arena);
 	return (game);

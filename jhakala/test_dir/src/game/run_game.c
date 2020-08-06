@@ -6,7 +6,7 @@
 /*   By: jhakala <jhakala@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/19 17:41:20 by jhakala           #+#    #+#             */
-/*   Updated: 2020/08/06 13:17:03 by jhakala          ###   ########.fr       */
+/*   Updated: 2020/08/06 13:54:59 by jhakala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,10 +17,14 @@ void	cycle_through_c(t_game *game)
 	t_carriage *c;
 
 	c = game->c_lst;
+	ft_printf("cycle_n = '%d'\n", game->total_cycles);
 	while (c)
 	{
 		if (c->remaining_cycle == 1)
-			c->place = ft_place(c->place + read_statement_code(c, game, c->place));
+		{
+			c->place = ft_place(ft_place(read_statement_code(c, game, c->place) + c->place));
+//			ft_printf("	%d\n", c->place);
+		}
 		else if (c->remaining_cycle == 0)
 		{
 			c->statement_code = (game->arena[c->place] & 0xFF);

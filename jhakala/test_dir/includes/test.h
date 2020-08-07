@@ -6,7 +6,7 @@
 /*   By: jhakala <jhakala@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/22 21:10:17 by jhakala           #+#    #+#             */
-/*   Updated: 2020/08/06 17:06:51 by jhakala          ###   ########.fr       */
+/*   Updated: 2020/08/07 17:57:19 by jhakala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@
 # include "struct.h"
 
 # define REV(x) ((x << 24) | (((x>>16)<<24)>>16) | (((x<<16)>>24)<<16) | (x>>24))
-# define REV_S(x) ((x << 16) >> 24) | ((x<<24)>>16)
+//# define REV_S(x) ((x << 16) >> 24) | ((x<<24)>>16)
 
 //print functions for testing -> poista
 void print_c_lst(t_carriage *c); // carriage.c
@@ -74,7 +74,6 @@ int		run_game(t_mem *mem);
 */
 int		possible_arg(int **types, int op_code);
 int		read_types(char *arena, int from, int size);
-
 int		read_statement_code(t_carriage *c, t_game *game, int place);
 
 /*

@@ -6,21 +6,21 @@
 /*   By: jhakala <jhakala@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/16 13:01:15 by jhakala           #+#    #+#             */
-/*   Updated: 2020/07/19 19:02:31 by jhakala          ###   ########.fr       */
+/*   Updated: 2020/08/07 21:19:06 by jhakala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "test.h"
 
-void	prin(int *arr, int n)
-{
-	int i;
+//void	prin(int *arr, int n)
+//{
+//	int i;
 
-	i = 0;
-	while (i < n)
-		ft_printf("%d, ", arr[i++]);
-	ft_printf("\n");
-}
+//	i = 0;
+//	while (i < n)
+//		ft_printf("%d, ", arr[i++]);
+//	ft_printf("\n");
+//}
 
 int		whole_number(char *str)
 {

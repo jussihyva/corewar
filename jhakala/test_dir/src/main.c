@@ -6,7 +6,7 @@
 /*   By: jhakala <jhakala@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/22 21:13:41 by jhakala           #+#    #+#             */
-/*   Updated: 2020/08/06 11:56:14 by jhakala          ###   ########.fr       */
+/*   Updated: 2020/08/07 19:00:19 by jhakala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,7 +86,7 @@ int		main(int ac, char **av)
 //	pri(mem);
 //	print_c_lst(mem->game->c_lst);
 	free_memory(mem);
-	ft_printf("______________PAASI LOPPUUN!_______good______\n");
-	system("leaks prog");
+//	ft_printf("______________PAASI LOPPUUN!_______good______\n");
+//	system("leaks prog");
 	return (0);
 }

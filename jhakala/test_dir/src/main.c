@@ -6,7 +6,7 @@
 /*   By: jhakala <jhakala@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/22 21:13:41 by jhakala           #+#    #+#             */
-/*   Updated: 2020/08/07 19:00:19 by jhakala          ###   ########.fr       */
+/*   Updated: 2020/08/07 21:21:38 by jhakala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,6 @@ int		main(int ac, char **av)
 		ft_printf("usage: ./prog bla bla bla... print usage and flags like original ./corewar does\n");
 		return (0);
 	}
-	system("clear");
 	if ((mem = ft_init(ac, av)) == NULL)
 	{
 		ft_printf("______________PAASI LOPPUUN!_____error1________\n");

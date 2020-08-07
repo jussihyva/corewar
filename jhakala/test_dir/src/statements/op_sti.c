@@ -6,13 +6,11 @@
 /*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/23 11:54:08 by jhakala           #+#    #+#             */
-/*   Updated: 2020/08/07 17:55:24 by jhakala          ###   ########.fr       */
+/*   Updated: 2020/08/07 20:07:07 by jhakala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "test.h"
-
-
 
 void	print_sti(t_game *game, t_carriage *c, int **types, short value)
 {

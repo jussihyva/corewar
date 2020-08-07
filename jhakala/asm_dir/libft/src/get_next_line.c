@@ -6,13 +6,12 @@
 /*   By: jhakala <jhakala@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/05 14:12:25 by jhakala           #+#    #+#             */
-/*   Updated: 2020/08/05 17:05:10 by jhakala          ###   ########.fr       */
+/*   Updated: 2020/08/07 17:46:11 by jhakala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 #include "get_next_line.h"
-#include <stdio.h>
 
 static int	use_line(char **str, char **line)
 {

@@ -6,7 +6,7 @@
 /*   By: jhakala <jhakala@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/17 17:30:36 by jhakala           #+#    #+#             */
-/*   Updated: 2020/08/07 17:58:08 by jhakala          ###   ########.fr       */
+/*   Updated: 2020/08/07 18:33:01 by jhakala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ void	print_arena(char *arena)
 	while (i < MEM_SIZE)
 	{
 		if (i % 64 == 0)
-			ft_printf("\n0x%04x :", i);
+			ft_printf("\n0x%04x : ", i);
 		ft_printf("%02x ", (unsigned char)arena[i++]);
 	}
 	ft_printf("\n\n");

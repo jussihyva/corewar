@@ -6,7 +6,7 @@
 /*   By: jhakala <jhakala@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/17 17:30:36 by jhakala           #+#    #+#             */
-/*   Updated: 2020/08/07 18:33:01 by jhakala          ###   ########.fr       */
+/*   Updated: 2020/08/07 21:13:42 by jhakala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,6 +78,6 @@ t_game	*wm_init(t_mem *mem)
 	wm_default_values(game, mem);
 	ft_bzero(game->arena, MEM_SIZE);
 	put_player_input_to_arena(game, mem);
-	print_arena(game->arena);
+//	print_arena(game->arena);
 	return (game);
 }

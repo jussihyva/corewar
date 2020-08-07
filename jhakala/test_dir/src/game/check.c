@@ -6,7 +6,7 @@
 /*   By: jhakala <jhakala@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/24 13:00:59 by jhakala           #+#    #+#             */
-/*   Updated: 2020/07/24 18:52:50 by jhakala          ###   ########.fr       */
+/*   Updated: 2020/08/07 22:34:07 by jhakala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,12 +32,13 @@ int		check_carriages(t_game *game)
 	t_carriage *prev;
 
 	c = game->c_lst;
+	ft_printf("	MAKE CHECK\n");
 	while (c && c->live_cycle == -1)
 	{
 		kill_head_carriage(&game->c_lst, c);
 		c = game->c_lst;
 	}
-	prev = c;
+//	prev = c;
 	while (c)
 	{
 		if (c->live_cycle == -1)
@@ -45,10 +46,9 @@ int		check_carriages(t_game *game)
 		else
 			prev = c;
 		prev->live_cycle = -1;
+//		c->live_cycle = -1;
 		c = prev->next;
 	}
-	ft_printf("	MAKE CHECK\n");
-	ft_printf("	nbr_live=%d, get_die=%d\n", game->n_live_in_cycle, game->get_die);
 	if (game->c_lst == NULL)
 		return (1);
 	if (game->n_live_in_cycle >= NBR_LIVE)
@@ -64,6 +64,7 @@ int		check_carriages(t_game *game)
 			game->max_check = 0;
 		}
 	}
+	ft_printf("	nbr_live=%d, get_die=%d\n", game->n_live_in_cycle, game->get_die);
 	game->n_live_in_cycle = 0;
 	game->cycles_to_die = game->get_die > 0 ? game->get_die : 1;
 	return (0);

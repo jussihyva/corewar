@@ -6,7 +6,7 @@
 /*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/23 11:54:08 by jhakala           #+#    #+#             */
-/*   Updated: 2020/08/06 19:12:08 by jkauppi          ###   ########.fr       */
+/*   Updated: 2020/08/07 17:55:24 by jhakala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,9 @@
 
 
 
-void	print_sti(t_game *game, t_carriage *c, int **types, int value)
+void	print_sti(t_game *game, t_carriage *c, int **types, short value)
 {
-	ft_printf(" P   %d | sti r%d", c->id, types[0][0]);
+	ft_printf(" P   %d | sti r%d", c->id, types[0][1]);
 	if ( types[1][0] == 1)
 		ft_printf(" %d", c->reg[types[1][1] - 1]);
 	else if (types[1][0] == 2)
@@ -27,7 +27,7 @@ void	print_sti(t_game *game, t_carriage *c, int **types, int value)
 		ft_printf(" %d", c->reg[types[2][1] - 1]);
 	else
 		ft_printf(" %d", (short)types[2][1]);
-	ft_printf(" | %d %% IDX_MOD\n", value);
+	ft_printf(" | %d %% IDX_MOD", value);
 }
 
 int		op_sti(t_game *game, int place, t_carriage *c)
@@ -49,6 +49,7 @@ int		op_sti(t_game *game, int place, t_carriage *c)
 	val1 += val2 + (types[2][0] == 1 ? c->reg[types[2][1] - 1] : types[2][1]);
 	print_sti(game, c, types, val1);
 	val1 = val1 % IDX_MOD;
+	ft_printf(" | (0x%04x -> 0x%04x)\n", ft_place(place + val1), ft_place(place + val1 + 3));
 	game->arena[ft_place(place + val1)] = (c->reg[types[0][1] - 1] >> 24) & 0xFF;
 	game->arena[ft_place(place + val1 + 1)] = (c->reg[types[0][1] - 1] >> 16) & 0xFF;
 	game->arena[ft_place(place + val1 + 2)] = (c->reg[types[0][1] - 1] >> 8) & 0xFF;

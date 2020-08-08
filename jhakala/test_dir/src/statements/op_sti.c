@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   op_sti.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
+/*   By: hopham <hopham@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/23 11:54:08 by jhakala           #+#    #+#             */
-/*   Updated: 2020/08/08 15:47:17 by jhakala          ###   ########.fr       */
+/*   Updated: 2020/08/08 16:57:27 by hopham           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,9 +45,11 @@ int		op_sti(t_game *game, int place, t_carriage *c)
 	else
 		val1 = read_types(game->arena, place + types[1][1] % IDX_MOD, 4);
 	val1 += val2 + (types[2][0] == 1 ? c->reg[types[2][1] - 1] : types[2][1]);
-//	print_sti(game, c, types, val1);
+	if (game->print)
+		print_sti(game, c, types, val1);
 	val1 = val1 % IDX_MOD;
-//	ft_printf(" | (0x%04x -> 0x%04x)\n", ft_place(place + val1), ft_place(place + val1 + 3));
+	if (game->print)
+		ft_printf(" | (0x%04x -> 0x%04x)\n", ft_place(place + val1), ft_place(place + val1 + 3));
 	game->arena[ft_place(place + val1)] = (c->reg[types[0][1] - 1] >> 24) & 0xFF;
 	game->arena[ft_place(place + val1 + 1)] = (c->reg[types[0][1] - 1] >> 16) & 0xFF;
 	game->arena[ft_place(place + val1 + 2)] = (c->reg[types[0][1] - 1] >> 8) & 0xFF;

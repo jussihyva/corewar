@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   op_add.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jhakala <jhakala@student.hive.fi>          +#+  +:+       +#+        */
+/*   By: hopham <hopham@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/23 11:51:27 by jhakala           #+#    #+#             */
-/*   Updated: 2020/08/06 16:21:57 by jhakala          ###   ########.fr       */
+/*   Updated: 2020/08/08 16:52:57 by hopham           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,10 @@ int		op_add(t_game *game, int place, t_carriage *c)
 		c->carry = 1;
 	else
 		c->carry = 0;
-	ft_printf(" | add [%d] [%d] = [%d]", c->reg[types[0][1] - 1], c->reg[types[1][1] - 1],
+	if (game->print) {
+		ft_printf(" | add [%d] [%d] = [%d]", c->reg[types[0][1] - 1], c->reg[types[1][1] - 1],
 			c->reg[types[2][1] - 1]);
-	ft_printf(" | carry = %d\n", c->carry);
+		ft_printf(" | carry = %d\n", c->carry);
+	}
 	return (read_game_param(game->arena, place, c->size, types));
 }

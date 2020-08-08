@@ -6,7 +6,7 @@
 /*   By: jhakala <jhakala@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/23 11:50:11 by jhakala           #+#    #+#             */
-/*   Updated: 2020/08/08 15:36:33 by jhakala          ###   ########.fr       */
+/*   Updated: 2020/08/08 15:46:02 by jhakala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ int		op_ld(t_game *game, int place, t_carriage *c)
 		c->carry = 1;
 	else
 		c->carry = 0;
-	ft_printf(" %d r%d | %d | carry = %d\n", c->reg[types[1][1] - 1], (short)types[1][1],
-			c->reg[types[1][1] - 1], c->carry);
+	ft_printf(" %d r%d | %d | carry = %d\n", c->reg[types[1][1] - 1], types[0][0] == 3 ? (short)types[1][1] :
+			types[1][1], c->reg[types[1][1] - 1], c->carry);
 	return (read_game_param(game->arena, place, c->size, types));
 }

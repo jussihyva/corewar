@@ -6,7 +6,7 @@
 /*   By: jhakala <jhakala@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/17 17:30:36 by jhakala           #+#    #+#             */
-/*   Updated: 2020/08/07 21:13:42 by jhakala          ###   ########.fr       */
+/*   Updated: 2020/08/08 14:48:46 by jhakala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,14 +17,16 @@ void	print_arena(char *arena)
 	int i;
 
 	i = 0;
-	system("clear");
+//	system("clear");
+	ft_printf("0x%04x : ", i);
+	ft_printf("%02x ", (unsigned char)arena[i++]);
 	while (i < MEM_SIZE)
 	{
 		if (i % 64 == 0)
 			ft_printf("\n0x%04x : ", i);
 		ft_printf("%02x ", (unsigned char)arena[i++]);
 	}
-	ft_printf("\n\n");
+	ft_printf("\n");
 }
 
 void	put_player_input_to_arena(t_game *game, t_mem *mem)

@@ -19,7 +19,7 @@ OBJ = $(addprefix $(O_DIR)/, $(SRC:.c=.o))
 HEAD = test.h op.h struct.h
 H_DIR = includes
 LIBFT = libft/libft.a
-GCC = gcc -Wall -Wextra -Werror
+GCC = gcc #-Wall -Wextra -Werror
 DEPS = $(patsubst %,$(H_DIR)/%,$(HEAD))
 
 all: $(NAME)

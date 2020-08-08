@@ -6,7 +6,7 @@
 /*   By: jhakala <jhakala@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/06 12:19:55 by jhakala           #+#    #+#             */
-/*   Updated: 2020/08/08 14:05:25 by jhakala          ###   ########.fr       */
+/*   Updated: 2020/08/08 14:27:25 by jhakala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,6 +66,7 @@ int		arg_sizes(char *arena, int place, int **types, int code)
 
 int		read_game_param(char *arena, int from, int size, int **types)
 {
+/*
 	int i;
 
 	i = 0;
@@ -84,6 +85,7 @@ int		read_game_param(char *arena, int from, int size, int **types)
 		free(types[2]);
 		free(types);
 	}
+*/
 	return (size);
 }
 
@@ -95,7 +97,7 @@ int		**get_arg_types(t_game *game, t_carriage *c)
 	c->size = arg_sizes(game->arena, c->place + 2, types, c->statement_code - 1) + 2;
 	if (possible_arg(types, game->arena[c->place] - 1))
 	{
-		ft_printf("%d failed: ", c->id);
+//		ft_printf("%d failed: ", c->id);
 		read_game_param(game->arena, c->place, c->size, types);
 		return (NULL);
 	}

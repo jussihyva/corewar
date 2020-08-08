@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   op_zjmp.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jhakala <jhakala@student.hive.fi>          +#+  +:+       +#+        */
+/*   By: hopham <hopham@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/23 11:53:27 by jhakala           #+#    #+#             */
-/*   Updated: 2020/08/08 15:14:20 by jhakala          ###   ########.fr       */
+/*   Updated: 2020/08/08 16:58:36 by hopham           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,11 +28,13 @@ int		op_zjmp(t_game *game, int place, t_carriage *c)
 			c->place += val1 + MEM_SIZE;
 		else
 			c->place += val1;
-		ft_printf(" P   %d | zjmp %d | (0x%04x) | OK\n", c->id, res, ft_place(c->place));
+		if (game->print)
+			ft_printf(" P   %d | zjmp %d | (0x%04x) | OK\n", c->id, res, ft_place(c->place));
 	}
 	else
 	{
-		ft_printf(" P   %d | zjmp %d | ERROR\n", c->id, res);
+		if (game->print)
+			ft_printf(" P   %d | zjmp %d | ERROR\n", c->id, res);
 	}
 	return (read_game_param(game->arena, place, 3, NULL));
 }

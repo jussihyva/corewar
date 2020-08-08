@@ -6,7 +6,7 @@
 /*   By: jhakala <jhakala@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/20 18:31:16 by jhakala           #+#    #+#             */
-/*   Updated: 2020/08/08 14:17:11 by jhakala          ###   ########.fr       */
+/*   Updated: 2020/08/08 15:28:16 by jhakala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,7 @@ int read_types(char *arena, int from, int size)
 
 int		read_statement_code(t_carriage *c, t_game *game, int place)
 {
+	ft_printf("c->reg[1] = '%d'\n", c->reg[0]);
 	if (c->statement_code == -1)
 		c->statement_code = game->arena[place];
 	return (g_op_tab[c->statement_code - 1].f(game, place, c));

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jhakala <jhakala@student.hive.fi>          +#+  +:+       +#+        */
+/*   By: hopham <hopham@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/13 14:18:17 by jhakala           #+#    #+#             */
-/*   Updated: 2020/08/07 21:19:32 by jhakala          ###   ########.fr       */
+/*   Updated: 2020/08/08 16:51:45 by hopham           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@ void	default_values(char **av, t_mem *mem)
 	mem->n_player = 0;
 	mem->player = NULL;
 	mem->game = NULL;
+	mem->print = 0;
 }
 
 t_mem	*ft_init(int ac, char **av)

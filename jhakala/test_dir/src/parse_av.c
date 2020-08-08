@@ -3,24 +3,24 @@
 /*                                                        :::      ::::::::   */
 /*   parse_av.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jhakala <jhakala@student.hive.fi>          +#+  +:+       +#+        */
+/*   By: hopham <hopham@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/16 13:01:15 by jhakala           #+#    #+#             */
-/*   Updated: 2020/08/07 21:19:06 by jhakala          ###   ########.fr       */
+/*   Updated: 2020/08/08 17:00:18 by hopham           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "test.h"
 
-//void	prin(int *arr, int n)
-//{
-//	int i;
+void	prin(int *arr, int n)
+{
+	int i;
 
-//	i = 0;
-//	while (i < n)
-//		ft_printf("%d, ", arr[i++]);
-//	ft_printf("\n");
-//}
+	i = 0;
+	while (i < n)
+		ft_printf("%d, ", arr[i++]);
+	ft_printf("\n");
+}
 
 int		whole_number(char *str)
 {
@@ -83,7 +83,7 @@ int		check_av(int *arg, int n, t_mem *mem)
 		if (arg[i] == 4 && (check == 0 || check == 2))
 		{
 			check = 0;
-			mem->n_player++;
+			mem->n_player++; // shouldn't be changed
 		}
 		else if (arg[i] == 2 && check == 0)
 			check = 1;
@@ -108,6 +108,11 @@ void	parse_to_arg(int ac, char **av, t_mem *mem, int *arg)
 		arg[0] = 1;
 		arg[1] = 1;
 		i = 2;
+	}
+	if (!ft_strcmp(av[3], "-print"))
+	{
+		mem->print = 1;
+		i = 3;
 	}
 	while (++i < ac)
 	{
@@ -139,8 +144,9 @@ int		parse_av(int ac, char **av, t_mem *mem)
 //	prin(arg, ac - 1);
 	if (check_av(arg, ac - 1, mem) || mem->n_player < 1 || mem->n_player > MAX_PLAYERS)
 		return (free_int(arg));
-	if (champ_init(arg, ac - 1, check_numbers_after_n(ac, av, arg, mem), mem))
+	if (champ_init(arg, ac - 1, check_numbers_after_n(ac, av, arg, mem), mem)) // this shouldn't be changed
 		return (free_int(arg));
+	prin(arg, ac);
 	free(arg);
 	return (0);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   wm_init.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jhakala <jhakala@student.hive.fi>          +#+  +:+       +#+        */
+/*   By: hopham <hopham@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/17 17:30:36 by jhakala           #+#    #+#             */
-/*   Updated: 2020/08/08 14:48:46 by jhakala          ###   ########.fr       */
+/*   Updated: 2020/08/08 16:51:04 by hopham           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,7 @@ void	wm_default_values(t_game *game, t_mem *mem)
 		game->last_alive = p;
 		p = p->next;
 	}
+	game->print = mem->print;
 	game->c_lst = NULL;
 	game->total_cycles = 1;
 	game->n_live_in_cycle = 0;

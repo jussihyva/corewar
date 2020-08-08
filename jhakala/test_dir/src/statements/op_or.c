@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   op_or.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jhakala <jhakala@student.hive.fi>          +#+  +:+       +#+        */
+/*   By: hopham <hopham@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/23 11:52:44 by jhakala           #+#    #+#             */
-/*   Updated: 2020/08/06 16:26:00 by jhakala          ###   ########.fr       */
+/*   Updated: 2020/08/08 16:55:46 by hopham           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,7 @@ int		op_or(t_game *game, int place, t_carriage *c)
 		c->carry = 1;
 	else
 		c->carry = 0;
-	ft_printf(" P   %d | or %d %d r%d | carry = %d\n", c->id, val1, val2, types[2][1], c->carry);
+	if (game->print)
+		ft_printf(" P   %d | or %d %d r%d | carry = %d\n", c->id, val1, val2, types[2][1], c->carry);
 	return (read_game_param(game->arena, place, c->size, types));
 }

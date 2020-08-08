@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   op_live.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jhakala <jhakala@student.hive.fi>          +#+  +:+       +#+        */
+/*   By: hopham <hopham@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/23 11:47:41 by jhakala           #+#    #+#             */
-/*   Updated: 2020/08/08 15:14:11 by jhakala          ###   ########.fr       */
+/*   Updated: 2020/08/08 16:59:44 by hopham           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,8 @@ int		op_live(t_game *game, int place, t_carriage *c)
 	res = read_types(game->arena, place + 1, 4);
 	c->live_cycle = game->total_cycles;
 	game->n_live_in_cycle++;
-	ft_printf(" P   %d | live %d", c->id, res);
+	if (game->print)
+		ft_printf(" P   %d | live %d", c->id, res);
 	if (res < 0 && res >= -(game->n_player))
 	{
 		game->last_alive = game->players[(-res) - 1];

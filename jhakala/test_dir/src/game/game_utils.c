@@ -6,7 +6,7 @@
 /*   By: jhakala <jhakala@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/20 18:31:16 by jhakala           #+#    #+#             */
-/*   Updated: 2020/08/07 20:22:21 by jhakala          ###   ########.fr       */
+/*   Updated: 2020/08/08 14:04:03 by jhakala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,11 @@ int		possible_arg(int **types, int op_code)
 	{
 		i = g_op_tab[op_code].t_arg[l];
 		if (types[l][0] == 1 && (i == 1 || i == 3 || i == 5 || i == 7))
+		{
+			if (types[l][1] < 1 || types[l][1] > 16)
+				return (1);
 			continue ;
+		}
 		else if (types[l][0] == 2 && (i == 2 || i == 3 || i == 6 || i == 7))
 			continue ;
 		else if (types[l][0] == 3 && (i == 4 || i == 5 || i == 6 || i == 7))

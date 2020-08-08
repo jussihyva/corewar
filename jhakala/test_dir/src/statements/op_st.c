@@ -6,16 +6,19 @@
 /*   By: jhakala <jhakala@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/22 21:25:37 by jhakala           #+#    #+#             */
-/*   Updated: 2020/08/07 22:11:51 by jhakala          ###   ########.fr       */
+/*   Updated: 2020/08/08 14:06:18 by jhakala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "test.h"
 
+
+#include <stdio.h>
+
 int		op_st(t_game *game, int place, t_carriage *c)
 {
 	int **types;
-	short val;
+	short val = 0;
 
 	if (!(types = get_arg_types(game, c)))
 		return (c->size);
@@ -28,7 +31,7 @@ int		op_st(t_game *game, int place, t_carriage *c)
 	else if (types[1][0] == 3)
 	{
 		ft_printf("%d %% IDX_MOD ", (short)types[1][1]);
-		val = types[1][1];// % IDX_MOD;
+		val = (short)types[1][1];
 		val %= IDX_MOD;
 		game->arena[ft_place(place + val)] = (c->reg[types[0][1] - 1] >> 24) & 0xFF;
 		game->arena[ft_place(place + val + 1)] = (c->reg[types[0][1] - 1] >> 16) & 0xFF;

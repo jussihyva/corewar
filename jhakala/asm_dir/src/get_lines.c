@@ -6,7 +6,7 @@
 /*   By: jhakala <jhakala@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/20 14:36:47 by jhakala           #+#    #+#             */
-/*   Updated: 2020/07/27 17:20:24 by jhakala          ###   ########.fr       */
+/*   Updated: 2020/08/10 17:28:19 by jhakala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,7 @@ t_cmd	*new_cmd(t_champ *champ, char *line, int row_n)
 	if (!(cmd = (t_cmd*)malloc(sizeof(t_cmd))))
 		return (NULL);
 	default_cmd(cmd);
+	cmd->line = line;
 	cmd->row = row_n;
 	if ((j = is_label(line)) > 0)
 		add_label(&champ->label, new_label(champ, line));
@@ -64,39 +65,22 @@ t_cmd	*new_cmd(t_champ *champ, char *line, int row_n)
 	return (cmd);
 }
 
-int		check_last_line(char *str)
-{
-	int i;
-
-	i = skip_whitespace(str, 0);
-	if (str[i] != '\0')
-	{
-		free(str);
-		return (0);
-	}
-	free(str);
-	return (1);
-}
-
 t_cmd	*get_lines(t_champ *champ, int fd, int row_n)
 {
 	char	*line;
-	char	*last_line;
 	t_cmd	*cmd;
 	int		i;
 
 	cmd = NULL;
-	last_line = NULL;
 	while ((i = get_next_line(fd, &line)) > 0)
 	{
 		row_n++;
 		if (ft_strlen(line) > 0	&& !is_comment(line, 0) && !is_empty(line, 0))
 			add_cmd(&cmd, new_cmd(champ, line, row_n));
-		if (last_line != NULL)
-			free(last_line);
-		last_line = line;
+		else
+			free(line);
 	}
-	if (check_last_line(last_line) == 0)
+	if (cmd->row == row_n)
 		cmd->error = 8;
 	if (cmd != NULL)
 		rev_cmd(&cmd);

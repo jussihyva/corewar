@@ -6,7 +6,7 @@
 /*   By: hopham <hopham@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/16 13:01:15 by jhakala           #+#    #+#             */
-/*   Updated: 2020/08/10 21:38:27 by jhakala          ###   ########.fr       */
+/*   Updated: 2020/08/11 02:31:02 by jhakala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ int		*check_numbers_after_n(int ac, char **av, int *arg, t_mem *mem)
 	{
 		if (arg[i] == 3)
 		{
-			tmp = ft_atoi(av[i + 1]);
+			tmp = ft_atoi(av[i + 2]);
 			if (tmp > 0 && tmp <= mem->n_player && n_arr[tmp - 1] < 1)
 				n_arr[tmp - 1]++;
 			else
@@ -61,63 +61,50 @@ int		check_av(int *arg, int n, t_mem *mem)
 
 	i = -1;
 	check = 0;
-	if (arg[0] == 1)
-	{
-		if (arg[1] == 1)
-			i = 1;
-		else
-			return (1);
-	}
 	while (++i < n)
 	{
-		if (arg[i] == 4 && (check == 0 || check == 2))
-		{
-			check = 0;
+		if (arg[i] == 1)
+			check = check_dump(arg, n, mem, &i);
+		else if (arg[i] == 2)
+			mem->print = 1;
+		else if (arg[i] == 3)
+			check = check_n(arg, n, mem, &i);
+		else if (arg[i] == 5)
 			mem->n_player++;
-		}
-		else if (arg[i] == 2 && check == 0)
-			check = 1;
-		else if (arg[i] == 3 && check == 1)
-			check = 2;
 		else
 			return (1);
+		if (check == 1)
+			return (1);
 	}
-	return (check == 0 ? 0 : 1);
+	return (0);
 }
 
-void	parse_to_arg(int ac, char **av, t_mem *mem, int *arg)
+// arg[i] values: -dump = 1, -print = 2, -n = 3, contains_only_numbers = 4, .cor file = 5, if = 0 undefined and error
+
+void	parse_to_arg(int ac, char **av, int *arg)
 {
-	int		i;
-	int		len;
-	char	*name;
+	int i;
+	int len;
+	char *name;
 
 	i = 0;
-	if (ac > 2 && !ft_strcmp(av[1], "-dump") && !whole_number(av[2]))
-	{
-		mem->dump = ft_atoi(av[2]);
-		arg[0] = 1;
-		arg[1] = 1;
-		i = 2;
-	}
-	if (!ft_strcmp(av[3], "-print"))
-	{
-		mem->print = 1;
-		i = 3;
-	}
 	while (++i < ac)
 	{
 		arg[i - 1] = 0;
-		if (!ft_strcmp(av[i], "-n"))
+		if (!ft_strcmp(av[i], "-dump"))
+			arg[i - 1] = 1;
+		else if  (!ft_strcmp(av[i], "-print"))
 			arg[i - 1] = 2;
-		else if (!whole_number(av[i]))
+		else if  (!ft_strcmp(av[i], "-n"))
 			arg[i - 1] = 3;
+		else if (!whole_number(av[i]))
+			arg[i - 1] = 4;
 		else
 		{
 			if ((len = ft_strlen(av[i])) > 4)
 			{
-				name = &av[i][len - 4];
-				if (!ft_strcmp(name, ".cor"))
-					arg[i - 1] = 4;
+				if (!ft_strcmp((name = &av[i][len - 4]), ".cor"))
+					arg[i - 1] = 5;
 			}
 		}
 	}
@@ -128,7 +115,7 @@ int		parse_av(int ac, char **av, t_mem *mem)
 	int *arg;
 
 	arg = (int*)malloc(sizeof(int) * (ac - 1));
-	parse_to_arg(ac, av, mem, arg);
+	parse_to_arg(ac, av, arg);
 	if (check_av(arg, ac - 1, mem) || mem->n_player < 1 || mem->n_player >
 		MAX_PLAYERS)
 		return (free_int(arg));

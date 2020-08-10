@@ -6,7 +6,7 @@
 /*   By: jhakala <jhakala@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/22 21:13:41 by jhakala           #+#    #+#             */
-/*   Updated: 2020/08/10 22:02:46 by jhakala          ###   ########.fr       */
+/*   Updated: 2020/08/11 02:35:11 by jhakala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,6 @@ int		main(int ac, char **av)
 				mem->game->last_alive->id,
 				mem->game->last_alive->header->prog_name);
 	}
-//	system("leaks prog");
 	free_memory(mem);
 	system("leaks prog");
 	return (0);

@@ -6,7 +6,7 @@
 /*   By: hopham <hopham@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/23 11:53:27 by jhakala           #+#    #+#             */
-/*   Updated: 2020/08/08 16:58:36 by hopham           ###   ########.fr       */
+/*   Updated: 2020/08/10 20:55:08 by jhakala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,5 +36,5 @@ int		op_zjmp(t_game *game, int place, t_carriage *c)
 		if (game->print)
 			ft_printf(" P   %d | zjmp %d | ERROR\n", c->id, res);
 	}
-	return (read_game_param(game->arena, place, 3, NULL));
+	return (read_game_param(game, place, 3, NULL));
 }

@@ -6,7 +6,7 @@
 /*   By: hopham <hopham@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/23 11:53:06 by jhakala           #+#    #+#             */
-/*   Updated: 2020/08/08 16:58:16 by hopham           ###   ########.fr       */
+/*   Updated: 2020/08/10 20:54:31 by jhakala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,5 +39,5 @@ int		op_xor(t_game *game, int place, t_carriage *c)
 		c->carry = 0;
 	if (game->print)
 		ft_printf(" P   %d | xor %d %d r%d | carry = %d\n", c->id, val1, val2, types[2][1], c->carry);
-	return (read_game_param(game->arena, place, c->size, types));
+	return (read_game_param(game, place, c->size, types));
 }

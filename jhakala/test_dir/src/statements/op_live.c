@@ -6,7 +6,7 @@
 /*   By: hopham <hopham@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/23 11:47:41 by jhakala           #+#    #+#             */
-/*   Updated: 2020/08/08 16:59:44 by hopham           ###   ########.fr       */
+/*   Updated: 2020/08/10 20:53:05 by jhakala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,5 +27,5 @@ int		op_live(t_game *game, int place, t_carriage *c)
 		ft_printf(" | called alive for player %d", -res);
 	}
 	ft_printf("\n");
-	return (read_game_param(game->arena, place, 5, NULL));
+	return (read_game_param(game, place, 5, NULL));
 }

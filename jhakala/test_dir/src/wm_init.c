@@ -6,7 +6,7 @@
 /*   By: hopham <hopham@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/17 17:30:36 by jhakala           #+#    #+#             */
-/*   Updated: 2020/08/10 20:42:24 by jhakala          ###   ########.fr       */
+/*   Updated: 2020/08/11 02:33:04 by jhakala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,6 +69,7 @@ void	wm_default_values(t_game *game, t_mem *mem)
 	game->c_nbr = 1;
 	game->get_die = CYCLE_TO_DIE;
 	game->max_check = 0;
+	game->vara = NULL;
 }
 
 t_game	*wm_init(t_mem *mem)

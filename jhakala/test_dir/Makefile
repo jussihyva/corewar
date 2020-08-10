@@ -2,7 +2,7 @@ NAME = prog
 
 SRC = \
 	main.c \
-	init.c parse_av.c champ_init.c read_to.c \
+	init.c parse_av.c parse_utils.c champ_init.c read_to.c \
 	wm_init.c carriage.c \
 	game/run_game.c game/game_utils.c game/check.c \
 	op.c \

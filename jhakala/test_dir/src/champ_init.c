@@ -6,7 +6,7 @@
 /*   By: jhakala <jhakala@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/16 14:35:03 by jhakala           #+#    #+#             */
-/*   Updated: 2020/07/25 18:05:05 by jhakala          ###   ########.fr       */
+/*   Updated: 2020/08/11 02:30:44 by jhakala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,9 +63,9 @@ int		champ_init(int *arg, int n, int *n_arr, t_mem *mem)
 	i = n;
 	while (--i > -1)
 	{
-		if (arg[i] == 4)
+		if (arg[i] == 5)
 		{
-			if (arg[i - 1] == 3)
+			if (i > 1 && arg[i - 2] == 3)
 				new_player(&mem->player, mem->av[i + 1], ft_atoi(mem->av[i]));
 			else
 			{

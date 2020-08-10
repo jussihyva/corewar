@@ -6,7 +6,7 @@
 /*   By: jhakala <jhakala@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/19 23:21:33 by jhakala           #+#    #+#             */
-/*   Updated: 2020/08/10 19:22:17 by jhakala          ###   ########.fr       */
+/*   Updated: 2020/08/10 20:15:57 by jhakala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ typedef struct		s_op
 	char			*str;
 	int				size;
 	int				n_arg;
-	unsigned char	t_arg[3];
+	unsigned char	c_arg[3];
 	int				op_code;
 	int				statement_code;
 	int				dir_size;

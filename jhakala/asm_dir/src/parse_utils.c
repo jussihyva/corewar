@@ -6,7 +6,7 @@
 /*   By: jhakala <jhakala@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/20 16:28:31 by jhakala           #+#    #+#             */
-/*   Updated: 2020/06/20 19:58:42 by jhakala          ###   ########.fr       */
+/*   Updated: 2020/08/10 18:10:01 by jhakala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,7 +93,7 @@ char	*arg_dir_label(t_arg *arg, char *str, int i)
 	int		j;
 
 	j = 0;
-	res = (char*)malloc(sizeof(char) * (strlen(str) - i));
+	res = (char*)malloc(sizeof(char) * (ft_strlen(str) - i + 1));
 	while (str[i])
 		res[j++] = str[i++];
 	res[j] = '\0';

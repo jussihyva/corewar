@@ -6,7 +6,7 @@
 /*   By: jhakala <jhakala@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/20 14:36:47 by jhakala           #+#    #+#             */
-/*   Updated: 2020/08/10 17:28:19 by jhakala          ###   ########.fr       */
+/*   Updated: 2020/08/10 19:23:23 by jhakala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,7 @@ t_cmd	*get_lines(t_champ *champ, int fd, int row_n)
 	while ((i = get_next_line(fd, &line)) > 0)
 	{
 		row_n++;
-		if (ft_strlen(line) > 0	&& !is_comment(line, 0) && !is_empty(line, 0))
+		if (ft_strlen(line) > 0 && !is_comment(line, 0) && !is_empty(line, 0))
 			add_cmd(&cmd, new_cmd(champ, line, row_n));
 		else
 			free(line);

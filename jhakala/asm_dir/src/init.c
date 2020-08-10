@@ -6,48 +6,12 @@
 /*   By: jhakala <jhakala@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/20 00:15:32 by jhakala           #+#    #+#             */
-/*   Updated: 2020/08/10 16:57:26 by jhakala          ###   ########.fr       */
+/*   Updated: 2020/08/10 18:42:46 by jhakala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "asm.h"
 #include "op.h"
-
-void	prio(int *op)
-{
-	int i;
-
-	i = 0;
-	while (i < 26)
-		ft_printf("%d", op[i++]);
-	ft_printf("\n");
-}
-
-void	pril(t_label *label)
-{
-	while (label)
-	{
-		ft_printf("'%s'\n", label->name);
-		label = label->next;
-	}
-}
-
-void	pri(t_cmd *cmd)
-{
-	t_arg *arg;
-	
-	while (cmd)
-	{
-		arg = cmd->arg;
-		for (int i = 0; i < cmd->n_arg; i++)
-		{
-			ft_printf("'%s'", arg->str);
-			arg = arg->next;
-		}
-		cmd = cmd->next;
-		ft_printf("\n");
-	}
-}
 
 void	add_label(t_label **alst, t_label *new)
 {
@@ -84,7 +48,7 @@ void	init_champ(int fd, int *op, char *str)
 	champ->label = NULL;
 	if (!(champ->cmd = get_lines(champ, fd, r)))
 		return (n_error("Code_empty_error\n", op));
-	if (check_champ(champ) == 0 && check_name(&fd, str, op, ".cor") == 1)
+	if (check_champ(champ, op) == 0 && check_name(&fd, str, op, ".cor") == 1)
 		write_to_file(champ, fd);
 	if (op[20] == 1)
 		system("leaks asm");

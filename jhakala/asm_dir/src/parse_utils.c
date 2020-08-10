@@ -6,7 +6,7 @@
 /*   By: jhakala <jhakala@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/20 16:28:31 by jhakala           #+#    #+#             */
-/*   Updated: 2020/08/10 18:10:01 by jhakala          ###   ########.fr       */
+/*   Updated: 2020/08/10 19:32:13 by jhakala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,13 +46,13 @@ int		arg_str_size(char *str, int *i)
 	if (str[*i] == SEPARATOR_CHAR)
 		(*i)++;
 	*i = skip_whitespace(str, *i);
-	while (str[*i] != ' ' && str[*i] != '	' &&
-		   str[*i] != SEPARATOR_CHAR && str[*i] != '\n' && str[*i])
+	while (str[*i] != ' ' && str[*i] != '	' && str[*i] != SEPARATOR_CHAR &&
+		str[*i] != '\n' && str[*i] && str[*i] != COMMENT_CHAR[0] &&
+		str[*i] != COMMENT_CHAR[1])
 	{
 		len++;
 		(*i)++;
 	}
-
 	return (len);
 }
 
@@ -97,7 +97,7 @@ char	*arg_dir_label(t_arg *arg, char *str, int i)
 	while (str[i])
 		res[j++] = str[i++];
 	res[j] = '\0';
-	if (str[i] != '\0')	
+	if (str[i] != '\0')
 		arg->error = ARG_ERROR_4;
 	return (res);
 }

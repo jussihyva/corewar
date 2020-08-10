@@ -6,7 +6,7 @@
 /*   By: jhakala <jhakala@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/20 15:17:54 by jhakala           #+#    #+#             */
-/*   Updated: 2020/08/10 18:10:24 by jhakala          ###   ########.fr       */
+/*   Updated: 2020/08/10 19:25:33 by jhakala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ t_arg	*new_arg(char *line, int *i, int j, int k)
 	arg->type = parse_arg_type(arg);
 	if (k < g_op_tab[j].n_arg - 1)
 	{
-		*i = skip_whitespace(line, *i);
+		(*i) = skip_whitespace(line, *i);
 		if (line[*i] != SEPARATOR_CHAR)
 			arg->error = ARG_ERROR_5;
 	}

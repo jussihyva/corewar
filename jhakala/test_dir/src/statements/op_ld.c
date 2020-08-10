@@ -6,7 +6,7 @@
 /*   By: hopham <hopham@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/23 11:50:11 by jhakala           #+#    #+#             */
-/*   Updated: 2020/08/10 21:20:39 by jhakala          ###   ########.fr       */
+/*   Updated: 2020/08/10 21:33:17 by jhakala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,8 @@ int		op_ld(t_game *game, int place, t_carriage *c)
 
 	if (!(types = get_arg_types(game, c)))
 		return (c->size);
-	ft_printf(" P   %d | ld", c->id);
+	if (game->print)
+		ft_printf(" P   %d | ld", c->id);
 	if (types[0][0] == 2)
 		c->reg[types[1][1] - 1] = types[0][1];
 	else

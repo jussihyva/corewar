@@ -6,12 +6,20 @@
 /*   By: hopham <hopham@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/20 01:08:26 by jhakala           #+#    #+#             */
-/*   Updated: 2020/08/10 15:53:41 by hopham           ###   ########.fr       */
+/*   Updated: 2020/08/10 19:20:47 by jhakala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "asm.h"
 #include "op.h"
+
+char	*append_to_str_return(char *line, int i, char *str)
+{
+	free(line);
+	if ((i = count(str)) != 2)
+		free(str);
+	return (i == 2 ? str : NULL);
+}
 
 int		is_that_char(char c, char *str)
 {
@@ -28,7 +36,7 @@ int		is_that_char(char c, char *str)
 int		is_comment(char *str, int i)
 {
 	i = skip_whitespace(str, i);
-	if (ft_strchr(COMMENT_CHAR, str[i]))     //(str[i] == COMMENT_CHAR)
+	if (ft_strchr(COMMENT_CHAR, str[i]))
 		return (1);
 	return (0);
 }

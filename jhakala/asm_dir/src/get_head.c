@@ -1,4 +1,3 @@
-
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
@@ -7,7 +6,7 @@
 /*   By: hopham <hopham@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/20 00:21:50 by jhakala           #+#    #+#             */
-/*   Updated: 2020/08/10 16:50:05 by jhakala          ###   ########.fr       */
+/*   Updated: 2020/08/10 19:21:10 by jhakala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,10 +18,9 @@ int		comment_line(char *line)
 	int i;
 
 	i = 0;
-
 	while (line[i] && line[i] == ' ' && line[i] == '	')
 		i++;
-	if (line[0] == '\n' || ft_strchr(COMMENT_CHAR, line[i])) // line[i] == COMMENT_CHAR
+	if (line[0] == '\n' || ft_strchr(COMMENT_CHAR, line[i]))
 	{
 		free(line);
 		return (1);
@@ -48,8 +46,8 @@ int		count(char *line)
 
 char	*copy_to(char *str, int i, int j)
 {
-	char *res;
-	int k;
+	char	*res;
+	int		k;
 
 	k = 0;
 	res = ft_strnew(j - i);
@@ -88,10 +86,7 @@ char	*append_to_str(int fd, int *r)
 		free(tmp);
 		(*r)++;
 	}
-	free(line);
-	if ((i = count(str)) != 2)
-		free(str);
-	return (i == 2 ? str : NULL);
+	return (append_to_str_return(line, i, str));
 }
 
 char	*get_str(int fd, char *s1, int *r)

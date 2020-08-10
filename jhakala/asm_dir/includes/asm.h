@@ -6,7 +6,7 @@
 /*   By: jhakala <jhakala@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/19 23:21:33 by jhakala           #+#    #+#             */
-/*   Updated: 2020/08/10 16:46:35 by jhakala          ###   ########.fr       */
+/*   Updated: 2020/08/10 19:22:17 by jhakala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@
 # include <stdlib.h>
 # include "error.h"
 
-# define OPTION_CHARS "dfh"
+# define OPTION_CHARS "dfhe"
 
 typedef struct		s_label
 {
@@ -88,6 +88,7 @@ void				init_champ(int fd, int *op, char *str);
 /*
 ** is.c
 */
+char				*append_to_str_return(char *line, int i, char *str);
 int					is_that_char(char c, char *str);
 int					is_comment(char *str, int i);
 int					is_empty(char *str, int i);
@@ -110,6 +111,7 @@ void				rev_cmd(t_cmd **lst);
 /*
 ** get_head.c
 */
+int					count(char *line);
 char				*get_str(int fd, char *s1, int *r);
 
 /*
@@ -134,7 +136,7 @@ char				*arg_dir_label(t_arg *arg, char *str, int i);
 /*
 ** check_*.c
 */
-int					check_champ(t_champ *champ);
+int					check_champ(t_champ *champ, int *op);
 int					check_name(int *fd, char *str, int *op, char *end);
 
 /*

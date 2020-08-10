@@ -6,7 +6,7 @@
 /*   By: jhakala <jhakala@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/22 10:59:35 by jhakala           #+#    #+#             */
-/*   Updated: 2020/07/27 17:21:49 by jhakala          ###   ########.fr       */
+/*   Updated: 2020/08/10 18:51:57 by jhakala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ void	write_byte(int fd, int str, int len)
 {
 	unsigned char	content[len];
 	int				i;
-	
+
 	i = len - 1;
 	while (i > -1)
 	{
@@ -33,7 +33,7 @@ void	write_header(t_champ *champ, int fd)
 {
 	int len;
 	int i;
-	
+
 	write_byte(fd, COREWAR_EXEC_MAGIC, 4);
 	len = strlen(champ->name);
 	i = 0;
@@ -56,10 +56,9 @@ void	write_header(t_champ *champ, int fd)
 		write_byte(fd, 0, 1);
 }
 
-void    write_dir(int fd, t_arg *arg, int i, t_champ *champ)
+void	write_dir(int fd, t_arg *arg, int i, t_champ *champ)
 {
 	t_label *label;
-
 
 	label = champ->label;
 	if (!arg->label)
@@ -76,23 +75,26 @@ void    write_dir(int fd, t_arg *arg, int i, t_champ *champ)
 	}
 }
 
-void	write_statement_code(t_arg *arg, int fd)
+void	write_statement_code(t_arg *arg, int fd, int check)
 {
 	int statement_code;
 	int i;
-	
+
 	statement_code = 0;
 	i = 3;
-	while (i > 0)
+	if (check == 1)
 	{
-		if (arg)
+		while (i > 0)
 		{
-			statement_code += arg->type << (i * 2);
-			arg = arg->next;
+			if (arg)
+			{
+				statement_code += arg->type << (i * 2);
+				arg = arg->next;
+			}
+			i--;
 		}
-		i--;
+		write_byte(fd, statement_code, 1);
 	}
-	write_byte(fd, statement_code, 1);
 }
 
 void	write_to_file(t_champ *champ, int fd)
@@ -105,20 +107,16 @@ void	write_to_file(t_champ *champ, int fd)
 	cmd = champ->cmd;
 	while (cmd)
 	{
-		if (cmd->op_code > 0)
+		if (cmd->op_code > 0 && cmd->op_code < 17)
 		{
-			write_byte(fd, cmd->op_code, 1);// 		if (cmd->op_code != 0)
-			if (cmd->statement_code == 1)
-				write_statement_code(cmd->arg, fd);
+			write_byte(fd, cmd->op_code, 1);
+			write_statement_code(cmd->arg, fd, cmd->statement_code);
 			arg = cmd->arg;
 			while (arg)
 			{
-				if (arg->type == 1)
-					write_byte(fd, arg->value, 1);
-				else if (arg->type == 2)
-					write_dir(fd, arg, cmd->dir_size, champ);
-				else if (arg->type == 3)
-					write_dir(fd, arg, IND_SIZE, champ);
+				arg->type == 1 ? write_byte(fd, arg->value, 1) : 0;
+				arg->type == 2 ? write_dir(fd, arg, cmd->dir_size, champ) : 0;
+				arg->type == 3 ? write_dir(fd, arg, IND_SIZE, champ) : 0;
 				arg = arg->next;
 			}
 			champ->size += cmd->size;

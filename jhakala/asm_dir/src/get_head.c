@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get.c                                              :+:      :+:    :+:   */
+/*   get_head.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jhakala <jhakala@student.hive.fi>          +#+  +:+       +#+        */
+/*   By: hopham <hopham@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/20 00:21:50 by jhakala           #+#    #+#             */
-/*   Updated: 2020/08/05 17:05:23 by jhakala          ###   ########.fr       */
+/*   Updated: 2020/08/10 15:54:05 by hopham           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ int		comment_line(char *line)
 
 	while (line[i] && line[i] == ' ' && line[i] == '	')
 		i++;
-	if (line[0] == '\n' || line[i] == COMMENT_CHAR)
+	if (line[0] == '\n' || ft_strchr(COMMENT_CHAR, line[i])) // line[i] == COMMENT_CHAR
 	{
 		free(line);
 		return (1);

@@ -6,7 +6,7 @@
 /*   By: hopham <hopham@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/13 14:18:17 by jhakala           #+#    #+#             */
-/*   Updated: 2020/08/08 16:51:45 by hopham           ###   ########.fr       */
+/*   Updated: 2020/08/10 20:30:56 by jhakala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,5 @@ t_mem	*ft_init(int ac, char **av)
 		free_memory(mem);
 		return (NULL);
 	}
-	
 	return (mem);
 }

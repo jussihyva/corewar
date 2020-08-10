@@ -6,7 +6,7 @@
 /*   By: hopham <hopham@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/23 11:50:11 by jhakala           #+#    #+#             */
-/*   Updated: 2020/08/08 16:54:30 by hopham           ###   ########.fr       */
+/*   Updated: 2020/08/10 21:20:39 by jhakala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,13 +22,15 @@ int		op_ld(t_game *game, int place, t_carriage *c)
 	if (types[0][0] == 2)
 		c->reg[types[1][1] - 1] = types[0][1];
 	else
-		c->reg[types[1][1] - 1] = read_types(game->arena, place + ((short)types[0][1] % IDX_MOD), REG_SIZE);
+		c->reg[types[1][1] - 1] = read_types(game->arena, place +
+						((short)types[0][1] % IDX_MOD), REG_SIZE);
 	if (c->reg[types[1][1] - 1] == 0)
 		c->carry = 1;
 	else
 		c->carry = 0;
 	if (game->print)
-		ft_printf(" %d r%d | %d | carry = %d\n", c->reg[types[1][1] - 1], types[0][0] == 3 ? (short)types[1][1] :
-				types[1][1], c->reg[types[1][1] - 1], c->carry);
-	return (read_game_param(game->arena, place, c->size, types));
+		ft_printf(" %d r%d | %d | carry = %d\n", c->reg[types[1][1] - 1],
+				types[0][0] == 3 ? (short)types[1][1] : types[1][1],
+				c->reg[types[1][1] - 1], c->carry);
+	return (read_game_param(game, place, c->size, types));
 }

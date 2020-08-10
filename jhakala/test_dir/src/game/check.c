@@ -6,49 +6,55 @@
 /*   By: jhakala <jhakala@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/24 13:00:59 by jhakala           #+#    #+#             */
-/*   Updated: 2020/08/08 14:26:33 by jhakala          ###   ########.fr       */
+/*   Updated: 2020/08/10 20:36:04 by jhakala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "test.h"
 
-void	kill_head_carriage(t_carriage **alst, t_carriage *c)
+void	kill_head_carriage(t_carriage **alst, t_carriage *c, t_game *game)
 {
 	*alst = c->next;
-//	ft_printf("	KILL P   %d\n", c->id);
+	if (game->print)
+		ft_printf("	KILL P   %d\n", c->id);
 	free(c);
 }
 
-void	kill_carriage(t_carriage *prev, t_carriage *c)
+void	kill_carriage(t_carriage *prev, t_carriage *c, t_game *game)
 {
 	prev->next = c->next;
-//	ft_printf("	KILL P   %d\n", c->id);
+	if (game->print)
+		ft_printf("	KILL P   %d\n", c->id);
 	free(c);
 }
 
-int		check_carriages(t_game *game)
+void	check_kills(t_game *game)
 {
 	t_carriage *c;
 	t_carriage *prev;
 
 	c = game->c_lst;
-//	ft_printf("	MAKE CHECK\n");
+	if (game->print)
+		ft_printf("	MAKE CHECK\n");
 	while (c && c->live_cycle == -1)
 	{
-		kill_head_carriage(&game->c_lst, c);
+		kill_head_carriage(&game->c_lst, c, game);
 		c = game->c_lst;
 	}
-//	prev = c;
 	while (c)
 	{
 		if (c->live_cycle == -1)
-			kill_carriage(prev, c);
+			kill_carriage(prev, c, game);
 		else
 			prev = c;
 		prev->live_cycle = -1;
-//		c->live_cycle = -1;
 		c = prev->next;
 	}
+}
+
+int		check_carriages(t_game *game)
+{
+	check_kills(game);
 	if (game->c_lst == NULL)
 		return (1);
 	if (game->n_live_in_cycle >= NBR_LIVE)
@@ -64,7 +70,9 @@ int		check_carriages(t_game *game)
 			game->max_check = 0;
 		}
 	}
-//	ft_printf("	nbr_live=%d, get_die=%d\n", game->n_live_in_cycle, game->get_die);
+	if (game->print)
+		ft_printf("	nbr_live=%d, get_die=%d\n", game->n_live_in_cycle,
+				game->get_die);
 	game->n_live_in_cycle = 0;
 	game->cycles_to_die = game->get_die > 0 ? game->get_die : 1;
 	return (0);

@@ -7,7 +7,6 @@ def remove_cor_files(folder):
 	for file in files:
 		m = re.match("^(.+)\.cor$", file)
 		if m != None:
-			print("Removed: " + file)
 			os.unlink(os.path.join(folder, file))
 
 def verify_corewar_functionality(cor_file_path, corewar):
@@ -26,6 +25,20 @@ def verify_corewar_functionality(cor_file_path, corewar):
 		result = os.system(command)
 		print("Prog: " + str(result))
 
+def create_cor_file(s_file_path, cor_file_path):
+	command = asm + " " + s_file_path + " > asm_result.log"
+	result = os.system(command)
+	if os.path.isfile(cor_file_path) == True:
+		return (True)
+	else:
+		command = "./asm " + s_file_path + " > asm_result.log"
+		result = os.system(command)
+		if os.path.isfile(cor_file_path) == True:
+			print("ASM Error: " + s_file_path)
+			return (True)
+		else:
+			return (False)
+
 if __name__ == "__main__":
 	num_of_params = len(sys.argv)
 	program_folder = os.path.dirname(sys.argv[0])
@@ -43,16 +56,10 @@ if __name__ == "__main__":
 		if m != None:
 			s_file_path = os.path.join(cor_file_folder, file)
 			cor_file = m.group(1) + ".cor"
-			cor_file_path = os.path.join(cor_file_folder, cor_file)
 			if (file in exclude_list) or (cor_file in exclude_list):
 				print("Excluded: " + file)
 			else:
-				command = asm + " " + s_file_path + " > asm_result.log"
-				result = os.system(command)
-				if os.path.isfile(cor_file_path) == False:
-					command = "./asm " + s_file_path + " > asm_result.log"
-					result = os.system(command)
-					if os.path.isfile(cor_file_path) == True:
-						print("ASM Error: " + s_file_path)
-				else:
+				cor_file_path = os.path.join(cor_file_folder, cor_file)
+				result = create_cor_file(s_file_path, cor_file_path)
+				if result == True:
 					verify_corewar_functionality(cor_file_path, corewar)

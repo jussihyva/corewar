@@ -6,11 +6,13 @@
 /*   By: jhakala <jhakala@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/16 13:11:27 by jhakala           #+#    #+#             */
-/*   Updated: 2020/07/23 17:55:36 by jhakala          ###   ########.fr       */
+/*   Updated: 2020/08/11 01:37:23 by jhakala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "test.h"
+
+#include <stdio.h>
 
 int		free_int(int *arr)
 {
@@ -30,10 +32,19 @@ int		free_game(t_mem *mem)
 		c = c->next;
 		free(tmp);
 	}
+	
+	c = mem->game->vara;
+	while (c)
+	{
+		tmp = c;
+		c = c->next;
+		free(tmp);
+	}
+
 	if (mem->game->arena)
 		free(mem->game->arena);
 	free(mem->game->players);
-	free(mem->game);
+//	free(mem->game);
 	return (1);
 }
 
@@ -54,7 +65,10 @@ int		free_memory(t_mem *mem)
 		free(tmp);
 	}
 	if (mem->game)
+	{
+		ft_printf("here\n");
 		free_game(mem);
-	free(mem);
+	}
+//	free(mem);
 	return (1);
 }

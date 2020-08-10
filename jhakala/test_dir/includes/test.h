@@ -6,7 +6,7 @@
 /*   By: jhakala <jhakala@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/22 21:10:17 by jhakala           #+#    #+#             */
-/*   Updated: 2020/08/10 20:51:45 by jhakala          ###   ########.fr       */
+/*   Updated: 2020/08/11 02:19:56 by jhakala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,13 @@ t_mem	*ft_init(int ac, char **av);
 ** parse_av.c
 */
 int		parse_av(int ac, char **av, t_mem *mem);
+
+/*
+** parse_utils.c
+*/
+
+int		check_dump(int *arg, int n, t_mem *mem, int *i);
+int		check_n(int *arg, int n, t_mem *mem, int *i);
 
 /*
 ** init.c

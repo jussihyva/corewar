@@ -6,7 +6,7 @@
 /*   By: jhakala <jhakala@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/20 15:17:54 by jhakala           #+#    #+#             */
-/*   Updated: 2020/08/10 19:25:33 by jhakala          ###   ########.fr       */
+/*   Updated: 2020/08/10 20:16:01 by jhakala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,27 +17,27 @@ int		possible_arg(t_arg *arg, int j, int k)
 {
 	int i;
 
-	i = g_op_tab[j].t_arg[k];
+	i = g_op_tab[j].c_arg[k];
 	if (arg->type == 1 && (i == 1 || i == 3 || i == 5 || i == 7))
 		return (1);
 	else if (arg->type == 2 && (i == 2 || i == 3 || i == 6 || i == 7))
 		return (1);
 	else if (arg->type == 3 && (i == 4 || i == 5 || i == 6 || i == 7))
 		return (1);
-    return (0);
+	return (0);
 }
 
 int		parse_arg_type(t_arg *arg)
 {
 	int res;
-	
+
 	res = 3;
 	if (arg->str[0] == 'r')
 	{
 		res = 1;
 		arg->value = arg_reg(arg, arg->str, 1);
 	}
-	else if (arg->str[0] == DIRECT_CHAR) 
+	else if (arg->str[0] == DIRECT_CHAR)
 	{
 		res = 2;
 		if (arg->str[1] != LABEL_CHAR)
@@ -80,7 +80,7 @@ t_arg	*new_arg(char *line, int *i, int j, int k)
 	if (possible_arg(arg, j, k) == 0)
 		arg->error = ARG_ERROR_1;
 	return (arg);
-}	
+}
 
 int		parse_cmd_to_args(t_cmd *cmd, char *line, int i, int j)
 {

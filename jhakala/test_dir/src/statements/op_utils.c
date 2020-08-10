@@ -6,7 +6,7 @@
 /*   By: jhakala <jhakala@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/06 12:19:55 by jhakala           #+#    #+#             */
-/*   Updated: 2020/08/08 15:47:51 by jhakala          ###   ########.fr       */
+/*   Updated: 2020/08/10 21:08:14 by jhakala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ int		ft_place(int place)
 	else if (place < 0)
 		return (place + MEM_SIZE);
 	return (place);
-}	
+}
 
 int		**get_argument_type_codes(int type)
 {
@@ -64,20 +64,24 @@ int		arg_sizes(char *arena, int place, int **types, int code)
 	return (size);
 }
 
-int		read_game_param(char *arena, int from, int size, int **types)
+int		read_game_param(t_game *game, int from, int size, int **types)
 {
-/*
-	int i;
+	char	*arena;
+	int		i;
 
-	i = 0;
-	ft_printf("	(0x%04x -> 0x%04x) ", from, from + size >= MEM_SIZE ?
-			MEM_SIZE - (from + size) : from + size);
-	while (i < size)
+	if (game->print)
 	{
-		ft_printf("%02x ", (unsigned char)arena[ft_place(from + i)]);
-		i++;
+		i = 0;
+		arena = game->arena;
+		ft_printf("	(0x%04x -> 0x%04x) ", from, from + size >= MEM_SIZE ?
+				MEM_SIZE - (from + size) : from + size);
+		while (i < size)
+		{
+			ft_printf("%02x ", (unsigned char)arena[ft_place(from + i)]);
+			i++;
+		}
+		ft_printf("\n");
 	}
-	ft_printf("\n");
 	if (types != NULL)
 	{
 		free(types[0]);
@@ -85,7 +89,6 @@ int		read_game_param(char *arena, int from, int size, int **types)
 		free(types[2]);
 		free(types);
 	}
-*/
 	return (size);
 }
 
@@ -94,11 +97,12 @@ int		**get_arg_types(t_game *game, t_carriage *c)
 	int **types;
 
 	types = get_argument_type_codes(game->arena[ft_place(c->place + 1)]);
-	c->size = arg_sizes(game->arena, c->place + 2, types, c->statement_code - 1) + 2;
+	c->size = arg_sizes(game->arena, c->place + 2, types,
+					c->statement_code - 1) + 2;
 	if (possible_arg(types, game->arena[c->place] - 1))
 	{
 		ft_printf("%d failed: ", c->id);
-		read_game_param(game->arena, c->place, c->size, types);
+		read_game_param(game, c->place, c->size, types);
 		return (NULL);
 	}
 	return (types);

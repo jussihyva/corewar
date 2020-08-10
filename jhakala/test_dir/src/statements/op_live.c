@@ -6,7 +6,7 @@
 /*   By: hopham <hopham@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/23 11:47:41 by jhakala           #+#    #+#             */
-/*   Updated: 2020/08/10 20:53:05 by jhakala          ###   ########.fr       */
+/*   Updated: 2020/08/10 21:32:45 by jhakala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,10 @@ int		op_live(t_game *game, int place, t_carriage *c)
 	if (res < 0 && res >= -(game->n_player))
 	{
 		game->last_alive = game->players[(-res) - 1];
-		ft_printf(" | called alive for player %d", -res);
+		if (game->print)
+			ft_printf(" | called alive for player %d", -res);
 	}
-	ft_printf("\n");
+	if (game->print)
+		ft_printf("\n");
 	return (read_game_param(game, place, 5, NULL));
 }

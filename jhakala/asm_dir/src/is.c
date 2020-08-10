@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   is.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jhakala <jhakala@student.hive.fi>          +#+  +:+       +#+        */
+/*   By: hopham <hopham@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/20 01:08:26 by jhakala           #+#    #+#             */
-/*   Updated: 2020/06/20 17:13:22 by jhakala          ###   ########.fr       */
+/*   Updated: 2020/08/10 15:53:41 by hopham           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ int		is_that_char(char c, char *str)
 int		is_comment(char *str, int i)
 {
 	i = skip_whitespace(str, i);
-	if (str[i] == COMMENT_CHAR)
+	if (ft_strchr(COMMENT_CHAR, str[i]))     //(str[i] == COMMENT_CHAR)
 		return (1);
 	return (0);
 }

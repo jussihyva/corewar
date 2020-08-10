@@ -6,7 +6,7 @@
 /*   By: jhakala <jhakala@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/20 15:17:54 by jhakala           #+#    #+#             */
-/*   Updated: 2020/08/05 17:22:49 by jhakala          ###   ########.fr       */
+/*   Updated: 2020/08/10 18:10:24 by jhakala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ t_arg	*new_arg(char *line, int *i, int j, int k)
 		return (NULL);
 	arg->next = NULL;
 	len = arg_str_size(line, &(*i));
-	arg->str = ft_strsub(line, *i - len, len);
+	arg->str = ft_strsub(line, (*i) - len, len);
 	arg->type = 0;
 	arg->label = 0;
 	arg->value = 0;

@@ -1,3 +1,4 @@
+
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
@@ -6,7 +7,7 @@
 /*   By: hopham <hopham@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/20 00:21:50 by jhakala           #+#    #+#             */
-/*   Updated: 2020/08/10 15:54:05 by hopham           ###   ########.fr       */
+/*   Updated: 2020/08/10 16:50:05 by jhakala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +72,10 @@ char	*append_to_str(int fd, int *r)
 	if ((i = get_next_line(fd, &line)) < 1)
 		return (NULL);
 	while (comment_line(line) > 0)
+	{
+		(*r)++;
 		i = get_next_line(fd, &line);
+	}
 	str = ft_strdup(line);
 	while (i > 0 && count(str) == 1)
 	{

@@ -6,21 +6,11 @@
 /*   By: hopham <hopham@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/16 13:01:15 by jhakala           #+#    #+#             */
-/*   Updated: 2020/08/08 17:00:18 by hopham           ###   ########.fr       */
+/*   Updated: 2020/08/10 20:47:42 by jhakala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "test.h"
-
-void	prin(int *arr, int n)
-{
-	int i;
-
-	i = 0;
-	while (i < n)
-		ft_printf("%d, ", arr[i++]);
-	ft_printf("\n");
-}
 
 int		whole_number(char *str)
 {
@@ -83,7 +73,7 @@ int		check_av(int *arg, int n, t_mem *mem)
 		if (arg[i] == 4 && (check == 0 || check == 2))
 		{
 			check = 0;
-			mem->n_player++; // shouldn't be changed
+			mem->n_player++;
 		}
 		else if (arg[i] == 2 && check == 0)
 			check = 1;
@@ -133,20 +123,17 @@ void	parse_to_arg(int ac, char **av, t_mem *mem, int *arg)
 	}
 }
 
-//arr type 0 = unknown, 1 = -dump/number after -dump, 2 = n, 3 = number, 4 = player(*.cor)
-
 int		parse_av(int ac, char **av, t_mem *mem)
 {
 	int *arg;
 
 	arg = (int*)malloc(sizeof(int) * (ac - 1));
 	parse_to_arg(ac, av, mem, arg);
-//	prin(arg, ac - 1);
-	if (check_av(arg, ac - 1, mem) || mem->n_player < 1 || mem->n_player > MAX_PLAYERS)
+	if (check_av(arg, ac - 1, mem) || mem->n_player < 1 || mem->n_player >
+		MAX_PLAYERS)
 		return (free_int(arg));
-	if (champ_init(arg, ac - 1, check_numbers_after_n(ac, av, arg, mem), mem)) // this shouldn't be changed
+	if (champ_init(arg, ac - 1, check_numbers_after_n(ac, av, arg, mem), mem))
 		return (free_int(arg));
-	prin(arg, ac);
 	free(arg);
 	return (0);
 }

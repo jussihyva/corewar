@@ -6,7 +6,7 @@
 /*   By: jhakala <jhakala@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/19 17:41:20 by jhakala           #+#    #+#             */
-/*   Updated: 2020/08/08 15:04:54 by jhakala          ###   ########.fr       */
+/*   Updated: 2020/08/10 20:37:54 by jhakala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,11 +17,13 @@ void	cycle_through_c(t_game *game)
 	t_carriage *c;
 
 	c = game->c_lst;
-	ft_printf("cycle_n = '%d'\n", game->total_cycles);
+	if (game->print)
+		ft_printf("cycle_n = '%d'\n", game->total_cycles);
 	while (c)
 	{
 		if (c->remaining_cycle == 1)
-			c->place = ft_place(ft_place(read_statement_code(c, game, c->place) + c->place));
+			c->place = ft_place(ft_place(read_statement_code(c, game, c->place)
+										+ c->place));
 		else if (c->remaining_cycle == 0)
 		{
 			c->statement_code = (game->arena[c->place] & 0xFF);
@@ -29,14 +31,14 @@ void	cycle_through_c(t_game *game)
 				c->remaining_cycle = g_op_tab[c->statement_code - 1].n_cycles;
 			else
 			{
- 				c->remaining_cycle = 1;
+				c->remaining_cycle = 1;
 				c->place = ft_place(c->place + 1);
 			}
 		}
 		c->remaining_cycle--;
 		c = c->next;
 	}
-}		
+}
 
 void	print_player_weights(t_mem *mem)
 {
@@ -46,7 +48,8 @@ void	print_player_weights(t_mem *mem)
 	while (p)
 	{
 		ft_printf("* Player %d, weighing %d bytes, \"%s\" (\"%s\") !\n", p->id,
-				REV(p->header->prog_size), p->header->prog_name, p->header->comment);
+				REV(p->header->prog_size), p->header->prog_name,
+				p->header->comment);
 		p = p->next;
 	}
 }

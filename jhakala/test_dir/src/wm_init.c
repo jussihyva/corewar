@@ -6,7 +6,7 @@
 /*   By: hopham <hopham@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/17 17:30:36 by jhakala           #+#    #+#             */
-/*   Updated: 2020/08/08 16:51:04 by hopham           ###   ########.fr       */
+/*   Updated: 2020/08/10 20:42:24 by jhakala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,6 @@ void	print_arena(char *arena)
 	int i;
 
 	i = 0;
-//	system("clear");
 	ft_printf("0x%04x : ", i);
 	ft_printf("%02x ", (unsigned char)arena[i++]);
 	while (i < MEM_SIZE)
@@ -31,9 +30,9 @@ void	print_arena(char *arena)
 
 void	put_player_input_to_arena(t_game *game, t_mem *mem)
 {
-	t_player *p;
-	int i;
-	int place;
+	t_player	*p;
+	int			i;
+	int			place;
 
 	p = mem->player;
 	i = 0;
@@ -48,8 +47,8 @@ void	put_player_input_to_arena(t_game *game, t_mem *mem)
 
 void	wm_default_values(t_game *game, t_mem *mem)
 {
-	t_player *p;
-	int i;
+	t_player	*p;
+	int			i;
 
 	p = mem->player;
 	game->players = (t_player**)malloc(sizeof(t_player*) * mem->n_player);
@@ -81,6 +80,5 @@ t_game	*wm_init(t_mem *mem)
 	wm_default_values(game, mem);
 	ft_bzero(game->arena, MEM_SIZE);
 	put_player_input_to_arena(game, mem);
-//	print_arena(game->arena);
 	return (game);
 }

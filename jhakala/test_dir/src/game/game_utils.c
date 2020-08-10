@@ -6,7 +6,7 @@
 /*   By: jhakala <jhakala@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/20 18:31:16 by jhakala           #+#    #+#             */
-/*   Updated: 2020/08/08 15:47:35 by jhakala          ###   ########.fr       */
+/*   Updated: 2020/08/10 20:36:35 by jhakala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ int		possible_arg(int **types, int op_code)
 	return (0);
 }
 
-int read_types(char *arena, int from, int size)
+int		read_types(char *arena, int from, int size)
 {
 	int type;
 	int times;
@@ -58,13 +58,3 @@ int		read_statement_code(t_carriage *c, t_game *game, int place)
 		c->statement_code = game->arena[place];
 	return (g_op_tab[c->statement_code - 1].f(game, place, c));
 }
-
-/*
-int		read_statement_code(t_carriage *c, t_game *game, int place)
-{
-	if ((c->statement_code == game->arena[place] ||
-		c->statement_code == -1) && game->arena[place] > 0 && game->arena[place] < 17)
-		return (g_op_tab[game->arena[place] - 1].f(game, place, c));
-	return (read_game_param(game->arena, place, 1, NULL));
-}
-*/

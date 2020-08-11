@@ -6,7 +6,7 @@
 /*   By: hopham <hopham@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/17 17:30:36 by jhakala           #+#    #+#             */
-/*   Updated: 2020/08/11 20:46:42 by jhakala          ###   ########.fr       */
+/*   Updated: 2020/08/11 21:40:08 by jhakala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,29 @@ void	put_player_input_to_arena(t_game *game, t_mem *mem)
 	}
 }
 
+void	get_player_to_arr(t_game *game, t_mem *mem)
+{
+	int			i;
+	t_player	*p;
+
+	i = 0;
+	while (i < mem->n_player)
+	{
+		p = mem->player;
+		while (p)
+		{
+			if (p->id == i + 1)
+				break ;
+			p = p->next;
+		}
+		if (p == NULL)
+			exit(0);
+		game->players[i] = p;
+		game->last_alive = p;
+		i++;
+	}
+}
+
 void	wm_default_values(t_game *game, t_mem *mem)
 {
 	t_player	*p;
@@ -53,13 +76,7 @@ void	wm_default_values(t_game *game, t_mem *mem)
 	p = mem->player;
 	game->players = (t_player**)malloc(sizeof(t_player*) * mem->n_player);
 	i = 0;
-	game->players[i] = p;
-	while (p)
-	{
-		game->players[i++] = p;
-		game->last_alive = p;
-		p = p->next;
-	}
+	get_player_to_arr(game, mem);
 	game->print = mem->print;
 	game->c_lst = NULL;
 	game->total_cycles = 1;

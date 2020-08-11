@@ -6,7 +6,7 @@
 /*   By: jhakala <jhakala@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/19 17:41:20 by jhakala           #+#    #+#             */
-/*   Updated: 2020/08/11 02:34:14 by jhakala          ###   ########.fr       */
+/*   Updated: 2020/08/11 20:39:50 by jhakala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ int		run_game(t_mem *mem)
 	game = mem->game;
 	if (mem->dump == 0)
 	{
-		print_arena(game->arena);
+		print_arena(game->arena, mem);
 		return (1);
 	}
 	while (game->c_lst)
@@ -75,7 +75,7 @@ int		run_game(t_mem *mem)
 		}
 		if (game->total_cycles == mem->dump)
 		{
-			print_arena(game->arena);
+			print_arena(game->arena, mem);
 			return (1);
 		}
 		game->total_cycles++;

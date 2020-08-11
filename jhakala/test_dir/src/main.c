@@ -6,7 +6,7 @@
 /*   By: jhakala <jhakala@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/22 21:13:41 by jhakala           #+#    #+#             */
-/*   Updated: 2020/08/11 17:22:52 by jhakala          ###   ########.fr       */
+/*   Updated: 2020/08/11 20:56:34 by jhakala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,35 +14,45 @@
 
 int		ft_return(char *line, int ret)
 {
-	ft_printf("%s", line);
-	system("leaks prog");
+	ft_putstr_fd(line, 2);
+	return (ret);
+}
+
+int		ft_mem_return(char *line, int ret, t_mem *mem)
+{
+	ft_putstr_fd(line, 2);
+	if (free_memory(mem))
+		system("leaks prog");
 	return (ret);
 }
 
 /*
-** -dump [n]: print arena after n cycles
+** -dump/-d [n]: print arena after n cycles
 ** -n [n]: set player number
 ** -print: print wm run
+** -f: leaks
 */
 
 int		main(int ac, char **av)
 {
-	t_mem *mem;
+	t_mem	*mem;
 
 	if (ac < 2)
-		return (ft_return("usage: ./corewar [-dump 123] [-n 1] .cor...\n", 0));
+	{
+		ft_printf("usage: ./corewar [-dump/-d 123] [-print] [-n 1] .cor...\n");
+		return (0);
+	}
 	if ((mem = ft_init(ac, av)) == NULL)
-		return (ft_return("error1\n", 0));
+		return (ft_return("Mem init error.\n", 0));
 	else if ((mem->game = wm_init(mem)) == NULL)
-		return (ft_return("error2\n", 0));
+		return (ft_mem_return("Game init error.\n", 0, mem));
 	else if (!run_game(mem))
 	{
 		ft_printf("Contestant %d, \"%s\", has won !\n",
 				mem->game->last_alive->id,
 				mem->game->last_alive->header->prog_name);
 	}
-//	ft_printf("here\n");
-//	free_memory(mem);
-//	system("leaks prog");
+	if (free_memory(mem))
+		system("leaks prog");
 	return (0);
 }

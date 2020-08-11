@@ -6,7 +6,7 @@
 /*   By: hopham <hopham@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/16 13:11:27 by jhakala           #+#    #+#             */
-/*   Updated: 2020/08/11 17:17:46 by jhakala          ###   ########.fr       */
+/*   Updated: 2020/08/11 20:44:51 by jhakala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ int		free_game(t_mem *mem)
 		c = c->next;
 		free(tmp);
 	}
-	c = mem->game->vara;
+	c = mem->game->tmp;
 	while (c)
 	{
 		tmp = c;
@@ -46,8 +46,9 @@ int		free_game(t_mem *mem)
 
 int		free_memory(t_mem *mem)
 {
-	t_player *p;
-	t_player *tmp;
+	t_player	*p;
+	t_player	*tmp;
+	int			res;
 
 	p = mem->player;
 	while (p)
@@ -62,6 +63,7 @@ int		free_memory(t_mem *mem)
 	}
 	if (mem->game)
 		free_game(mem);
+	res = mem->leaks;
 	free(mem);
-	return (1);
+	return (res);
 }

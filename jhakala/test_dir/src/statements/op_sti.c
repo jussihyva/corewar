@@ -6,7 +6,7 @@
 /*   By: hopham <hopham@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/23 11:54:08 by jhakala           #+#    #+#             */
-/*   Updated: 2020/08/10 21:16:50 by jhakala          ###   ########.fr       */
+/*   Updated: 2020/08/11 19:45:36 by jhakala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,7 @@ void	print_sti(t_game *game, t_carriage *c, int **types, int value)
 		else if (types[1][0] == 2)
 			ft_printf(" %d", (short)types[1][1]);
 		else
-			ft_printf(" %d", read_types(game->arena, c->place + types[1][1] %
-										IDX_MOD, 4));
+			ft_printf(" %d", types[1][1]);
 		if (types[2][0] == 1)
 			ft_printf(" %d", c->reg[types[2][1] - 1]);
 		else

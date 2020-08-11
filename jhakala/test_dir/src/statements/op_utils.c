@@ -6,7 +6,7 @@
 /*   By: jhakala <jhakala@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/06 12:19:55 by jhakala           #+#    #+#             */
-/*   Updated: 2020/08/11 18:02:09 by jhakala          ###   ########.fr       */
+/*   Updated: 2020/08/11 18:38:07 by jhakala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 
 int		ft_place(int place)
 {
+	place %= MEM_SIZE;
 	if (place >= MEM_SIZE)
 		return (place - MEM_SIZE);
 	else if (place < 0)

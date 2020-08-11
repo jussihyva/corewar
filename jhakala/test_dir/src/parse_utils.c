@@ -6,7 +6,7 @@
 /*   By: jhakala <jhakala@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/11 01:54:00 by jhakala           #+#    #+#             */
-/*   Updated: 2020/08/11 17:10:14 by jhakala          ###   ########.fr       */
+/*   Updated: 2020/08/11 20:38:56 by jhakala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,4 +41,26 @@ int		check_n(int *arg, int n, t_mem *mem, int *i)
 	(*i) += 2;
 	mem->n_player++;
 	return (0);
+}
+
+int		check_flag(int i, int *arg, char **av, t_mem *mem)
+{
+	if (!ft_strcmp(av[i], "-dump"))
+		arg[i - 1] = 1;
+	if (!ft_strcmp(av[i], "-d"))
+	{
+		arg[i - 1] = 1;
+		mem->dump_type = 64;
+	}
+	else if (!ft_strcmp(av[i], "-print"))
+		arg[i - 1] = 2;
+	else if (!ft_strcmp(av[i], "-n"))
+		arg[i - 1] = 3;
+	else if (!whole_number(av[i]))
+		arg[i - 1] = 4;
+	else if (!ft_strcmp(av[i], "-f"))
+		arg[i - 1] = 6;
+	else
+		return (0);
+	return (1);
 }

@@ -6,7 +6,7 @@
 /*   By: hopham <hopham@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/22 21:10:17 by jhakala           #+#    #+#             */
-/*   Updated: 2020/08/11 14:48:19 by hopham           ###   ########.fr       */
+/*   Updated: 2020/08/11 20:56:02 by jhakala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,9 @@
 
 # define REV(x) ((x<<24) | (((x>>16)<<24)>>16) | (((x<<16)>>24)<<16) | (x>>24))
 
-void    print_arena(char *arena); // wm_init.c
+void    print_arena(char *arena, t_mem *mem); // wm_init.c
+
+int		ft_mem_return(char *line, int ret, t_mem *mem);
 
 /*
 ** init.c
@@ -32,6 +34,7 @@ t_mem	*ft_init(int ac, char **av);
 /*
 ** parse_av.c
 */
+int		whole_number(char *str);
 int		parse_av(int ac, char **av, t_mem *mem);
 
 /*
@@ -40,6 +43,7 @@ int		parse_av(int ac, char **av, t_mem *mem);
 
 int		check_dump(int *arg, int n, t_mem *mem, int *i);
 int		check_n(int *arg, int n, t_mem *mem, int *i);
+int		check_flag(int i, int *arg, char **av, t_mem *mem);
 
 /*
 ** init.c

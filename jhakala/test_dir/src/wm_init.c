@@ -6,13 +6,13 @@
 /*   By: hopham <hopham@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/17 17:30:36 by jhakala           #+#    #+#             */
-/*   Updated: 2020/08/11 02:33:04 by jhakala          ###   ########.fr       */
+/*   Updated: 2020/08/11 20:46:42 by jhakala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "test.h"
 
-void	print_arena(char *arena)
+void	print_arena(char *arena, t_mem *mem)
 {
 	int i;
 
@@ -21,7 +21,7 @@ void	print_arena(char *arena)
 	ft_printf("%02x ", (unsigned char)arena[i++]);
 	while (i < MEM_SIZE)
 	{
-		if (i % 64 == 0)
+		if (i % mem->dump_type == 0)
 			ft_printf("\n0x%04x : ", i);
 		ft_printf("%02x ", (unsigned char)arena[i++]);
 	}
@@ -69,14 +69,15 @@ void	wm_default_values(t_game *game, t_mem *mem)
 	game->c_nbr = 1;
 	game->get_die = CYCLE_TO_DIE;
 	game->max_check = 0;
-	game->vara = NULL;
+	game->tmp = NULL;
 }
 
 t_game	*wm_init(t_mem *mem)
 {
 	t_game *game;
 
-	game = (t_game*)malloc(sizeof(t_game));
+	if (!(game = (t_game*)malloc(sizeof(t_game))))
+		return (NULL);
 	game->arena = (char*)malloc(sizeof(char) * MEM_SIZE);
 	wm_default_values(game, mem);
 	ft_bzero(game->arena, MEM_SIZE);

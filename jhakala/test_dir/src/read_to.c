@@ -6,7 +6,7 @@
 /*   By: hopham <hopham@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/16 16:24:38 by jhakala           #+#    #+#             */
-/*   Updated: 2020/08/10 20:45:35 by jhakala          ###   ########.fr       */
+/*   Updated: 2020/08/11 21:02:58 by jhakala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ char	*copy_to_str(char *str, char *buf, int s_len, int i_len)
 	return (tmp);
 }
 
-char	*reading(int *size, char *file_name)
+char	*reading(int *size, char *file_name, t_mem *mem)
 {
 	char	*str;
 	char	buf[10];
@@ -49,6 +49,14 @@ char	*reading(int *size, char *file_name)
 			*size += i;
 		}
 	}
+	else
+	{
+		ft_putstr_fd(file_name, 2);
+		ft_putstr_fd("Could not open.\n", 2);
+		if (free_memory(mem))
+			system("leaks prog");
+		exit(0);
+	}
 	return (str);
 }
 
@@ -62,7 +70,7 @@ int		read_to(t_mem *mem)
 	while (p)
 	{
 		size = 0;
-		input = reading(&size, p->file_name);
+		input = reading(&size, p->file_name, mem);
 		p->header = (t_header*)malloc(sizeof(t_header));
 		ft_memcpy(p->header, input, sizeof(t_header));
 		size -= sizeof(t_header);

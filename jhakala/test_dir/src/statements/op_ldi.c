@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   op_ldi.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hopham <hopham@student.hive.fi>            +#+  +:+       +#+        */
+/*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/23 11:53:48 by jhakala           #+#    #+#             */
-/*   Updated: 2020/08/10 21:21:20 by jhakala          ###   ########.fr       */
+/*   Updated: 2020/08/11 19:43:00 by jkauppi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 int		op_ldi(t_game *game, int place, t_carriage *c)
 {
 	int		**types;
-	short	val1;
+	int		val1;
 	short	val2;
 
 	if (!(types = get_arg_types(game, c)))
@@ -23,7 +23,7 @@ int		op_ldi(t_game *game, int place, t_carriage *c)
 	if (types[0][0] == 1)
 		val1 = c->reg[types[0][1] - 1];
 	else if (types[0][0] == 2)
-		val1 = types[0][1];
+		val1 = (short)types[0][1];
 	else
 		val1 = read_types(game->arena, place + ((short)types[0][1] % IDX_MOD),
 						REG_SIZE);

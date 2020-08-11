@@ -6,7 +6,7 @@
 /*   By: hopham <hopham@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/16 13:01:15 by jhakala           #+#    #+#             */
-/*   Updated: 2020/08/11 14:38:59 by hopham           ###   ########.fr       */
+/*   Updated: 2020/08/11 20:59:22 by jhakala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,6 +71,8 @@ int		check_av(int *arg, int n, t_mem *mem)
 			check = check_n(arg, n, mem, &i);
 		else if (arg[i] == 5)
 			mem->n_player++;
+		else if (arg[i] == 6)
+			mem->leaks = 1;
 		else
 			return (1);
 		if (check == 1)
@@ -79,9 +81,7 @@ int		check_av(int *arg, int n, t_mem *mem)
 	return (0);
 }
 
-// arg[i] values: -dump = 1, -print = 2, -n = 3, contains_only_numbers = 4, .cor file = 5, if = 0 undefined and error
-
-void	parse_to_arg(int ac, char **av, int *arg)
+void	parse_to_arg(int ac, char **av, int *arg, t_mem *mem)
 {
 	int		i;
 	int		len;
@@ -91,14 +91,8 @@ void	parse_to_arg(int ac, char **av, int *arg)
 	while (++i < ac)
 	{
 		arg[i - 1] = 0;
-		if (!ft_strcmp(av[i], "-dump"))
-			arg[i - 1] = 1;
-		else if (!ft_strcmp(av[i], "-print"))
-			arg[i - 1] = 2;
-		else if (!ft_strcmp(av[i], "-n"))
-			arg[i - 1] = 3;
-		else if (!whole_number(av[i]))
-			arg[i - 1] = 4;
+		if (check_flag(i, arg, av, mem) == 1)
+			continue ;
 		else
 		{
 			if ((len = ft_strlen(av[i])) > 4)
@@ -115,7 +109,7 @@ int		parse_av(int ac, char **av, t_mem *mem)
 	int *arg;
 
 	arg = (int*)malloc(sizeof(int) * (ac - 1));
-	parse_to_arg(ac, av, arg);
+	parse_to_arg(ac, av, arg, mem);
 	if (check_av(arg, ac - 1, mem) || mem->n_player < 1 || mem->n_player >
 		MAX_PLAYERS)
 		return (free_int(arg));

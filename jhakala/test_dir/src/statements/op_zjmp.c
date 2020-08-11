@@ -6,7 +6,7 @@
 /*   By: hopham <hopham@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/23 11:53:27 by jhakala           #+#    #+#             */
-/*   Updated: 2020/08/10 20:55:08 by jhakala          ###   ########.fr       */
+/*   Updated: 2020/08/11 14:33:33 by hopham           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,8 @@ int		op_zjmp(t_game *game, int place, t_carriage *c)
 		else
 			c->place += val1;
 		if (game->print)
-			ft_printf(" P   %d | zjmp %d | (0x%04x) | OK\n", c->id, res, ft_place(c->place));
+			ft_printf(" P   %d | zjmp %d | (0x%04x) | OK\n",
+						c->id, res, ft_place(c->place));
 	}
 	else
 	{

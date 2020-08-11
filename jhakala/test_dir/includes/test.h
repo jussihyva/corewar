@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   test.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jhakala <jhakala@student.hive.fi>          +#+  +:+       +#+        */
+/*   By: hopham <hopham@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/22 21:10:17 by jhakala           #+#    #+#             */
-/*   Updated: 2020/08/11 02:19:56 by jhakala          ###   ########.fr       */
+/*   Updated: 2020/08/11 14:48:19 by hopham           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@
 # include "op.h"
 # include "struct.h"
 
-# define REV(x) ((x << 24) | (((x>>16)<<24)>>16) | (((x<<16)>>24)<<16) | (x>>24))
+# define REV(x) ((x<<24) | (((x>>16)<<24)>>16) | (((x<<16)>>24)<<16) | (x>>24))
 
 void    print_arena(char *arena); // wm_init.c
 
@@ -59,7 +59,8 @@ t_game	*wm_init(t_mem *mem);
 /*
 ** carriage.c
 */
-void	new_carriage(t_carriage **alst, int place, t_carriage *parent, t_game *game);
+void	new_carriage(t_carriage **alst, int place,
+						t_carriage *parent, t_game *game);
 
 /*
 ** free.c
@@ -93,6 +94,7 @@ int		op_st(t_game *game, int place, t_carriage *c);
 int		op_add(t_game *game, int place, t_carriage *c);
 int		op_sub(t_game *game, int place, t_carriage *c);
 int		op_and(t_game *game, int place, t_carriage *c);
+int		get_val1(int **types, t_game *game, int place, t_carriage *c);
 int		op_or(t_game *game, int place, t_carriage *c);
 int		op_xor(t_game *game, int place, t_carriage *c);
 int		op_zjmp(t_game *game, int place, t_carriage *c);
@@ -114,7 +116,5 @@ int		read_game_param(t_game *game, int from, int size, int **types);
 int		**get_arg_types(t_game *game, t_carriage *c);
 
 t_op		g_op_tab[17];
-
-
 
 #endif

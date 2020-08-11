@@ -6,7 +6,7 @@
 /*   By: hopham <hopham@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/16 13:01:15 by jhakala           #+#    #+#             */
-/*   Updated: 2020/08/11 02:31:02 by jhakala          ###   ########.fr       */
+/*   Updated: 2020/08/11 14:38:59 by hopham           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,9 +83,9 @@ int		check_av(int *arg, int n, t_mem *mem)
 
 void	parse_to_arg(int ac, char **av, int *arg)
 {
-	int i;
-	int len;
-	char *name;
+	int		i;
+	int		len;
+	char	*name;
 
 	i = 0;
 	while (++i < ac)
@@ -93,9 +93,9 @@ void	parse_to_arg(int ac, char **av, int *arg)
 		arg[i - 1] = 0;
 		if (!ft_strcmp(av[i], "-dump"))
 			arg[i - 1] = 1;
-		else if  (!ft_strcmp(av[i], "-print"))
+		else if (!ft_strcmp(av[i], "-print"))
 			arg[i - 1] = 2;
-		else if  (!ft_strcmp(av[i], "-n"))
+		else if (!ft_strcmp(av[i], "-n"))
 			arg[i - 1] = 3;
 		else if (!whole_number(av[i]))
 			arg[i - 1] = 4;

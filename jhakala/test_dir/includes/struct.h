@@ -6,7 +6,7 @@
 /*   By: hopham <hopham@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/13 14:14:20 by jhakala           #+#    #+#             */
-/*   Updated: 2020/08/11 01:34:08 by jhakala          ###   ########.fr       */
+/*   Updated: 2020/08/11 14:45:46 by hopham           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ typedef struct			s_game
 	int					c_nbr;
 	struct s_carriage	*c_lst;
 	char				*arena;
-	struct s_player			*last_alive;
+	struct s_player		*last_alive;
 	int					total_cycles;
 	int					n_live_in_cycle;
 	int					cycles_to_die;
@@ -62,19 +62,19 @@ typedef struct			s_mem
 	t_game				*game;
 }						t_mem;
 
-typedef struct		s_op
+typedef struct			s_op
 {
-	char            *str;
-	int             n_arg;
-	unsigned char   t_arg[3];
-	int             op_code;
-	int             n_cycles;
-	char            *info;
+	char			*str;
+	int				n_arg;
+	unsigned char	t_arg[3];
+	int				op_code;
+	int				n_cycles;
+	char			*info;
 	int				type;
 	int				carriage_maybe;
 	int				s_dir;
 	int				(*f)();
-}					t_op;
+}						t_op;
 
 //t_op        g_op_tab[17];
 

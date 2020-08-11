@@ -6,7 +6,7 @@
 /*   By: jhakala <jhakala@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/16 13:11:27 by jhakala           #+#    #+#             */
-/*   Updated: 2020/08/11 01:37:23 by jhakala          ###   ########.fr       */
+/*   Updated: 2020/08/11 17:11:00 by jhakala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,10 +65,7 @@ int		free_memory(t_mem *mem)
 		free(tmp);
 	}
 	if (mem->game)
-	{
-		ft_printf("here\n");
 		free_game(mem);
-	}
 //	free(mem);
 	return (1);
 }

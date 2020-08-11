@@ -10,14 +10,14 @@ def remove_cor_files(folder):
 			os.unlink(os.path.join(folder, file))
 
 def verify_corewar_functionality(cor_file_path, corewar):
-	print("File: " + cor_file_path.ljust(32) + "Count cycles")
+	print("File: " + cor_file_path.ljust(42) + "Count cycles")
 	command = "bash CountCycles.sh ./corewar " + cor_file_path
 	result = os.system(command)
 	filehandler = open("cycles.log", "r")
-	cycles = int(filehandler.readlines()[0].strip())
+	cycles = int(filehandler.readlines()[0].strip()) - 1
 	filehandler.close()
 	if cycles > 0:
-		print("File: " + cor_file_path.ljust(30) + "  Cycles:" + str(cycles))
+		print("File: " + cor_file_path.ljust(40) + "  Cycles:" + str(cycles))
 		result = os.system("bash compare.sh " + corewar + " " + str(cycles) + " " + cor_file_path)
 	else:
 		command = "bash CountCycles.sh " + corewar + " " + cor_file_path

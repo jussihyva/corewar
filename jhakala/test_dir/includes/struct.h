@@ -6,7 +6,7 @@
 /*   By: hopham <hopham@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/13 14:14:20 by jhakala           #+#    #+#             */
-/*   Updated: 2020/08/11 14:45:46 by hopham           ###   ########.fr       */
+/*   Updated: 2020/08/11 20:35:34 by jhakala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,17 +49,19 @@ typedef struct			s_game
 	int					get_die;
 	int					max_check;
 	int					print;
-	struct s_carriage	*vara;
+	struct s_carriage	*tmp;
 }						t_game;
 
 typedef struct			s_mem
 {
 	char				**av;
 	int					dump;
+	int					dump_type;
 	int					print;
 	int					n_player;
 	struct s_player		*player;
 	t_game				*game;
+	int					leaks;
 }						t_mem;
 
 typedef struct			s_op

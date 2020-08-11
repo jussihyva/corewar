@@ -6,7 +6,7 @@
 /*   By: hopham <hopham@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/16 16:24:38 by jhakala           #+#    #+#             */
-/*   Updated: 2020/08/11 21:06:56 by jhakala          ###   ########.fr       */
+/*   Updated: 2020/08/11 21:10:18 by jhakala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,7 @@ int		read_to(t_mem *mem)
 		size -= sizeof(t_header);
 		if (size != (int)REV(p->header->prog_size) || size > CHAMP_MAX_SIZE)
 		{
-			ft_putstr_fd("Diff size as header says || too big\n", 2);
+			ft_putstr_fd("Diff size as header says or too big\n", 2);
 			free(input);
 			return (1);
 		}

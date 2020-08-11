@@ -6,7 +6,7 @@
 /*   By: jhakala <jhakala@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/24 13:00:59 by jhakala           #+#    #+#             */
-/*   Updated: 2020/08/11 20:24:10 by jhakala          ###   ########.fr       */
+/*   Updated: 2020/08/11 21:16:52 by jhakala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,5 @@ int		check_carriages(t_game *game)
 				game->get_die);
 	game->n_live_in_cycle = 0;
 	game->cycles_to_die = game->get_die > 0 ? game->get_die : 1;
-//	if (game->get_die <= 0)
-//		return (1);
 	return (0);
 }

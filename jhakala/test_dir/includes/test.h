@@ -6,7 +6,7 @@
 /*   By: hopham <hopham@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/22 21:10:17 by jhakala           #+#    #+#             */
-/*   Updated: 2020/08/11 20:56:02 by jhakala          ###   ########.fr       */
+/*   Updated: 2020/08/11 21:15:03 by jhakala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@
 
 # define REV(x) ((x<<24) | (((x>>16)<<24)>>16) | (((x<<16)>>24)<<16) | (x>>24))
 
-void    print_arena(char *arena, t_mem *mem); // wm_init.c
+void	print_arena(char *arena, t_mem *mem);
 
 int		ft_mem_return(char *line, int ret, t_mem *mem);
 

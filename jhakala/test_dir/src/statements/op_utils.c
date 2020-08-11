@@ -6,7 +6,7 @@
 /*   By: jhakala <jhakala@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/06 12:19:55 by jhakala           #+#    #+#             */
-/*   Updated: 2020/08/11 02:34:45 by jhakala          ###   ########.fr       */
+/*   Updated: 2020/08/11 18:02:09 by jhakala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,7 +99,7 @@ int		**get_arg_types(t_game *game, t_carriage *c)
 	types = get_argument_type_codes(game->arena[ft_place(c->place + 1)]);
 	c->size = arg_sizes(game->arena, c->place + 2, types,
 					c->statement_code - 1) + 2;
-	if (possible_arg(types, game->arena[c->place] - 1))
+	if (possible_arg(types, c->statement_code - 1))
 	{
 		if (game->print)
 			ft_printf("%d FAILED: ", c->id);

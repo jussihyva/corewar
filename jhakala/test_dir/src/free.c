@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   free.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jhakala <jhakala@student.hive.fi>          +#+  +:+       +#+        */
+/*   By: hopham <hopham@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/16 13:11:27 by jhakala           #+#    #+#             */
-/*   Updated: 2020/08/11 01:37:23 by jhakala          ###   ########.fr       */
+/*   Updated: 2020/08/11 14:22:10 by hopham           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,6 @@ int		free_game(t_mem *mem)
 		c = c->next;
 		free(tmp);
 	}
-	
 	c = mem->game->vara;
 	while (c)
 	{
@@ -40,7 +39,6 @@ int		free_game(t_mem *mem)
 		c = c->next;
 		free(tmp);
 	}
-
 	if (mem->game->arena)
 		free(mem->game->arena);
 	free(mem->game->players);

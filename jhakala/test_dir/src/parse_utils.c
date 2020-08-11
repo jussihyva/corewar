@@ -6,7 +6,7 @@
 /*   By: jhakala <jhakala@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/11 01:54:00 by jhakala           #+#    #+#             */
-/*   Updated: 2020/08/11 02:20:03 by jhakala          ###   ########.fr       */
+/*   Updated: 2020/08/11 17:10:14 by jhakala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ int		check_dump(int *arg, int n, t_mem *mem, int *i)
 		return (1);
 	if (arg[*i + 1] != 4)
 		return (1);
-	res = ft_atoi(mem->av[*i + 1]);
+	res = ft_atoi(mem->av[*i + 2]);
 	if (res < 0)
 		return (1);
 	mem->dump = res;

@@ -6,7 +6,7 @@
 /*   By: hopham <hopham@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/13 14:14:20 by jhakala           #+#    #+#             */
-/*   Updated: 2020/08/11 20:35:34 by jhakala          ###   ########.fr       */
+/*   Updated: 2020/08/11 21:13:32 by jhakala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ typedef struct			s_carriage
 	int					id;
 	int					carry;
 	int					statement_code;
-	int					size; //from start of statement to end for op_*.c
+	int					size;
 	int					live_cycle;
 	int					remaining_cycle;
 	int					place;
@@ -66,18 +66,16 @@ typedef struct			s_mem
 
 typedef struct			s_op
 {
-	char			*str;
-	int				n_arg;
-	unsigned char	t_arg[3];
-	int				op_code;
-	int				n_cycles;
-	char			*info;
-	int				type;
-	int				carriage_maybe;
-	int				s_dir;
-	int				(*f)();
+	char				*str;
+	int					n_arg;
+	unsigned char		t_arg[3];
+	int					op_code;
+	int					n_cycles;
+	char				*info;
+	int					type;
+	int					carriage_maybe;
+	int					s_dir;
+	int					(*f)();
 }						t_op;
-
-//t_op        g_op_tab[17];
 
 #endif

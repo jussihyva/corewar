@@ -1,6 +1,7 @@
 import os
 import sys
 import re
+import random
 
 def remove_cor_files(folder):
 	files = os.listdir(folder)
@@ -44,7 +45,7 @@ def create_cor_file(s_file_path, cor_file_path):
 
 def usage():
 	print(" ")
-	print("python3 corewar_tester.py 4 ../asm_dir/asm ../vm_dir/corewar \"42.cor,barriere.cor,Car.cor,ultima.cor\"")
+	print("python3 corewar_tester.py 4 ../asm ../corewar \"42.cor,barriere.cor,Car.cor,ultima.cor\"")
 	print(" ")
 	print("   4                                          --> Number of champions (1-4)")
 	print("   ../asm                                     --> asm")
@@ -76,6 +77,7 @@ if __name__ == "__main__":
 	cor_file_folder = os.path.join(program_folder, "cor_files")
 	remove_cor_files(cor_file_folder)
 	files = os.listdir(cor_file_folder)
+	random.shuffle(files)
 	file_counter = 0
 	cor_file_path_list = []
 	for file in files:

@@ -20,7 +20,7 @@ def verify_corewar_functionality(cor_file_path_list, corewar):
 	filehandler = open("cycles.log", "r")
 	cycles = int(filehandler.readlines()[0].strip()) - 1
 	if cycles > 1:
-		divide_by = [1, 2]
+		divide_by = [1, 1.5, 2, 3, 4]
 		random.shuffle(divide_by)
 		selected_cycles = int(cycles / divide_by[0])
 	else:
@@ -39,6 +39,9 @@ def create_cor_file(s_file_path, cor_file_path):
 	command = asm + " " + s_file_path + " > asm_result.log"
 	result = os.system(command)
 	if os.path.isfile(cor_file_path) == True:
+		os.rename(cor_file_path, cor_file_path + "_1")
+		command = "./asm " + s_file_path + " > asm_result.log"
+		result = os.system(command)
 		return (True)
 	else:
 		command = "./asm " + s_file_path + " > asm_result.log"

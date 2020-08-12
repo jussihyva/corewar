@@ -1,6 +1,7 @@
 *.o
 *.a
 *.cor
+*.cor_1
 corewar
 asm
 .DS_Store

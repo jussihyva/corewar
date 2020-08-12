@@ -6,7 +6,7 @@
 /*   By: hopham <hopham@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/23 11:54:08 by jhakala           #+#    #+#             */
-/*   Updated: 2020/08/11 19:45:36 by jhakala          ###   ########.fr       */
+/*   Updated: 2020/08/12 16:14:27 by jhakala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ int		op_sti(t_game *game, int place, t_carriage *c)
 		val2 = types[1][1];
 	else
 		val1 = read_types(game->arena, place + types[1][1] % IDX_MOD, 4);
-	val1 += val2 + (types[2][0] == 1 ? c->reg[types[2][1] - 1] : types[2][1]);
+	val1 += val2 + (types[2][0] == 1 ? c->reg[types[2][1] - 1] : (short)types[2][1]);
 	print_sti(game, c, types, val1);
 	val1 %= IDX_MOD;
 	game->arena[ft_place(place + val1)] = (c->reg[types[0][1] - 1] >> 24)

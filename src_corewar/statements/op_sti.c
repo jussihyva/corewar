@@ -6,7 +6,7 @@
 /*   By: hopham <hopham@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/23 11:54:08 by jhakala           #+#    #+#             */
-/*   Updated: 2020/08/12 16:24:58 by hopham           ###   ########.fr       */
+/*   Updated: 2020/08/12 17:04:32 by jhakala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,8 @@ void	print_sti(t_game *game, t_carriage *c, int **types, int value)
 		else if (types[1][0] == 2)
 			ft_printf(" %d", (short)types[1][1]);
 		else
-			ft_printf(" %d", types[1][1]);
+			ft_printf(" %d", read_types(game->arena, c->place + (short)types[1][1] % IDX_MOD, 4));
+//			ft_printf(" %d", types[1][1]);
 		if (types[2][0] == 1)
 			ft_printf(" %d", c->reg[types[2][1] - 1]);
 		else
@@ -47,9 +48,9 @@ int		op_sti(t_game *game, int place, t_carriage *c)
 	if (ty[1][0] == 1)
 		val1 = c->reg[ty[1][1] - 1];
 	else if (ty[1][0] == 2)
-		val2 = ty[1][1];
+		val2 = (short)ty[1][1];
 	else
-		val1 = read_types(game->arena, place + ty[1][1] % IDX_MOD, 4);
+		val1 = read_types(game->arena, place + ((short)(ty[1][1]) % IDX_MOD), 4);
 	val1 += val2 + (ty[2][0] == 1 ? c->reg[ty[2][1] - 1] : (short)ty[2][1]);
 	print_sti(game, c, ty, val1);
 	val1 %= IDX_MOD;

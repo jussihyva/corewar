@@ -6,7 +6,7 @@
 /*   By: jhakala <jhakala@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/19 17:41:20 by jhakala           #+#    #+#             */
-/*   Updated: 2020/08/11 20:39:50 by jhakala          ###   ########.fr       */
+/*   Updated: 2020/08/12 16:33:07 by jhakala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,7 @@ void	print_player_weights(t_mem *mem)
 	t_player *p;
 
 	p = mem->player;
+	ft_printf("Introducing contestants...\n");
 	while (p)
 	{
 		ft_printf("* Player %d, weighing %d bytes, \"%s\" (\"%s\") !\n", p->id,

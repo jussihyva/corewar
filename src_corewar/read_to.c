@@ -6,7 +6,7 @@
 /*   By: hopham <hopham@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/16 16:24:38 by jhakala           #+#    #+#             */
-/*   Updated: 2020/08/12 14:11:40 by jhakala          ###   ########.fr       */
+/*   Updated: 2020/08/12 15:11:52 by hopham           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ char	*reading(int *size, char *file_name, t_mem *mem)
 		ft_putstr_fd(file_name, 2);
 		ft_putstr_fd("Could not open.\n", 2);
 		if (free_memory(mem))
-			system("leaks prog");
+			system("leaks corewar");
 		exit(0);
 	}
 	return (str);

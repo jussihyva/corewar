@@ -19,10 +19,16 @@ def verify_corewar_functionality(cor_file_path_list, corewar):
 	result = os.system(command)
 	filehandler = open("cycles.log", "r")
 	cycles = int(filehandler.readlines()[0].strip()) - 1
+	if cycles > 1:
+		divide_by = [1, 2]
+		random.shuffle(divide_by)
+		selected_cycles = int(cycles / divide_by[0])
+	else:
+		selected_cycles = cycles
 	filehandler.close()
 	if cycles > 0:
-		print("File: " + cor_file_string.ljust(130) + "  Cycles:" + str(cycles))
-		result = os.system("bash compare.sh " + corewar + " " + str(cycles) + " " + cor_file_string)
+		print("File: " + cor_file_string.ljust(130) + "  Cycles:" + str(selected_cycles) + "(" + str(cycles) + ")")
+		result = os.system("bash compare.sh " + corewar + " " + str(selected_cycles) + " " + cor_file_string)
 	else:
 		command = "bash CountCycles.sh " + corewar + " " + cor_file_string
 		print(command)

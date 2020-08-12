@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jhakala <jhakala@student.hive.fi>          +#+  +:+       +#+        */
+/*   By: hopham <hopham@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/22 21:13:41 by jhakala           #+#    #+#             */
-/*   Updated: 2020/08/11 20:56:34 by jhakala          ###   ########.fr       */
+/*   Updated: 2020/08/12 15:12:02 by hopham           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ int		ft_mem_return(char *line, int ret, t_mem *mem)
 {
 	ft_putstr_fd(line, 2);
 	if (free_memory(mem))
-		system("leaks prog");
+		system("leaks corewar");
 	return (ret);
 }
 
@@ -53,6 +53,6 @@ int		main(int ac, char **av)
 				mem->game->last_alive->header->prog_name);
 	}
 	if (free_memory(mem))
-		system("leaks prog");
+		system("leaks corewar");
 	return (0);
 }

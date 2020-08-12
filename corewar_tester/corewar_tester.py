@@ -42,8 +42,18 @@ def create_cor_file(s_file_path, cor_file_path):
 		else:
 			return (False)
 
+def usage():
+	print("python3 corewar_tester.py 4 ../asm_dir/asm ../vm_dir/corewar \"42.cor,barriere.cor,Car.cor,ultima.cor\"")
+	print("   4                                              --> Number of champins (1-4)")
+	print("   ../asm_dir/asm                                 --> asm")
+	print("   ../vm_dir/corewar                              --> corewar")
+	print("   42.cor,barriere.cor,Car.cor,ultima.cor         --> Champions to exclude. Useful in case of a long execution time")
+
 if __name__ == "__main__":
 	num_of_params = len(sys.argv)
+	if num_of_params < 4:
+		usage()
+		sys.exit()
 	program_folder = os.path.dirname(sys.argv[0])
 	max_number_of_files = int(sys.argv[1])
 	asm = sys.argv[2]

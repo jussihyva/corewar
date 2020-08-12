@@ -43,11 +43,22 @@ def create_cor_file(s_file_path, cor_file_path):
 			return (False)
 
 def usage():
+	print(" ")
 	print("python3 corewar_tester.py 4 ../asm_dir/asm ../vm_dir/corewar \"42.cor,barriere.cor,Car.cor,ultima.cor\"")
-	print("   4                                              --> Number of champins (1-4)")
-	print("   ../asm_dir/asm                                 --> asm")
-	print("   ../vm_dir/corewar                              --> corewar")
-	print("   42.cor,barriere.cor,Car.cor,ultima.cor         --> Champions to exclude. Useful in case of a long execution time")
+	print(" ")
+	print("   4                                          --> Number of champions (1-4)")
+	print("   ../asm                                     --> asm")
+	print("   ../corewar                                 --> corewar")
+	print("   42.cor,barriere.cor,Car.cor,ultima.cor     --> Champions to exclude. Useful in case of a long execution time")
+	print(" ")
+	print(" ")
+	print(" ")
+	print("A script for comparing corewar output to 42-corewar output with specific champion file(s) and number of cycles")
+	print("    bash compare.sh ../corewar 2000 cor_files/fluttershy.cor")
+	print(" ")
+	print("       2000                                       --> Number of cycles")
+	print("       cor_files/fluttershy.cor                   --> Champion files(s)")
+	print(" ")
 
 if __name__ == "__main__":
 	num_of_params = len(sys.argv)

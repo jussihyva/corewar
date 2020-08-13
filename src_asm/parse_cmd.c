@@ -6,7 +6,7 @@
 /*   By: jhakala <jhakala@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/20 15:17:54 by jhakala           #+#    #+#             */
-/*   Updated: 2020/08/10 20:16:01 by jhakala          ###   ########.fr       */
+/*   Updated: 2020/08/13 16:20:31 by jhakala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,6 +102,7 @@ int		parse_cmd(t_cmd *cmd, char *line, int i)
 {
 	char	*word;
 	int		j;
+	int		space;
 
 	word = ft_strsub(line, i, 5);
 	j = 0;
@@ -109,8 +110,12 @@ int		parse_cmd(t_cmd *cmd, char *line, int i)
 	{
 		if (ft_strncmp(word, g_op_tab[j].str, g_op_tab[j].size) == 0)
 		{
-			free(word);
-			return (parse_cmd_to_args(cmd, line, i, j));
+			space = g_op_tab[j].size;
+			if (line[i + space] == ' ' || line[i + space] == '	')
+			{
+				free(word);
+				return (parse_cmd_to_args(cmd, line, i, j));
+			}
 		}
 		j++;
 	}

@@ -6,7 +6,7 @@
 /*   By: jhakala <jhakala@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/22 09:28:42 by jhakala           #+#    #+#             */
-/*   Updated: 2020/08/10 19:06:58 by jhakala          ###   ########.fr       */
+/*   Updated: 2020/08/13 18:41:08 by jhakala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,8 +52,8 @@ int		check_name(int *fd, char *str, int *op, char *end)
 			i--;
 		}
 		ft_strlcat((tmp = ft_strnew(j - i + 5)), &(*(str + i)), j - i + 1);
-		*fd = open(ft_name(tmp, end, name), O_WRONLY | O_CREAT | O_TRUNC,
-				0644);
+		*fd = open(
+		name = ft_name(tmp, end, name), O_WRONLY | O_CREAT | O_TRUNC, 0644);
 		free_tmp_name(name, tmp);
 		return (*fd > 0 ? 1 : 0);
 	}

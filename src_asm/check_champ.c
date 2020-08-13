@@ -6,7 +6,7 @@
 /*   By: jhakala <jhakala@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/20 20:25:54 by jhakala           #+#    #+#             */
-/*   Updated: 2020/08/10 18:56:19 by jhakala          ###   ########.fr       */
+/*   Updated: 2020/08/13 18:35:27 by jhakala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 int		ft_error(int i, char *str, char *line, int *op)
 {
-	ft_printf("ERROR: row: %d: '%s', %s\n", i, line, str);
+	ft_printf("ERROR: %s, row: %d: '%s", str, i, line);
 	if (op[21] == 0)
 	{
 		if (op[20] == 1)
@@ -26,7 +26,7 @@ int		ft_error(int i, char *str, char *line, int *op)
 
 int		ft_label_error(int i, char *str, char *label, char *line)
 {
-	ft_printf("ERROR: row: %d: '%s', %s '%s'\n", i, line, str, label);
+	ft_printf("ERROR: %s: '%s', row: %d: '%s", str, label, i, line);
 	return (1);
 }
 
@@ -66,7 +66,7 @@ int		check_arg(t_champ *champ, t_cmd *cmd, t_arg *arg, int *op)
 		}
 		arg = arg->next;
 	}
-	return (0);
+	return (check);
 }
 
 int		check_champ(t_champ *champ, int *op)

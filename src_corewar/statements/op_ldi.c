@@ -6,7 +6,7 @@
 /*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/23 11:53:48 by jhakala           #+#    #+#             */
-/*   Updated: 2020/08/12 18:14:01 by jhakala          ###   ########.fr       */
+/*   Updated: 2020/08/13 15:37:14 by jhakala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ int		op_ldi(t_game *game, int place, t_carriage *c)
 	else if (types[0][0] == 2)
 		val1 = (short)types[0][1];
 	else
-		val1 = read_types(game->arena, place + (short)(types[0][1] % IDX_MOD),
+		val1 = read_types(game->arena, place + ((short)types[0][1] % IDX_MOD),
 			REG_SIZE);
 	if (types[1][0] == 1)
 		val2 = c->reg[types[1][1] - 1];

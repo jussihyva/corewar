@@ -1,7 +1,7 @@
 .name "live_only_twice"
 .comment "I'M ALIIIIVE"
 
-		andr1 , %0, r2
+		and r1 , %0, r2
 		ld %:live, r7
 		fork %:live
 		live %-2

@@ -6,7 +6,7 @@
 /*   By: hopham <hopham@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/22 21:10:17 by jhakala           #+#    #+#             */
-/*   Updated: 2020/08/11 21:15:03 by jhakala          ###   ########.fr       */
+/*   Updated: 2020/08/16 15:39:15 by jhakala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@
 # include <stdlib.h>
 # include "op.h"
 # include "struct.h"
+#include <ncurses.h>
 
 # define REV(x) ((x<<24) | (((x>>16)<<24)>>16) | (((x<<16)>>24)<<16) | (x>>24))
 

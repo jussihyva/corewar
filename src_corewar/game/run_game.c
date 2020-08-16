@@ -6,7 +6,7 @@
 /*   By: jhakala <jhakala@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/19 17:41:20 by jhakala           #+#    #+#             */
-/*   Updated: 2020/08/12 16:33:07 by jhakala          ###   ########.fr       */
+/*   Updated: 2020/08/16 16:03:02 by jhakala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,6 +79,7 @@ int		run_game(t_mem *mem)
 			print_arena(game->arena, mem);
 			return (1);
 		}
+					print_arena(game->arena, mem);
 		game->total_cycles++;
 	}
 	return (0);

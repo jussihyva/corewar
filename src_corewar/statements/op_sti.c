@@ -6,7 +6,7 @@
 /*   By: hopham <hopham@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/23 11:54:08 by jhakala           #+#    #+#             */
-/*   Updated: 2020/08/12 17:14:26 by hopham           ###   ########.fr       */
+/*   Updated: 2020/08/16 16:29:44 by jhakala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,5 +61,9 @@ int		op_sti(t_game *g, int place, t_carriage *c)
 	g->arena[ft_place(place + val1 + 2)] = (c->reg[ty[0][1] - 1] >> 8)
 		& 0xFF;
 	g->arena[ft_place(place + val1 + 3)] = c->reg[ty[0][1] - 1] & 0xFF;
+	g->owner[ft_place(place + val1)] = c->owner;
+	g->owner[ft_place(place + val1 + 1)] = c->owner;
+	g->owner[ft_place(place + val1 + 2)] = c->owner;
+	g->owner[ft_place(place + val1 + 3)] = c->owner;
 	return (read_game_param(g, place, c->size, ty));
 }

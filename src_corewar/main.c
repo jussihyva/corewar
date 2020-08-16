@@ -6,7 +6,7 @@
 /*   By: hopham <hopham@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/22 21:13:41 by jhakala           #+#    #+#             */
-/*   Updated: 2020/08/12 15:12:02 by hopham           ###   ########.fr       */
+/*   Updated: 2020/08/16 16:15:09 by jhakala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,13 @@ int		main(int ac, char **av)
 {
 	t_mem	*mem;
 
+	initscr();
+	cbreak();
+	noecho();
+	clear();
+	start_color();
+	init_pair(1, COLOR_RED, COLOR_BLACK);
+	init_pair(2, COLOR_GREEN, COLOR_BLACK);
 	if (ac < 2)
 	{
 		ft_printf("usage: ./corewar [-dump/-d 123] [-print] [-n 1] .cor...\n");
@@ -54,5 +61,6 @@ int		main(int ac, char **av)
 	}
 	if (free_memory(mem))
 		system("leaks corewar");
+	endwin();
 	return (0);
 }

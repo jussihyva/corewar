@@ -6,7 +6,7 @@
 /*   By: hopham <hopham@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/13 14:14:20 by jhakala           #+#    #+#             */
-/*   Updated: 2020/08/11 21:13:32 by jhakala          ###   ########.fr       */
+/*   Updated: 2020/08/16 16:26:00 by jhakala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@ typedef struct			s_player
 
 typedef struct			s_carriage
 {
+	int					owner;
 	int					id;
 	int					carry;
 	int					statement_code;
@@ -40,6 +41,7 @@ typedef struct			s_game
 	int					c_nbr;
 	struct s_carriage	*c_lst;
 	char				*arena;
+	int					*owner;
 	struct s_player		*last_alive;
 	int					total_cycles;
 	int					n_live_in_cycle;

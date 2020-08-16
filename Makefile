@@ -6,7 +6,7 @@
 #    By: jhakala <jhakala@student.hive.fi>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/08/12 14:13:55 by jhakala           #+#    #+#              #
-#    Updated: 2020/08/12 14:55:06 by jhakala          ###   ########.fr        #
+#    Updated: 2020/08/16 15:34:08 by jhakala          ###   ########.fr        #
 #                                                                              #
 #******************************************************************************#
 
@@ -56,7 +56,7 @@ A_DEPS = $(patsubst %,$(H_DIR)/%,$(A_HEAD))
 all: $(LIBFT) $(NAME_C) $(NAME_A)
 
 $(NAME_C): $(C_OBJ)
-	@$(GCC) -o $@ $^ $(C_INC) $(LIBFT)
+	@$(GCC) -o $@ $^ $(C_INC) $(LIBFT) -lncurses
 	@echo "corewar \033[1;32m[OK]\033[0m"
 
 $(CO_DIR)/%.o: $(CS_DIR)/%.c $(C_DEPS)

@@ -6,7 +6,7 @@
 /*   By: hopham <hopham@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/16 13:11:27 by jhakala           #+#    #+#             */
-/*   Updated: 2020/08/11 20:44:51 by jhakala          ###   ########.fr       */
+/*   Updated: 2020/08/16 19:45:55 by jhakala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,7 @@ int		free_game(t_mem *mem)
 	if (mem->game->arena)
 		free(mem->game->arena);
 	free(mem->game->players);
+	free(mem->game->owner);
 	free(mem->game);
 	return (1);
 }

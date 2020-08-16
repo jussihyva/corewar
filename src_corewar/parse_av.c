@@ -6,7 +6,7 @@
 /*   By: hopham <hopham@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/16 13:01:15 by jhakala           #+#    #+#             */
-/*   Updated: 2020/08/11 20:59:22 by jhakala          ###   ########.fr       */
+/*   Updated: 2020/08/16 19:20:54 by jhakala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,6 +73,8 @@ int		check_av(int *arg, int n, t_mem *mem)
 			mem->n_player++;
 		else if (arg[i] == 6)
 			mem->leaks = 1;
+		else if (arg[i] == 7)
+			mem->ncurses = 1;
 		else
 			return (1);
 		if (check == 1)

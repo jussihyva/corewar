@@ -6,7 +6,7 @@
 /*   By: jhakala <jhakala@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/11 01:54:00 by jhakala           #+#    #+#             */
-/*   Updated: 2020/08/11 20:38:56 by jhakala          ###   ########.fr       */
+/*   Updated: 2020/08/16 19:21:42 by jhakala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,8 @@ int		check_flag(int i, int *arg, char **av, t_mem *mem)
 		arg[i - 1] = 4;
 	else if (!ft_strcmp(av[i], "-f"))
 		arg[i - 1] = 6;
+	else if (!ft_strcmp(av[i], "-v"))
+		arg[i - 1] = 7;
 	else
 		return (0);
 	return (1);

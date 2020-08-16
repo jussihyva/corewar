@@ -6,7 +6,7 @@
 /*   By: hopham <hopham@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/13 14:14:20 by jhakala           #+#    #+#             */
-/*   Updated: 2020/08/16 16:26:00 by jhakala          ###   ########.fr       */
+/*   Updated: 2020/08/16 21:46:01 by jhakala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,10 @@ typedef struct			s_mem
 	struct s_player		*player;
 	t_game				*game;
 	int					leaks;
+	int					ncurses;
+	int					pause;
+	int					last_key;
+	int					speed;
 }						t_mem;
 
 typedef struct			s_op

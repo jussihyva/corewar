@@ -6,7 +6,7 @@
 /*   By: hopham <hopham@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/17 17:30:36 by jhakala           #+#    #+#             */
-/*   Updated: 2020/08/16 16:44:15 by jhakala          ###   ########.fr       */
+/*   Updated: 2020/08/16 19:56:21 by jhakala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	print_arena(char *arena, t_mem *mem)
 {
-/*	int i;
+	int i;
 
 	i = 0;
 	ft_printf("0x%04x : ", i);
@@ -26,34 +26,6 @@ void	print_arena(char *arena, t_mem *mem)
 		ft_printf("%02x ", (unsigned char)arena[i++]);
 	}
 	ft_printf("\n");
-*/
-	int i;
-	int row;
-	int cap;
-
-	i = 0;
-	row = 0;
-	cap = 1;
-	mvprintw(0, 0, "0x%04x : ", i);
-	attron(COLOR_PAIR (mem->game->owner[i]));
-	mvprintw(0, 9, "%02x ", (unsigned char)arena[i++]);
-	mem->dump_type = 64;
-	while (i < MEM_SIZE)
-	{
-		attroff(COLOR_PAIR (mem->game->owner[i - 1]));
-		if (i % mem->dump_type == 0)
-		{
-			row++;
-			mvprintw(row, 0,  "0x%04x : ", i);
-			cap = 0;
-		}
-		attron(COLOR_PAIR (mem->game->owner[i]));
-		mvprintw(row, 9 + cap * 3, "%02x ", (unsigned char)arena[i++]);
-		cap++;
-	}
-	attroff(COLOR_PAIR (mem->game->owner[i - 1]));
-	refresh();
-//	ft_printf("\n");
 }
 
 void	put_player_input_to_arena(t_game *game, t_mem *mem)

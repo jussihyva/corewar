@@ -6,7 +6,7 @@
 /*   By: jhakala <jhakala@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/19 17:41:20 by jhakala           #+#    #+#             */
-/*   Updated: 2020/08/16 22:35:55 by jhakala          ###   ########.fr       */
+/*   Updated: 2020/08/17 17:26:23 by jhakala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,10 +57,10 @@ void	print_player_weights(t_mem *mem)
 		}
 		else
 		{
-			attron(COLOR_PAIR (p->id));
+			attron(COLOR_PAIR(p->id));
 			mvprintw(p->id * 2, 205, "Player %d, %s", p->id,
 					p->header->prog_name);
-			attroff(COLOR_PAIR (p->id));
+			attroff(COLOR_PAIR(p->id));
 		}
 		p = p->next;
 	}
@@ -88,10 +88,7 @@ int		run_game(t_mem *mem)
 				break ;
 		}
 		if (game->total_cycles == mem->dump && mem->ncurses == 0)
-		{
-			print_arena(game->arena, mem);
-			return (1);
-		}
+			return (print_arena(game->arena, mem));
 		if (mem->ncurses == 1)
 			print_ncurses_arena(mem->game->arena, mem);
 		game->total_cycles++;

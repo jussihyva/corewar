@@ -6,13 +6,13 @@
 /*   By: hopham <hopham@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/17 17:30:36 by jhakala           #+#    #+#             */
-/*   Updated: 2020/08/16 19:56:21 by jhakala          ###   ########.fr       */
+/*   Updated: 2020/08/17 17:26:54 by jhakala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "test.h"
 
-void	print_arena(char *arena, t_mem *mem)
+int		print_arena(char *arena, t_mem *mem)
 {
 	int i;
 
@@ -26,14 +26,15 @@ void	print_arena(char *arena, t_mem *mem)
 		ft_printf("%02x ", (unsigned char)arena[i++]);
 	}
 	ft_printf("\n");
+	return (1);
 }
 
 void	put_player_input_to_arena(t_game *game, t_mem *mem)
 {
-	t_player	*p;
-	int			i;
-	int			place;
-	unsigned int count;
+	t_player		*p;
+	int				i;
+	int				place;
+	unsigned int	count;
 
 	p = mem->player;
 	i = 0;

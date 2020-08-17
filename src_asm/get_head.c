@@ -6,7 +6,7 @@
 /*   By: hopham <hopham@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/20 00:21:50 by jhakala           #+#    #+#             */
-/*   Updated: 2020/08/10 19:21:10 by jhakala          ###   ########.fr       */
+/*   Updated: 2020/08/17 18:09:51 by jhakala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,8 +80,6 @@ char	*append_to_str(int fd, int *r)
 		free(line);
 		tmp = str;
 		if ((i = get_next_line(fd, &line)) > 0)
-			str = ft_strnjoin(tmp, line);
-		else
 			str = ft_strjoin(tmp, line);
 		free(tmp);
 		(*r)++;

@@ -6,7 +6,7 @@
 /*   By: hopham <hopham@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/22 21:13:41 by jhakala           #+#    #+#             */
-/*   Updated: 2020/08/12 15:12:02 by hopham           ###   ########.fr       */
+/*   Updated: 2020/08/16 21:52:34 by jhakala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@ int		ft_mem_return(char *line, int ret, t_mem *mem)
 ** -n [n]: set player number
 ** -print: print wm run
 ** -f: leaks
+** -v: ncurses
 */
 
 int		main(int ac, char **av)
@@ -46,11 +47,16 @@ int		main(int ac, char **av)
 		return (ft_return("Mem init error.\n", 0));
 	else if ((mem->game = wm_init(mem)) == NULL)
 		return (ft_mem_return("Game init error.\n", 0, mem));
-	else if (!run_game(mem))
+	else if (!run_game(mem) && mem->ncurses == 0)
 	{
 		ft_printf("Contestant %d, \"%s\", has won !\n",
 				mem->game->last_alive->id,
 				mem->game->last_alive->header->prog_name);
+	}
+	if (mem->ncurses == 1)
+	{
+		print_ncurses_end(mem);
+		endwin();
 	}
 	if (free_memory(mem))
 		system("leaks corewar");

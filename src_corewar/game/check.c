@@ -6,11 +6,27 @@
 /*   By: jhakala <jhakala@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/24 13:00:59 by jhakala           #+#    #+#             */
-/*   Updated: 2020/08/11 21:16:52 by jhakala          ###   ########.fr       */
+/*   Updated: 2020/08/17 17:24:04 by jhakala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "test.h"
+
+void	kill_tmp_carriage(t_game *game)
+{
+	t_carriage *c;
+	t_carriage *next;
+
+	c = game->tmp;
+	while (c)
+	{
+		next = c->next;
+		free(c);
+		c = NULL;
+		c = next;
+	}
+	game->tmp = NULL;
+}
 
 void	kill_head_carriage(t_carriage **alst, t_carriage *c, t_game *game)
 {
@@ -52,6 +68,7 @@ void	check_kills(t_game *game)
 		prev->live_cycle = -1;
 		c = prev->next;
 	}
+	kill_tmp_carriage(game);
 }
 
 int		check_carriages(t_game *game)

@@ -6,7 +6,7 @@
 #    By: jhakala <jhakala@student.hive.fi>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/08/12 14:13:55 by jhakala           #+#    #+#              #
-#    Updated: 2020/08/12 14:55:06 by jhakala          ###   ########.fr        #
+#    Updated: 2020/08/16 20:13:58 by jhakala          ###   ########.fr        #
 #                                                                              #
 #******************************************************************************#
 
@@ -21,7 +21,8 @@ C_SRC = main.c \
 	statements/op_sub.c statements/op_and.c statements/op_or.c statements/op_xor.c \
 	statements/op_zjmp.c statements/op_ldi.c statements/op_sti.c statements/op_fork.c \
 	statements/op_lld.c statements/op_lldi.c statements/op_lfork.c statements/op_aff.c \
-	statements/op_utils.c
+	statements/op_utils.c \
+	ncurses.c
 
 
 A_SRC = main.c \
@@ -56,7 +57,7 @@ A_DEPS = $(patsubst %,$(H_DIR)/%,$(A_HEAD))
 all: $(LIBFT) $(NAME_C) $(NAME_A)
 
 $(NAME_C): $(C_OBJ)
-	@$(GCC) -o $@ $^ $(C_INC) $(LIBFT)
+	@$(GCC) -o $@ $^ $(C_INC) $(LIBFT) -lncurses
 	@echo "corewar \033[1;32m[OK]\033[0m"
 
 $(CO_DIR)/%.o: $(CS_DIR)/%.c $(C_DEPS)

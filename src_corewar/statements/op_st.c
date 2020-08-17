@@ -6,7 +6,7 @@
 /*   By: hopham <hopham@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/22 21:25:37 by jhakala           #+#    #+#             */
-/*   Updated: 2020/08/11 18:01:54 by jhakala          ###   ########.fr       */
+/*   Updated: 2020/08/16 16:33:17 by jhakala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,10 @@ void	op_st_ind(int **types, t_game *game, int place, t_carriage *c)
 	game->arena[ft_place(place + val + 2)] = (c->reg[types[0][1] - 1] >> 8)
 		& 0xFF;
 	game->arena[ft_place(place + val + 3)] = c->reg[types[0][1] - 1] & 0xFF;
+	game->owner[ft_place(place + val)] = c->owner;
+	game->owner[ft_place(place + val + 1)] = c->owner;
+	game->owner[ft_place(place + val + 2)] = c->owner;
+	game->owner[ft_place(place + val + 3)] = c->owner;
 	if (game->print)
 		ft_printf(" P   %d | st r%d %d %% IDX_MOD | (0x%04x -> 0x%04x)\n",
 				c->id, types[0][1], (short)types[1][1], ft_place(place + val),

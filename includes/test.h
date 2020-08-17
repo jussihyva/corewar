@@ -6,7 +6,7 @@
 /*   By: hopham <hopham@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/22 21:10:17 by jhakala           #+#    #+#             */
-/*   Updated: 2020/08/11 21:15:03 by jhakala          ###   ########.fr       */
+/*   Updated: 2020/08/17 17:25:15 by jhakala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,10 +19,11 @@
 # include <stdlib.h>
 # include "op.h"
 # include "struct.h"
+# include <ncurses.h>
 
 # define REV(x) ((x<<24) | (((x>>16)<<24)>>16) | (((x<<16)>>24)<<16) | (x>>24))
 
-void	print_arena(char *arena, t_mem *mem);
+int		print_arena(char *arena, t_mem *mem);
 
 int		ft_mem_return(char *line, int ret, t_mem *mem);
 
@@ -118,6 +119,12 @@ int		**get_argument_type_codes(int type);
 int		arg_sizes(char *arena, int place, int **types, int code);
 int		read_game_param(t_game *game, int from, int size, int **types);
 int		**get_arg_types(t_game *game, t_carriage *c);
+
+/*
+** ncurses.c
+*/
+void	print_ncurses_arena(char *arena, t_mem *mem);
+void	print_ncurses_end(t_mem *mem);
 
 t_op		g_op_tab[17];
 

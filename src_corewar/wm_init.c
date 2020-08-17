@@ -6,13 +6,13 @@
 /*   By: hopham <hopham@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/17 17:30:36 by jhakala           #+#    #+#             */
-/*   Updated: 2020/08/11 21:40:08 by jhakala          ###   ########.fr       */
+/*   Updated: 2020/08/17 17:26:54 by jhakala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "test.h"
 
-void	print_arena(char *arena, t_mem *mem)
+int		print_arena(char *arena, t_mem *mem)
 {
 	int i;
 
@@ -26,21 +26,26 @@ void	print_arena(char *arena, t_mem *mem)
 		ft_printf("%02x ", (unsigned char)arena[i++]);
 	}
 	ft_printf("\n");
+	return (1);
 }
 
 void	put_player_input_to_arena(t_game *game, t_mem *mem)
 {
-	t_player	*p;
-	int			i;
-	int			place;
+	t_player		*p;
+	int				i;
+	int				place;
+	unsigned int	count;
 
 	p = mem->player;
 	i = 0;
 	while (p)
 	{
+		count = 0;
 		place = MEM_SIZE / mem->n_player * i++;
 		ft_memcpy(&game->arena[place], p->input, REV(p->header->prog_size));
 		new_carriage(&game->c_lst, place, NULL, game);
+		while (count < REV(p->header->prog_size))
+			game->owner[place + count++] = game->c_lst->owner;
 		p = p->next;
 	}
 }
@@ -96,6 +101,8 @@ t_game	*wm_init(t_mem *mem)
 	if (!(game = (t_game*)malloc(sizeof(t_game))))
 		return (NULL);
 	game->arena = (char*)malloc(sizeof(char) * MEM_SIZE);
+	game->owner = (int*)malloc(sizeof(int) * MEM_SIZE);
+	ft_bzero(game->owner, MEM_SIZE);
 	wm_default_values(game, mem);
 	ft_bzero(game->arena, MEM_SIZE);
 	put_player_input_to_arena(game, mem);

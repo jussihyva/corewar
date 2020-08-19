@@ -6,7 +6,7 @@
 /*   By: hopham <hopham@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/16 16:24:38 by jhakala           #+#    #+#             */
-/*   Updated: 2020/08/12 15:11:52 by hopham           ###   ########.fr       */
+/*   Updated: 2020/08/19 19:02:15 by jhakala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,9 +73,10 @@ int		read_to(t_mem *mem)
 		p->header = (t_header*)malloc(sizeof(t_header));
 		ft_memcpy(p->header, input, sizeof(t_header));
 		size -= sizeof(t_header);
-		if (size != (int)REV(p->header->prog_size) || size > CHAMP_MAX_SIZE)
+		if (size != (int)REV(p->header->prog_size) || size > CHAMP_MAX_SIZE ||
+			size <= 0 || REV(p->header->magic) != COREWAR_EXEC_MAGIC)
 		{
-			ft_putstr_fd("Diff size as header says or too big\n", 2);
+			ft_putstr_fd("Size/Magic error\n", 2);
 			free(input);
 			return (1);
 		}

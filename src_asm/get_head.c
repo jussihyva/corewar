@@ -6,7 +6,7 @@
 /*   By: hopham <hopham@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/20 00:21:50 by jhakala           #+#    #+#             */
-/*   Updated: 2020/08/17 18:09:51 by jhakala          ###   ########.fr       */
+/*   Updated: 2020/08/20 17:30:20 by jhakala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,8 @@ int		comment_line(char *line)
 	i = 0;
 	while (line[i] && line[i] == ' ' && line[i] == '	')
 		i++;
+	if (line[0] == '\0')
+		return (-1);
 	if (line[0] == '\n' || ft_strchr(COMMENT_CHAR, line[i]))
 	{
 		free(line);
@@ -73,6 +75,8 @@ char	*append_to_str(int fd, int *r)
 	{
 		(*r)++;
 		i = get_next_line(fd, &line);
+		if (comment_line(line) == -1)
+			return (NULL);
 	}
 	str = ft_strdup(line);
 	while (i > 0 && count(str) == 1)

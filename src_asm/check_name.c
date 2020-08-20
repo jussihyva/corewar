@@ -6,11 +6,20 @@
 /*   By: jhakala <jhakala@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/22 09:28:42 by jhakala           #+#    #+#             */
-/*   Updated: 2020/08/13 18:41:08 by jhakala          ###   ########.fr       */
+/*   Updated: 2020/08/20 19:06:03 by jhakala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "asm.h"
+
+char	*join_and_free(char *tmp, char *line)
+{
+	char *str;
+
+	str = ft_strjoin(tmp, line);
+	free(tmp);
+	return (str);
+}
 
 int		ft_name_error(char *str)
 {

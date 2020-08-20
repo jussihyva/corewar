@@ -6,7 +6,7 @@
 /*   By: jhakala <jhakala@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/20 14:36:47 by jhakala           #+#    #+#             */
-/*   Updated: 2020/08/10 19:23:23 by jhakala          ###   ########.fr       */
+/*   Updated: 2020/08/20 17:11:42 by jhakala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,7 @@ t_cmd	*get_lines(t_champ *champ, int fd, int row_n)
 		else
 			free(line);
 	}
-	if (cmd->row == row_n)
+	if (cmd != NULL && cmd->row == row_n)
 		cmd->error = 8;
 	if (cmd != NULL)
 		rev_cmd(&cmd);

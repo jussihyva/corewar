@@ -6,7 +6,7 @@
 /*   By: hopham <hopham@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/20 00:21:50 by jhakala           #+#    #+#             */
-/*   Updated: 2020/08/20 17:30:20 by jhakala          ###   ########.fr       */
+/*   Updated: 2020/08/20 17:43:28 by jhakala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,8 +84,10 @@ char	*append_to_str(int fd, int *r)
 		free(line);
 		tmp = str;
 		if ((i = get_next_line(fd, &line)) > 0)
+		{
 			str = ft_strjoin(tmp, line);
-		free(tmp);
+			free(tmp);
+		}
 		(*r)++;
 	}
 	return (append_to_str_return(line, i, str));

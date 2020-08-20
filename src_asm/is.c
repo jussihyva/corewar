@@ -6,7 +6,7 @@
 /*   By: hopham <hopham@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/20 01:08:26 by jhakala           #+#    #+#             */
-/*   Updated: 2020/08/12 14:49:03 by jhakala          ###   ########.fr       */
+/*   Updated: 2020/08/20 17:43:38 by jhakala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,8 @@
 
 char	*append_to_str_return(char *line, int i, char *str)
 {
-	free(line);
+	if (i > 0)
+		free(line);
 	if ((i = count(str)) != 2)
 		free(str);
 	return (i == 2 ? str : NULL);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   read_to.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hopham <hopham@student.hive.fi>            +#+  +:+       +#+        */
+/*   By: jkauppi <jkauppi@student.hive.fi>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/16 16:24:38 by jhakala           #+#    #+#             */
-/*   Updated: 2020/08/19 19:02:15 by jhakala          ###   ########.fr       */
+/*   Updated: 2020/08/20 18:54:58 by jkauppi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,7 @@ int		read_to(t_mem *mem)
 		ft_memcpy(p->header, input, sizeof(t_header));
 		size -= sizeof(t_header);
 		if (size != (int)REV(p->header->prog_size) || size > CHAMP_MAX_SIZE ||
-			size <= 0 || REV(p->header->magic) != COREWAR_EXEC_MAGIC)
+			size < 0 || REV(p->header->magic) != COREWAR_EXEC_MAGIC)
 		{
 			ft_putstr_fd("Size/Magic error\n", 2);
 			free(input);

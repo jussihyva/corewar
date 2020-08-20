@@ -6,7 +6,7 @@
 /*   By: hopham <hopham@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/19 23:21:33 by jhakala           #+#    #+#             */
-/*   Updated: 2020/08/12 12:00:11 by hopham           ###   ########.fr       */
+/*   Updated: 2020/08/20 19:07:01 by jhakala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -135,6 +135,7 @@ char				*arg_dir_label(t_arg *arg, char *str, int i);
 /*
 ** check_*.c
 */
+char				*join_and_free(char *tmp, char *line);
 int					check_champ(t_champ *champ, int *op);
 int					check_name(int *fd, char *str, int *op, char *end);
 

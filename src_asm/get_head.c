@@ -6,26 +6,32 @@
 /*   By: hopham <hopham@student.hive.fi>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/20 00:21:50 by jhakala           #+#    #+#             */
-/*   Updated: 2020/08/20 17:43:28 by jhakala          ###   ########.fr       */
+/*   Updated: 2020/08/20 18:45:00 by jhakala          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "asm.h"
 #include "op.h"
 
-int		comment_line(char *line)
+int		comment_line(char *line, int one)
 {
 	int i;
 
 	i = 0;
-	while (line[i] && line[i] == ' ' && line[i] == '	')
-		i++;
-	if (line[0] == '\0')
-		return (-1);
-	if (line[0] == '\n' || ft_strchr(COMMENT_CHAR, line[i]))
+	if (one == 1)
 	{
-		free(line);
-		return (1);
+		if (line[0] == '\0')
+			return (-1);
+	}
+	else
+	{
+		while (line[i] && line[i] == ' ' && line[i] == '	')
+			i++;
+		if (line[i] == '\n' || ft_strchr(COMMENT_CHAR, line[i]))
+		{
+			free(line);
+			return (1);
+		}
 	}
 	return (0);
 }
@@ -71,11 +77,11 @@ char	*append_to_str(int fd, int *r)
 
 	if ((i = get_next_line(fd, &line)) < 1)
 		return (NULL);
-	while (comment_line(line) > 0)
+	while (comment_line(line, 0) > 0)
 	{
 		(*r)++;
 		i = get_next_line(fd, &line);
-		if (comment_line(line) == -1)
+		if (comment_line(line, 1) == -1)
 			return (NULL);
 	}
 	str = ft_strdup(line);
